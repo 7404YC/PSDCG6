@@ -18,7 +18,7 @@ if (($1 != "dv") && ($1 != "idebug") && ($1 != "pdebug") && ($1 != "cov")) then
 endif
 
 # Check to ensure the valid 2nd input
-if (!(-e $ROOT/design/{$2}_tb.$TYPE)) then
+if (!(-e $ROOT/design/tb/{$2}_tb.$TYPE)) then
     echo "[3] Usage: $0 <dv|idebug|pdebug|cov> <module_name>"
     exit 1
 endif
@@ -84,14 +84,14 @@ else
     set assert2 = ""
 endif
 if ($FLIST == 1) then
-    set filelist = "$ROOT/design/$MODULE.f"
+    set filelist = "$ROOT/design/rtl/$MODULE.f"
     if (! -e $filelist) then
         echo "[4] ERROR: Filelist $filelist not found."
         exit 1
     endif
     set files = "-ntb_opts uvm-ieee-2020-2.0 +define+UVM_OBJECT_MUST_HAVE_CONSTRUCTOR -file $filelist -timescale=1ns/1ps $coverage1 $assert1"
 else
-    set files = "-ntb_opts uvm-ieee-2020-2.0 +define+UVM_OBJECT_MUST_HAVE_CONSTRUCTOR +incdir+$UVM_DESIGN $VCS_HOME/etc/uvm-ieee-2020-2.0/uvm_pkg.sv $ROOT/design/$MODULE_TB.$TYPE -timescale=1ns/1ps $coverage1 $assert1"
+    set files = "-ntb_opts uvm-ieee-2020-2.0 +define+UVM_OBJECT_MUST_HAVE_CONSTRUCTOR +incdir+$UVM_DESIGN $VCS_HOME/etc/uvm-ieee-2020-2.0/uvm_pkg.sv $ROOT/design/tb/$MODULE_TB.$TYPE -timescale=1ns/1ps $coverage1 $assert1"
 endif
 
 if ($MODE == "dv") then
