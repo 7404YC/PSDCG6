@@ -25,6 +25,8 @@ module spi_tb;
 
     spi_if spi_if();
 
+	integer ctt;
+
     // Clock driving 
     initial begin
         spi_if.clk = 0;
@@ -93,18 +95,19 @@ module spi_tb;
 
     // UVM config db setting & test launch
     initial begin
-        uvm_config_db#(virtual bus_ctrl_if)::set(null, "*drv*", "vif", bus_if);
-        uvm_config_db#(virtual bus_ctrl_if)::set(null, "*mon*", "vif", bus_if);
-        uvm_config_db#(virtual spi_ctrl_if)::set(null, "*", "vif", spi_if);
-        run_test();
+        uvm_config_db#(virtual spi_if.drv_mp)::set(null, "*drv*", "vif", spi_if);
+        uvm_config_db#(virtual spi_if.mon_mp)::set(null, "*mon*", "vif", spi_if);
+        uvm_config_db#(virtual spi_if)::set(null, "*", "vif", spi_if);
+        run_test("spi_test");
     end
 
     // Simulation timeout 
     initial begin 
+		ctt = 0;
         if($value$plusargs("CUSTOM_TEST_TIMEOUT=%0d", ctt)) begin
             #ctt;
             $finish;
-        else begin 
+        end else begin 
             #5000; // TODO: adjust arbitrary value to suitable
             $finish;
         end

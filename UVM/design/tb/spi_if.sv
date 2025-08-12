@@ -30,7 +30,7 @@ interface spi_if #(parameter CLK_DIV = 4)(
     endclocking
 
     // Modports for separation of roles
-    modport drv_mp  (clocking drv_cb, output sclk, mosi, cs_n, input miso);
-    modport mon_mp (clocking mon_cb, input mosi, cs_n, sclk, miso);
+    modport drv_mp  (clocking drv_cb, output sclk, mosi, cs_n, input miso, rst_n);
+    modport mon_mp (clocking mon_cb, input mosi, cs_n, sclk, miso, rst_n);
 
 endinterface

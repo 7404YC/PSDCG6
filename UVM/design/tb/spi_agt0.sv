@@ -25,7 +25,7 @@ class spi_agt0 extends uvm_agent;
   function void connect_phase(uvm_phase phase);
     super.connect_phase(phase);
     // Connect monitor's analysis port to agent's analysis port
-    mon.mon0_ap.connect(agt0_ap);
+    mon0.mon0_ap.connect(agt0_ap);
     // Connect driver to sequencer if agent active
     if (get_is_active() == UVM_ACTIVE) begin
       drv.seq_item_port.connect(sqr.seq_item_export);

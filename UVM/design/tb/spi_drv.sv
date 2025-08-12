@@ -4,7 +4,7 @@ class spi_drv extends uvm_driver #(spi_tran);
 
 	uvm_analysis_port # (spi_tran) drv_ap = new("drv_ap", this);
 
-	virtual spi_ctrl_if vif;
+	virtual spi_if vif;
 
 	function new(name, uvm_component parent);
 		super.new(name, parent);

@@ -12,7 +12,7 @@ class spi_mon1 extends uvm_monitor;
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    if(!uvm_config_db#(virtual spi_if)::get(this, "", "vif", vif)) begin
+    if(!uvm_config_db#(virtual spi_if.mon_mp)::get(this, "", "vif", vif)) begin
       `uvm_error("MON1", "Virtual interspice not found in config db")
     end
   endfunction
@@ -22,7 +22,7 @@ class spi_mon1 extends uvm_monitor;
         // Wait for busy to drop and done to go high
         bit prev_done = 0;
         forever begin
-            @(posedge vif.clk);
+            @(vif.mon_cb);
             if (prev_done == 0 && vif.mon_cb.done == 1) begin
                 spi_tran tx = spi_tran::type_id::create("tx",this);
                 tx.rx_data = vif.mon_cb.rx_data;

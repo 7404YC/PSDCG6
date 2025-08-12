@@ -20,8 +20,8 @@ class spi_test extends uvm_test;
 	function void connect_phase(uvm_phase phase);
 		super.connect_phase(phase);
 
-		spi_done_event = env.agt1.spi_event_done;
-		spi_done_event = seq.spi_event_done;
+		spi_done_event = env.agt1.mon1.spi_done_event;
+		spi_done_event = seq.spi_done_event;
 	endfunction
 
   	task run_phase(uvm_phase phase);
@@ -33,7 +33,7 @@ class spi_test extends uvm_test;
 
   	  	phase.raise_objection(this);
   	  	fork
-  	  	  seq.start(env.agt.sqr);
+  	  	  seq.start(env.agt0.sqr);
   	  	join
 
   	  	phase.drop_objection(this);

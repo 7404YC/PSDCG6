@@ -41,7 +41,7 @@ class spi_seq extends uvm_sequence #(spi_tran);
 
 			`uvm_info(get_type_name(),
 				$sformatf("Sent %0d/%0d %s sequence: %0b Next sequence after",
-					this.seq_index, this.seq_count),
+					this.seq_index, this.seq_count, this.seq_type, 0),
 				UVM_MEDIUM)
 
 			// Wait for spi_done_event trigger
