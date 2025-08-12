@@ -57,7 +57,11 @@ module spi_tb;
     // Simple SPI slave model for testing
     logic [7:0] slave_rx_data;
     logic [7:0] slave_tx_data = SLAVE_RESET_RESPONSE;
-    uvm_config_db#(int)::set(null, "*", "slave_reset_response", slave_reset_response);
+
+    // uvm config db 
+    initial begin 
+        uvm_config_db#(int)::set(null, "*", "slave_reset_response", slave_reset_response);
+    end
 
     always @(posedge spi_if.sclk or negedge spi_if.rst_n or posedge spi_if.cs_n) begin
         if (!spi_if.rst_n) begin
