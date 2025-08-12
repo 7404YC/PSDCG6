@@ -33,4 +33,8 @@ interface spi_if #(parameter CLK_DIV = 4)(
     modport drv_mp  (clocking drv_cb, output sclk, mosi, cs_n, input miso, rst_n);
     modport mon_mp (clocking mon_cb, input mosi, cs_n, sclk, miso, rst_n);
 
+	`include "spi_ass_xy.svh"
+	`include "spi_ass_yc.svh"
+	`include "spi_ass_yk.svh"
+
 endinterface
