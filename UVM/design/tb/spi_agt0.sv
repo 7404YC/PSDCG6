@@ -1,10 +1,10 @@
-class spi_agt extends uvm_agent;
-  `uvm_component_utils(spi_agt)
+class spi_agt0 extends uvm_agent;
+  `uvm_component_utils(spi_agt0)
 
   uvm_analysis_export #(spi_tran) agt0_ap;
 
   spi_drv drv;
-  spi_mon mon;
+  spi_mon0 mon0;
   spi_sqr sqr;
 
   function new(string name, uvm_component parent);
@@ -14,7 +14,7 @@ class spi_agt extends uvm_agent;
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    mon0 = spi_mon::type_id::create("mon0", this);
+    mon0 = spi_mon0::type_id::create("mon0", this);
     // Only create driver and sequencer if agent is active
     if (get_is_active() == UVM_ACTIVE) begin
       drv = spi_drv::type_id::create("drv", this);

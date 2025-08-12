@@ -1,9 +1,9 @@
 interface spi_if #(parameter CLK_DIV = 4)(
-     input logic clk, 
-     input logic rst_n
 );
 
     // DUT interface signals
+	logic		 clk;
+	logic		 rst_n;
     logic        start;
     logic [7:0]  tx_data;
     logic [7:0]  rx_data;

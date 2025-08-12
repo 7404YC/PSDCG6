@@ -1,11 +1,11 @@
 class spi_tran extends uvm_sequence_item;
     // transaction input 
-            logic       rst_n;
-            logic       start;
+    randc   logic       rst_n;
+    rand    logic       start;
     rand    logic [7:0] tx_data;
-            logic       miso;
 
     // transaction output 
+            logic       miso;
             logic [7:0] rx_data;
             logic       busy;
             logic       done;
@@ -22,7 +22,7 @@ class spi_tran extends uvm_sequence_item;
     string tran_type;
     string tran_dir;
 
-    int tran_time;
+    real tran_time;
 
     `uvm_object_utils(spi_tran)
 

@@ -14,29 +14,40 @@ module spi_tb;
     `include "spi_seq.sv"       // Sequence class
     `include "spi_sqr.sv"       // Sequencer class
     `include "spi_drv.sv"       // Driver class
-    `include "spi_mon.sv"       // Monitor class
-    `include "spi_agt.sv"       // Agent class
-    `include "spi_scb.sv"       // Scoreboard class
-    `include "spi_cov.sv"		// Coverage class
+    `include "spi_mon0.sv"       // Monitor class
+    `include "spi_mon1.sv"       // Monitor class
+    `include "spi_agt0.sv"       // Agent0 class
+    `include "spi_agt1.sv"       // Agent1 class
+    //`include "spi_scb.sv"       // Scoreboard class
+    //`include "spi_cov.sv"		// Coverage class
     `include "spi_env.sv"       // Env class
     `include "spi_test.sv"      // Test class
 
     spi_if spi_if();
 
-    spi dut(
-
-    );
-
     // Clock driving 
     initial begin
-        spi_if.clk_tb = 0;
-        forever #5 spi_if.clk_tb = ~spi_if.clk_tb;
+        spi_if.clk = 0;
+		spi_if.rst_n = 0;
+		#3;
+		spi_if.rst_n = 1;
+        forever #5 spi_if.clk = ~spi_if.clk;
     end
 
     // Instantiate the DUT
     spi #(.CLK_DIV(4)) dut (
-    ...
-    ...
+		.clk (spi_if.clk),
+		.rst_n (spi_if.rst_n),
+		.start (spi_if.start),
+		.tx_data (spi_if.tx_data),
+		.rx_data (spi_if.rx_data),
+		.busy (spi_if.busy),
+		.done (spi_if.done),
+
+		.sclk (spi_if.sclk),
+		.mosi (spi_if.mosi),
+		.miso (spi_if.miso),
+		.cs_n (spi_if.cs_n)
     );
 
     // Constants
@@ -48,14 +59,14 @@ module spi_tb;
     logic [7:0] slave_tx_data = SLAVE_RESET_RESPONSE;
     uvm_config_db#(int)::set(null, "*", "slave_reset_response", slave_reset_response);
 
-    always @(posedge spi_if0.sclk or negedge spi_if0.rst_n or posedge spi_if0.cs_n) begin
-        if (!spi_if0.rst_n) begin
+    always @(posedge spi_if.sclk or negedge spi_if.rst_n or posedge spi_if.cs_n) begin
+        if (!spi_if.rst_n) begin
             slave_rx_data <= 8'h00;
-            spi_if0.miso <= 1'b0;
+            spi_if.miso <= 1'b0;
             slave_tx_data <= SLAVE_RESET_RESPONSE;
         end
-        else if (spi_if0.cs_n) begin
-            spi_if0.miso <= 1'b0;
+        else if (spi_if.cs_n) begin
+            spi_if.miso <= 1'b0;
             slave_tx_data <= SLAVE_RESET_RESPONSE;
 
             `uvm_info("SLV-RLD", $sformatf("RX_REG=0x%2h \(%8b\), TX_REG=0x%2h \(%8b\)",
@@ -63,10 +74,10 @@ module spi_tb;
         end
         else begin
                 // Shift in MOSI on rising edge
-                slave_rx_data <= {slave_rx_data[6:0], spi_if0.mosi};
+                slave_rx_data <= {slave_rx_data[6:0], spi_if.mosi};
 
                 // Update MISO immediately for next bit
-                spi_if0.miso <= slave_tx_data[7];
+                spi_if.miso <= slave_tx_data[7];
                 slave_tx_data <= {slave_tx_data[6:0], 1'b0};
 
                 `uvm_info("SLV", $sformatf("RX_REG=0x%2h \(%8b\), TX_REG=0x%2h \(%8b\)",
@@ -81,7 +92,7 @@ module spi_tb;
         uvm_config_db#(virtual bus_ctrl_if)::set(null, "*drv*", "vif", bus_if);
         uvm_config_db#(virtual bus_ctrl_if)::set(null, "*mon*", "vif", bus_if);
         uvm_config_db#(virtual spi_ctrl_if)::set(null, "*", "vif", spi_if);
-        run_test("spi_test");
+        run_test();
     end
 
     // Simulation timeout 

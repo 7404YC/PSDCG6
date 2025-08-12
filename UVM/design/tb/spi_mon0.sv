@@ -5,6 +5,7 @@ class spi_mon0 extends uvm_monitor;
 
   function new(string name, uvm_component parent);
     super.new(name, parent);
+	mon0_ap = new("mon0_ap", this);
   endfunction
 
   function void build_phase(uvm_phase phase);
