@@ -18,20 +18,16 @@ class spi_drv extends uvm_driver #(spi_tran);
 	endfunction
 
 	task run_phase(uvm_phase phase);
-		
 		spi_tran tr;
-		
 		forever begin
-
+			// driver connects the signals 
 			seq_item_port.get_next_item(tr);
+			vif.start = tr.start;
+			vif.rst_n = tr.rst_n;
+			vif.tx_data = tr.tx_data;
+			// driver write to ap for scoreboard record
 			drv_ap.write(tr);
-
-			// TODO: Drive the signals from TB to DUT
-
 			seq_item_port.item_done();
-
 		end
-
 	endtask
-
 endclass
