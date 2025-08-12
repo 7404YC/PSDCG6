@@ -64,7 +64,8 @@ module spi_tb;
 
     // uvm config db 
     initial begin 
-        uvm_config_db#(int)::set(null, "*", "slave_reset_response", slave_reset_response);
+        uvm_config_db#(logic [7:0])::set(null, "*", "slave_rx_data", slave_rx_data);
+		uvm_config_db#(logic [7:0])::set(null, "*", "slave_tx_data", slave_tx_data);
     end
 
     always @(posedge spi_if.sclk or negedge spi_if.rst_n or posedge spi_if.cs_n) begin

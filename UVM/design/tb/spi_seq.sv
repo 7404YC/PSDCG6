@@ -41,8 +41,30 @@ class spi_seq extends uvm_sequence #(spi_tran);
 			finish_item(tr);
 
 			`uvm_info(get_type_name(),
-				$sformatf("Sent %0d/%0d %s sequence: %0b Next sequence after",
-					this.seq_index, this.seq_count, this.seq_type, 0),
+				$sformatf("Sent %0d/%0d %s sequence: rst_n=%0b, start=%0b, tx_data=0x%0h Next sequence after %0d",
+					this.seq_index, this.seq_count, this.seq_type, tr.rst_n, tr.start, tr.tx_data, delay),
+				UVM_MEDIUM)
+
+			// Wait for spi_done_event trigger
+			spi_done_event.wait_trigger();
+
+			tr = spi_tran::type_id::create("tr");
+			start_item(tr);
+
+			assert(tr.randomize() with {rst_n == 1; start == 0;});
+
+			delay = get_random_delay();
+			seq_index++;
+			tr.seq_count = this.seq_count;
+			tr.seq_index = this.seq_index;
+			tr.seq_type = this.seq_type;
+
+			#(delay);
+			finish_item(tr);
+
+			`uvm_info(get_type_name(),
+				$sformatf("Sent %0d/%0d %s sequence: rst_n=%0b, start=%0b, tx_data=0x%0h Next sequence after %0d",
+					this.seq_index, this.seq_count, this.seq_type, tr.rst_n, tr.start, tr.tx_data, delay),
 				UVM_MEDIUM)
 
 			// Wait for spi_done_event trigger
