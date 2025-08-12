@@ -8,7 +8,7 @@ property T001;
 endproperty
 
 assert property (T001)
-    else $error("Error T001");
+    else $error("ASSERT", $sformatf("Error T001"));
 
 //Assert T002
 //T002:Ensure no new transaction happens until done pulses
@@ -20,7 +20,7 @@ property T002;
 endproperty
 
 assert property (T002)
-    else $error("Error T002");
+    else $error("ASSERT", $sformatf("Error T002"));
 
 //Assert T003
 //T003: Ensure busy stays high for exactly 8 bits
@@ -31,7 +31,7 @@ property T003;
 endproperty
 
 assert property (T003)
-    else $error("Error T003");
+    else $error("ASSERT", $sformatf("Error T003"));
 
 //Assert T004
 //T004: Verify done is valid for 1 clock cycle (pulse) after the last bit
@@ -42,7 +42,7 @@ property T004;
 endproperty
 
 assert property (T004)
-    else $error("Error T004");
+    else $error("ASSERT", $sformatf("Error T004"));
 
 //Assert T005
 //T005: Ensure busy deasserts in the next clock cycle after done
@@ -53,7 +53,7 @@ property T005;
 endproperty
 
 assert property (T005)
-    else $error("Error T005");
+    else $error("ASSERT", $sformatf("Error T005"));
 
 //Assert T023
 property T023;
@@ -69,3 +69,4 @@ endproperty
 
 assert property (T023)
     else $error("Error T023");
+    else $error("ASSERT", $sformatf("Error T023"));
