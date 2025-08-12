@@ -21,19 +21,16 @@ interface spi_if #(parameter CLK_DIV = 4)(
         default input #1ns output #1ns;
         output start, tx_data;
         input  busy, done, rx_data;
-        output mosi, cs_n, sclk;
-        input  miso;
     endclocking
 
     // Clocking block for monitor
     clocking mon_cb @(posedge clk);
         default input #1ns output #1ns;
         input start, tx_data, busy, done, rx_data;
-        input mosi, cs_n, sclk, miso;
     endclocking
 
     // Modports for separation of roles
-    modport drv_mp  (clocking drv_cb);
-    modport mon_mp (clocking mon_cb);
+    modport drv_mp  (clocking drv_cb, output sclk, mosi, cs_n, input miso);
+    modport mon_mp (clocking mon_cb, input mosi, cs_n, sclk, miso);
 
 endinterface
