@@ -8,10 +8,11 @@ class spi_seq extends uvm_sequence #(spi_tran);
 	int min_delay = 0;
 	int delay;
 
-	event spi_done_event;
+	uvm_event spi_done_event;
 
 	function new(string name = "spi_seq");
   	  super.new(name);
+	  spi_done_event = new();
   	endfunction
 
 	function int get_random_delay();
@@ -28,14 +29,14 @@ class spi_seq extends uvm_sequence #(spi_tran);
 			tr = spi_tran::type_id::create("tr");
 			start_item(tr);
 
-			assert(tr.randomize() with {rst_n == 1; });
+			assert(tr.randomize() with {rst_n == 1; start == 1;});
 
 			delay = get_random_delay();
 			seq_index++;
 			tr.seq_count = this.seq_count;
 			tr.seq_index = this.seq_index;
 			tr.seq_type = this.seq_type;
-			
+
 			#(delay);
 			finish_item(tr);
 
@@ -45,7 +46,7 @@ class spi_seq extends uvm_sequence #(spi_tran);
 				UVM_MEDIUM)
 
 			// Wait for spi_done_event trigger
-			@(spi_done_event);
+			spi_done_event.wait_trigger();
 
 		end
 

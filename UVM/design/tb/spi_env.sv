@@ -5,7 +5,7 @@ class spi_env extends uvm_env;
   spi_agt1 agt1;
   
   // TODO: YK to enable later
-  //spi_scb scb;
+  spi_scb scb;
   //spi_cov cov;
 
   function new(string name, uvm_component parent);
@@ -21,14 +21,15 @@ class spi_env extends uvm_env;
     agt1 = spi_agt1::type_id::create("agt1", this);
 
 	// TODO: YK to enable later
-    //scb = spi_scb::type_id::create("scb", this);
+    scb = spi_scb::type_id::create("scb", this);
     //cov = spi_cov::type_id::create("cov", this);
   endfunction
 
   function void connect_phase(uvm_phase phase);
     super.connect_phase(phase);
 	// TODO: YK to enable later
-    //agt.agt_ap.connect(scb.scb_imp);
+    agt0.agt0_ap.connect(scb.scb_imp0);
+    agt1.agt1_ap.connect(scb.scb_imp1);
     //agt.agt_ap.connect(cov.cov_imp);
   endfunction
 endclass

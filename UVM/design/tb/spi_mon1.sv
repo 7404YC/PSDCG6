@@ -3,11 +3,12 @@ class spi_mon1 extends uvm_monitor;
 
     virtual spi_if.mon_mp vif;
     uvm_analysis_port #(spi_tran) mon1_ap;
-    event spi_done_event;
+    uvm_event spi_done_event;
 
     function new(string name, uvm_component parent);
         super.new(name, parent);
         mon1_ap = new("mon1_ap", this);
+		spi_done_event = new();
     endfunction
 
   function void build_phase(uvm_phase phase);
@@ -15,6 +16,7 @@ class spi_mon1 extends uvm_monitor;
     if(!uvm_config_db#(virtual spi_if.mon_mp)::get(this, "", "vif", vif)) begin
       `uvm_error("MON1", "Virtual interspice not found in config db")
     end
+	uvm_config_db#(uvm_event)::set(this, "*", "spi_done_event", spi_done_event);
   endfunction
 
     // Run phase logic that observes and sends transaction
@@ -27,7 +29,7 @@ class spi_mon1 extends uvm_monitor;
                 spi_tran tx = spi_tran::type_id::create("tx",this);
                 tx.rx_data = vif.mon_cb.rx_data;
                 mon1_ap.write(tx);
-		-> spi_done_event;
+				spi_done_event.trigger();
                 `uvm_info("MON1", $sformatf("Observed output transaction: 0x%02X", tx.rx_data), UVM_LOW);
             end
             prev_done = vif.mon_cb.done;

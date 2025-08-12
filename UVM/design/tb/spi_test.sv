@@ -4,7 +4,7 @@ class spi_test extends uvm_test;
 	spi_env env;
   	spi_seq seq;
 
-	event spi_done_event;
+	uvm_event spi_done_event;
 
 	int seq_count = 20;
 
@@ -15,6 +15,7 @@ class spi_test extends uvm_test;
   	function void build_phase(uvm_phase phase);
 		super.build_phase(phase);
   	  	env = spi_env::type_id::create("env", this);
+		seq = spi_seq::type_id::create("seq");
   	endfunction
 
 	function void connect_phase(uvm_phase phase);
@@ -25,7 +26,6 @@ class spi_test extends uvm_test;
 	endfunction
 
   	task run_phase(uvm_phase phase);
-		seq = spi_seq::type_id::create("seq");
 
   	  	seq.seq_count = this.seq_count;
 
