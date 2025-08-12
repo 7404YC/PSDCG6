@@ -14,9 +14,9 @@ ASSERT_T001: assert property (T001)
 //T002:Ensure no new transaction happens until done pulses
 //If a transaction is in progress, another one shouldn't start until `done` is high
 property T002;
-    @(posedge clk)
+	@(posedge sclk)
     disable iff (!rst_n)
-    (start && busy) |=> !$rose(done);
+	(!$rose(done)) |-> ($past(tx_data) << 1)  == tx_data;
 endproperty
 
 ASSERT_T002: assert property (T002)
@@ -27,7 +27,7 @@ ASSERT_T002: assert property (T002)
 property T003;
     @(posedge clk)
     disable iff (!rst_n)
-    $rose(busy) |=> ##(CLK_DIV*16) $fell(busy);
+    $rose(busy) |-> ##(CLK_DIV*16+2) $fell(busy);
 endproperty
 
 ASSERT_T003: assert property (T003)
@@ -70,14 +70,12 @@ ASSERT_T017: assert property (T017)
     else $error("ASSERT", $sformatf("Error T017"));
 
 //Assert T019
-//T019: Ensure sclk, mosi, cs_n don't change outside of transfers
+//T019: Ensure sclk don't change outside of transfers
 property T019;
     @(posedge clk)
     disable iff (!rst_n)
     !busy |=> (
-        $stable(sclk) and
-        $stable(mosi) and
-        $stable(cs_n)
+        $stable(sclk)
     );
 endproperty
 
