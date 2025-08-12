@@ -68,5 +68,4 @@ property T023;
 endproperty
 
 assert property (T023)
-    else $error("Error T023");
     else $error("ASSERT", $sformatf("Error T023"));

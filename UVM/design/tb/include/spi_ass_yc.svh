@@ -16,21 +16,21 @@ assert property (T007)
 property T008;
     @(edge clk) !($rose(cs_n) && $fell(cs_n));
 endproperty
-assert property (T008);
+assert property (T008)
     else $error("ASSERT", $sformatf("Error T008"));
 
 // T009: Ensure cs_n low-to-high when done asserted
 property T009;
     @(edge clk) $rose(done) |-> $rose(cs_n);
 endproperty
-assert property (T009);
+assert property (T009)
     else $error("ASSERT", $sformatf("Error T009"));
 
 // T010: Ensure Ensure cs_n not deassert early
 property T010;
     @(posedge sclk) ($past(cs_n) && !cs_n) |-> (!cs_n) [*8];
 endproperty
-assert property (T010);
+assert property (T010)
     else $error("ASSERT", $sformatf("Error T010"));
 
 // TODO: since rx is fixed to B9, will not change wor
@@ -38,5 +38,5 @@ assert property (T010);
 property T016;
     @(edge clk) $rose(done) |-> ($fell(rx_data) || $rose(rx_data));
 endproperty
-assert property (T016);
+assert property (T016)
     else $error("ASSERT", $sformatf("Error T016"));
