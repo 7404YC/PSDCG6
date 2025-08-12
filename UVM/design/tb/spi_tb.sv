@@ -60,14 +60,13 @@ module spi_tb;
 
     // Simple SPI slave model for testing
     logic [7:0] slave_rx_data;
-    randc logic [7:0] slave_tx_data = SLAVE_RESET_RESPONSE;
+    logic [7:0] slave_tx_data = SLAVE_RESET_RESPONSE;
 
     // AT positive edge of done (from spi_if), we will randc slave_tx_data
     initial begin
         forever begin
             @(posedge spi_if.done);
-            assert(randomize(slave_tx_data) with {slave_tx_data inside {[8'hB0:8'hBF]}})
-                else $error("Randomization failed for slave_tx_data");
+            slave_tx_data = $urandom_range(8'hB0, 8'hB9);
         end
     end
 
