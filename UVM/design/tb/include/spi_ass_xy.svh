@@ -4,10 +4,10 @@
 property T001;
     @(posedge clk)
     disable iff (!rst_n)
-    (busy && start) |=> state == $past(state);
+    busy && $rose(start) |-> !($rose(done)); // no transaction starts due to this start
 endproperty
 
-assert property (T001)
+ASSERT_T001: assert property (T001)
     else $error("ASSERT", $sformatf("Error T001"));
 
 //Assert T002
@@ -19,7 +19,7 @@ property T002;
     (start && busy) |=> !$rose(done);
 endproperty
 
-assert property (T002)
+ASSERT_T002: assert property (T002)
     else $error("ASSERT", $sformatf("Error T002"));
 
 //Assert T003
@@ -30,7 +30,7 @@ property T003;
     $rose(busy) |=> ##(CLK_DIV*16) $fell(busy);
 endproperty
 
-assert property (T003)
+ASSERT_T003: assert property (T003)
     else $error("ASSERT", $sformatf("Error T003"));
 
 //Assert T004
@@ -41,7 +41,7 @@ property T004;
     $rose(done) |=> !done;
 endproperty
 
-assert property (T004)
+ASSERT_T004: assert property (T004)
     else $error("ASSERT", $sformatf("Error T004"));
 
 //Assert T005
@@ -52,8 +52,37 @@ property T005;
     $rose(done) |=> ##1 !busy;
 endproperty
 
-assert property (T005)
+ASSERT_T005: assert property (T005)
     else $error("ASSERT", $sformatf("Error T005"));
+
+//Assert T017
+//T017: Verify sclk frequency matches to the clock divider configuration.
+property T017;
+    @(posedge clk)
+    disable iff (!rst_n)
+    busy |-> (
+        (sclk ##CLK_DIV !sclk) and
+        (!sclk ##CLK_DIV sclk)
+    );
+endproperty
+
+ASSERT_T017: assert property (T017)
+    else $error("ASSERT", $sformatf("Error T017"));
+
+//Assert T019
+//T019: Ensure sclk, mosi, cs_n don't change outside of transfers
+property T019;
+    @(posedge clk)
+    disable iff (!rst_n)
+    !busy |=> (
+        $stable(sclk) and
+        $stable(mosi) and
+        $stable(cs_n)
+    );
+endproperty
+
+ASSERT_T019: assert property (T019)
+    else $error("ASSERT", $sformatf("Error T019"));
 
 //Assert T023
 property T023;
@@ -67,5 +96,5 @@ property T023;
     );
 endproperty
 
-assert property (T023)
+ASSERT_T023: assert property (T023)
     else $error("ASSERT", $sformatf("Error T023"));
