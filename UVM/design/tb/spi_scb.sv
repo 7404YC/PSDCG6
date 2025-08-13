@@ -13,13 +13,11 @@ class spi_scb extends uvm_scoreboard;
   int encountered_BIT[$];
   // file ops
   int log_fd; 
-  
+
   function new(string name, uvm_component parent);
     super.new(name, parent);
     scb_imp0 = new ("scb_imp0", this);
     scb_imp1 = new ("scb_imp1", this);
-    log_fd   = $fopen("scoreboard_log.txt", "w");
-    if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
   endfunction
 
   function void write(spi_tran tr);
@@ -60,6 +58,8 @@ class spi_scb extends uvm_scoreboard;
   endfunction
 
   function void print_entire(spi_tran t);
+    log_fd   = $fopen("scoreboard_log.txt", "w");
+    if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
     string hdr, line;
     $sformat(hdr,  "%-12s %-12s %-8s %-8s %-8s",
                     "start time", "end time", "ID", "TX", "RX");
@@ -68,10 +68,13 @@ class spi_scb extends uvm_scoreboard;
     `uvm_info("SCB", hdr, UVM_NONE);
     `uvm_info("SCB", line, UVM_NONE);
     $fdisplay(log_fd, hdr);
-    $fdisplay(log_fd, line);  
+    $fdisplay(log_fd, line); 
+    $fclose(log_fd); 
   endfunction
 
   function void print_bit(spi_tran t, int mosimiso = 0);
+    log_fd   = $fopen("scoreboard_log.txt", "w");
+    if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
     string hdr, line;
     $sformat(hdr,  "%-12s %-12s %-8s %-8s",
                     "start time", "end time", "ID", (mosimiso) ? "miso" : "mosi");
@@ -81,6 +84,7 @@ class spi_scb extends uvm_scoreboard;
     `uvm_info("SCB", line, UVM_NONE);
     $fdisplay(log_fd, hdr);
     $fdisplay(log_fd, line);
+    $fclose(log_fd);
   endfunction
 endclass
 
