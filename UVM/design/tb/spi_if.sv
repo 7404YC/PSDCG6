@@ -16,6 +16,9 @@ interface spi_if #(parameter CLK_DIV = 4)(
     logic        miso;
     logic        cs_n;
 
+	// Probe Internal Signal
+	logic		state;
+
     // Clocking block for driver
     clocking drv_cb @(posedge clk);
         default input #1ns output #1ns;
