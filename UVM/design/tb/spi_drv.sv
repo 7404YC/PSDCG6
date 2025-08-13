@@ -103,13 +103,25 @@ class spi_drv extends uvm_driver #(spi_tran);
 
 				fork
 					begin
-						repeat (hold_cycles) @(vif.drv_cb);
-						vif.start = 1'b0;
 
-						`uvm_info(get_type_name(),
-						$sformatf("For %0d/%0d transaction to DUT: after %0d delay, drive rst_n=%0b, start=%0b, tx_data=0x%0h",
-							tr.seq_index, tr.seq_count, hold_cycles, tr.rst_n, vif.start, tr.tx_data),
-						UVM_MEDIUM)
+						for (int i=0; i<hold_cycles; i++) begin
+							@(vif.drv_cb);
+
+							case ($urandom_range(0, 2))
+								0		: begin
+											vif.start = ~vif.start;
+											`uvm_info(get_type_name(),
+												$sformatf("For %0d/%0d transaction to DUT during busy: drive rst_n=%0b, start=%0b, tx_data=0x%0h",
+												tr.seq_index, tr.seq_count, tr.rst_n, vif.start, tr.tx_data),
+											UVM_MEDIUM)
+										  end
+								default	: begin
+											vif.start = vif.start;
+										  end
+							endcase
+						end
+
+						vif.start = 1'b0; // Ensure start deassert in the last cycle before busy deassert
 					end
 					begin
 						do begin
