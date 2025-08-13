@@ -40,6 +40,11 @@ class spi_mon0 extends uvm_monitor;
           item.rst_n =		vif.rst_n;
           item.start =		vif.mon_cb.start;
           item.tx_data =	vif.mon_cb.tx_data;
+          item.mosi =		vif.mosi;
+          item.cs_n =		vif.cs_n;
+          item.miso =		vif.miso;
+          item.busy =		vif.mon_cb.busy;
+          item.done =		vif.mon_cb.done;
           // write to analysis port for scb
           mon0_ap.write(item);
           // uvm_info
