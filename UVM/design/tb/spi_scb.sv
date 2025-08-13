@@ -11,7 +11,9 @@ class spi_scb extends uvm_scoreboard;
   // Control array
   int encountered_ENTIRE[$];
   int encountered_BIT[$];
-
+  // file ops
+  int log_fd; 
+  
   function new(string name, uvm_component parent);
     super.new(name, parent);
     scb_imp0 = new ("scb_imp0", this);

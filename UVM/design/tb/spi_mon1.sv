@@ -62,8 +62,8 @@ class spi_mon1 extends uvm_monitor;
             item.mt = BIT;
             curr_index = 0;
             repeat(8) begin 
-              @(negedge vif.mon_cb.sclk) // TODO: using the mon_cb here is really ticking me off
-              item.MS_data[(curr_index++) % 8] = vif.mon_cb.miso;
+              @(negedge vif.sclk) // TODO: using the mon_cb here is really ticking me off
+              item.MS_data[(curr_index++) % 8] = vif.miso;
             end 
             mon1_ap.write(item);
             `uvm_info("MON1", $sformatf("BIT: Observed miso details: %8b on transaction ID: %d", item.MS_data, item.tran_id), UVM_LOW);
