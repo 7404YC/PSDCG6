@@ -23,30 +23,32 @@ class spi_scb extends uvm_scoreboard;
   function void write(spi_tran tr);
     // will need to handle based on mt and tran_id
     if (tr.mt == ENTIRE) begin 
-      if (!(encountered_ENTIRE.find_index() with (item == tr.tran_id)).size()) begin  // first time encounter
+      int idx[$] = encountered_ENTIRE.find_index() with (item == tr.tran_id); 
+      if (!idx.size()) begin  // first time encounter
         encountered_ENTIRE.push_back(tr.tran_id);
         ENTIRE_tran.tran_time_start = tr.tran_time_start;
         ENTIRE_tran.mt = tr.mt;
         ENTIRE_tran.tx_data = tr.tx_data;
         ENTIRE_tran.tran_id = tr.tran_id; 
-      end else if  ((encountered_ENTIRE.find_index() with (item == tr.tran_id)).size() > 0) begin // not first time
+      end else if  (idx.size() > 0) begin // not first time
         ENTIRE_tran.tran_time_end = tr.tran_time_end;
         ENTIRE_tran.rx_data = tr.rx_data;
-        encountered_ENTIRE.delete((encountered_ENTIRE.find_index() with (item == tr.tran_id))[0]);
+        encountered_ENTIRE.delete(idx[0]);
         print_entire(ENTIRE_tran);
       end
     end 
     else if (tr.mt == BIT) begin 
-      if (!(encountered_BIT.find_index() with (item == tr.tran_id)).size()) begin  // first time encounter
+      int idx[$] = encountered_BIT.find_index() with (item == tr.tran_id);
+      if (!idx.size()) begin  // first time encounter
         encountered_BIT.push_back(tr.tran_id);
         BIT_tran.tran_time_start = tr.tran_time_start;
         BIT_tran.mt = tr.mt;
         BIT_tran.tran_id = tr.tran_id; 
         print_bit(BIT_tran, 0);
-      end else if  ((encountered_BIT.find_index() with (item == tr.tran_id)).size() > 0) begin // not first time
+      end else if  (idx.size() > 0) begin // not first time
         BIT_tran.tran_time_end = tr.tran_time_end;
         BIT_tran.MS_data = tr.MS_data;
-        encountered_BIT.delete((encountered_BIT.find_index() with (item == tr.tran_id))[0]);
+        encountered_BIT.delete(idx[0]);
         print_bit(BIT_tran, 1);
       end
     end 
