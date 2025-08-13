@@ -106,9 +106,9 @@ class spi_scb extends uvm_scoreboard;
     if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
     // T001: Check mosi/miso value match
     if ((mosimiso == 0) && (t.tx_data === t.MS_data)) begin 
-      `uvm_info("SCB", $sformatf("T001 satisfied"), UVM_LOW);
+      `uvm_info("SCB", $sformatf("T001 and T002 satisfied"), UVM_LOW);
     end else if (mosimiso == 0) begin 
-      `uvm_error("SCB", $sformatf("T001 violated, %h %h",t.tx_data, t.MS_data));
+      `uvm_error("SCB", $sformatf("T001 and T002 violated, %h %h",t.tx_data, t.MS_data));
     end
     // T024: Check mosi/miso value match
     if ((mosimiso == 0) && (t.tx_data_t024 === t.MS_data)) begin 
