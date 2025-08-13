@@ -1,3 +1,5 @@
+
+typedef enum {ENTIRE, BIT} mon_type;
 class spi_tran extends uvm_sequence_item;
     // transaction input 
     randc   logic       rst_n;
@@ -23,7 +25,11 @@ class spi_tran extends uvm_sequence_item;
     string tran_type;
     string tran_dir;
 
-    real tran_time;
+    real tran_time_start;
+    real tran_time_end;
+
+    mon_type mt;
+    int tran_id; 
 
     `uvm_object_utils(spi_tran)
 
@@ -31,3 +37,4 @@ class spi_tran extends uvm_sequence_item;
         super.new(name);
     endfunction
 endclass
+

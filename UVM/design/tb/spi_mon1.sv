@@ -5,6 +5,9 @@ class spi_mon1 extends uvm_monitor;
     uvm_analysis_port #(spi_tran) mon1_ap;
     uvm_event spi_done_event;
 
+    logic [7:0] slave_tx_data; 
+    int mon1_tran_id = 0; 
+
     function new(string name, uvm_component parent);
         super.new(name, parent);
         mon1_ap = new("mon1_ap", this);
@@ -14,26 +17,59 @@ class spi_mon1 extends uvm_monitor;
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
     if(!uvm_config_db#(virtual spi_if.mon_mp)::get(this, "", "vif", vif)) begin
-      `uvm_error("MON1", "Virtual interspice not found in config db")
+      `uvm_error("MON1", "Virtual interface not found in config db")
     end
+    if(!uvm_config_db#(logic [7:0])::get(this, "", "slave_tx_data", slave_tx_data)) begin 
+      `uvm_error("MON1", "Expected slave response not found in config db.")
+    end 
 	uvm_config_db#(uvm_event)::set(this, "*", "spi_done_event", spi_done_event);
   endfunction
 
-    // Run phase logic that observes and sends transaction
-    task run_phase(uvm_phase phase);
+
+  /*
+  Monitors will collect 2 types of data, for mon 1 (output): 
+  1. At done negedge collect for entire transaction final information. 
+  2. At each sclk negedge collect for MISO information. (merge?)
+  */
+  task run_phase(uvm_phase phase);
+    fork 
+      begin 
+        spi_tran tx;
         // Wait for busy to drop and done to go high
         bit prev_done = 0;
         forever begin
             @(vif.mon_cb);
             if (prev_done == 0 && vif.mon_cb.done == 1) begin
-                spi_tran tx = spi_tran::type_id::create("tx",this);
+                tx = spi_tran::type_id::create("tx",this);
+                tx.tran_id = mon1_tran_id++;
+                tx.mt = ENTIRE;
+                tx.tran_time_end = $time; 
                 tx.rx_data = vif.mon_cb.rx_data;
                 mon1_ap.write(tx);
-				spi_done_event.trigger();
-                `uvm_info("MON1", $sformatf("Observed output transaction: 0x%02X", tx.rx_data), UVM_LOW);
+                spi_done_event.trigger();
+                `uvm_info("MON1", $sformatf("ENTIRE: Observed output transaction: 0x%02X on transaction ID: %d", tx.rx_data, tx.tran_id), UVM_LOW);
             end
             prev_done = vif.mon_cb.done;
         end
-    endtask
+      end
+      begin 
+        forever begin 
+          spi_tran item;
+          forever begin 
+            item = spi_tran::type_id::create("in_item_t2");
+            item.tran_id = mon1_tran_id;
+            item.mt = BIT;
+            int curr_index = 0;
+            repeat(8) begin 
+              @(negedge vif.mon_cb.sclk) // TODO: using the mon_cb here is really ticking me off
+              item.MS_data[(curr_index++) % 8] = vif.mon_cb.miso;
+            end 
+            mon1_ap.write(item);
+            `uvm_info("MON1", $sformatf("BIT: Observed miso details: %8b on transaction ID: %d", item.MS_data, item.tran_id), UVM_LOW);
+          end 
+        end
+      end
+    join
+  endtask
 
 endclass

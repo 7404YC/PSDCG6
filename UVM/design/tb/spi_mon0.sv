@@ -3,6 +3,8 @@ class spi_mon0 extends uvm_monitor;
   uvm_analysis_port#(spi_tran) mon0_ap;
   virtual spi_if.mon_mp vif;
 
+  int mon0_tran_id = 0; 
+
   function new(string name, uvm_component parent);
     super.new(name, parent);
 	mon0_ap = new("mon0_ap", this);
@@ -15,22 +17,49 @@ class spi_mon0 extends uvm_monitor;
     end
   endfunction
 
+  /*
+  Monitors will collect 2 types of data, for mon 0 (input): 
+  1. At start negedge collect for entire transaction initial information. 
+  2. At each sclk posedge collect for MOSI information. (merge?)
+  */
   task run_phase(uvm_phase phase);
-    spi_tran item;
-    forever begin
-      // Trigger on vif.start
-      @(negedge vif.mon_cb.start)
-      // create item 
-      item = spi_tran::type_id::create("in_item");
-      // assign value
-      item.rst_n =		vif.rst_n;
-      item.start =		vif.mon_cb.start;
-      item.tx_data =	vif.mon_cb.tx_data;
-      // write to analysis port for scb
-      mon0_ap.write(item);
-      // uvm_info
-      `uvm_info("MON0", $sformatf("Observed input transaction: \nTX | RX\n0x%2h 0x%2h", item.tx_data, item.rx_data), UVM_LOW);
-    end
+    fork
+      begin // entire transaction
+        spi_tran item;
+        forever begin
+          // Trigger on vif.start
+          @(negedge vif.mon_cb.start)
+          // create item 
+          item = spi_tran::type_id::create("in_item_t1");
+          // assign value
+          item.tran_id = mon0_tran_id++;
+          item.mt = ENTIRE;
+          item.tran_time_start = $time; 
+          item.rst_n =		vif.rst_n;
+          item.start =		vif.mon_cb.start;
+          item.tx_data =	vif.mon_cb.tx_data;
+          // write to analysis port for scb
+          mon0_ap.write(item);
+          // uvm_info
+          `uvm_info("MON0", $sformatf("ENTIRE: Observed input transaction: \nTX | RX\n0x%2h 0x%2h", item.tx_data, item.rx_data), UVM_LOW);
+        end
+      end
+      begin // MOSI collection 
+        spi_tran item; 
+        forever begin 
+          item = spi_tran::type_id::create("in_item_t2");
+          item.tran_id = mon0_tran_id;
+          item.mt = BIT; 
+          int curr_index = 0;
+          repeat(8) begin 
+            @(posedge vif.mon_cb.sclk) // TODO: using the mon_cb here is really ticking me off
+            item.MS_data[(curr_index++) % 8] = vif.mon_cb.mosi;
+          end 
+          mon0_ap.write(item);
+          `uvm_info("MON0", $sformatf("BIT: Observed mosi details: %8b on transaction ID: %d", item.MS_data, item.tran_id), UVM_LOW);
+        end 
+      end
+    join
   endtask
 endclass
 
