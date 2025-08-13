@@ -29,7 +29,8 @@ class spi_mon0 extends uvm_monitor;
         spi_tran item;
         forever begin
           // Trigger on vif.start
-          @(negedge vif.mon_cb.start)
+          @(posedge vif.mon_cb.start)
+          #1;
           // create item 
           item = spi_tran::type_id::create("in_item_t1");
           // assign value
@@ -55,6 +56,7 @@ class spi_mon0 extends uvm_monitor;
           curr_index = 0;
           repeat(8) begin 
             @(posedge vif.sclk) // TODO: using the mon_cb here is really ticking me off
+            #1;
             item.MS_data[(curr_index++) % 8] = vif.mosi;
           end 
           mon0_ap.write(item);
