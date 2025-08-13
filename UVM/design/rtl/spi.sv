@@ -54,7 +54,10 @@ module spi #(
                 end
                 
                 TRANSFER: begin
-                    if (clk_cnt == CLK_DIV-1) begin
+					// RTL Bug caught by T017 start
+                    //if (clk_cnt == CLK_DIV-1) begin
+					// RTL Bug caught by T017 end
+                    if (clk_cnt == CLK_DIV/2-1) begin
                         clk_cnt <= '0;
                         sclk <= ~sclk;
                         

@@ -30,11 +30,15 @@ module spi_tb;
     // Clock driving 
     initial begin
         spi_if.clk = 0;
+        forever #5 spi_if.clk = ~spi_if.clk;
+    end
+
+	// Reset driving
+	initial begin
 		spi_if.rst_n = 0;
 		#3;
 		spi_if.rst_n = 1;
-        forever #5 spi_if.clk = ~spi_if.clk;
-    end
+	end
 
     // Instantiate the DUT
     spi #(.CLK_DIV(4)) dut (
@@ -52,21 +56,16 @@ module spi_tb;
 		.cs_n (spi_if.cs_n)
     );
 
+	// Probe Internal Signal
+	assign spi_if.state = dut.state;
+
     // Constants
-    bit [7:0] SLAVE_RESET_RESPONSE = 8'hB9;
+    bit [7:0] SLAVE_RESET_RESPONSE;
     int slave_reset_response = SLAVE_RESET_RESPONSE;
 
     // Simple SPI slave model for testing
     logic [7:0] slave_rx_data;
-    logic [7:0] slave_tx_data = SLAVE_RESET_RESPONSE;
-
-    // AT positive edge of done (from spi_if), we will randc slave_tx_data
-    initial begin
-        forever begin
-            @(posedge spi_if.done);
-            slave_tx_data = $urandom_range(8'hB0, 8'hB9);
-        end
-    end
+    logic [7:0] slave_tx_data;
 
     // uvm config db 
     initial begin 
@@ -74,10 +73,13 @@ module spi_tb;
 		uvm_config_db#(logic [7:0])::set(null, "*", "slave_tx_data", slave_tx_data);
     end
 
+	logic [31:0] int_counter = 1;
+
     always @(posedge spi_if.sclk or negedge spi_if.rst_n or posedge spi_if.cs_n) begin
         if (!spi_if.rst_n) begin
             slave_rx_data <= 8'h00;
             spi_if.miso <= 1'b0;
+			int_counter <= '0;
             slave_tx_data <= SLAVE_RESET_RESPONSE;
         end
         else if (spi_if.cs_n) begin

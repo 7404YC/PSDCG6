@@ -29,7 +29,7 @@ class spi_seq extends uvm_sequence #(spi_tran);
 			tr = spi_tran::type_id::create("tr");
 			start_item(tr);
 
-			assert(tr.randomize() with {rst_n == 1; start == 1;});
+			assert(tr.randomize() with {rst_n == 0; start == 1;});
 
 			delay = get_random_delay();
 			seq_index++;
