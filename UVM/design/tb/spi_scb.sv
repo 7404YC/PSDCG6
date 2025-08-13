@@ -60,6 +60,8 @@ class spi_scb extends uvm_scoreboard;
         BIT_tran.tran_time_start = tr.tran_time_start;
         BIT_tran.tran_time_end = tr.tran_time_end;
         BIT_tran.MS_data = tr.MS_data;
+        BIT_tran.tx_data = tr.tx_data;
+        BIT_tran.tx_data_t024 = tr.tx_data_t024;
         print_bit(BIT_tran, 0);
     end 
     else if (tr.mt == BIT_MISO) begin
@@ -102,11 +104,17 @@ class spi_scb extends uvm_scoreboard;
     string hdr, line;
     log_fd   = $fopen("scoreboard_log_bit.txt", "a");
     if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
-    // T024: Check mosi/miso value match
+    // T001: Check mosi/miso value match
     if ((mosimiso == 0) && (t.tx_data === t.MS_data)) begin 
+      `uvm_info("SCB", $sformatf("T001 satisfied"), UVM_LOW);
+    end else if (mosimiso == 0) begin 
+      `uvm_error("SCB", $sformatf("T001 violated, %h %h",t.tx_data, t.MS_data));
+    end
+    // T024: Check mosi/miso value match
+    if ((mosimiso == 0) && (t.tx_data_t024 === t.MS_data)) begin 
       `uvm_info("SCB", $sformatf("T024 satisfied"), UVM_LOW);
     end else if (mosimiso == 0) begin 
-      `uvm_error("SCB", $sformatf("T024 violated"));
+      `uvm_error("SCB", $sformatf("T024 violated, %h %h",t.tx_data_t024, t.MS_data));
     end
     $sformat(hdr,  "%-12s %-12s %-8s %-8s",
                     "start time", "end time", "ID", (mosimiso) ? "miso" : "mosi");

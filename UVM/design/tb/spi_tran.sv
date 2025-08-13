@@ -32,6 +32,7 @@ class spi_tran extends uvm_sequence_item;
     mon_type mt;
     int tran_id; 
     logic [7:0] MS_data;
+    logic [7:0] tx_data_t024;
 
     `uvm_object_utils(spi_tran)
 
