@@ -17,7 +17,12 @@ class spi_seq_sanity extends spi_seq;
 			start_item(tr);
 
 			assert(tr.randomize() with {start == 1;});
-			tr.rst_n = 1;
+
+			if ($test$plusargs("RST_RANDOM_EN")) begin
+				tr.rst_n = $urandom;
+			end else begin
+				tr.rst_n = 1'b1;
+			end
 
 			tr.b2b_interval_delay = get_random_delay();
 

@@ -13,3 +13,27 @@ clean:
 
 run_dv:
 	${ROOT}/sim/run_sim.csh dv ${MODULE}
+
+sanity_test: 
+	export NR=1; \
+	make run_dv; \
+	sed -i '$$ s/$$/ +SANITY_TEST/' qrun; \
+	qrun
+
+sanity_test_reset:
+	export NR=1; \
+	make run_dv; \
+	sed -i '$$ s/$$/ +RST_RANDOM_EN +SANITY_TEST/' qrun; \
+	qrun
+	
+b2b_test:
+	export NR=1; \
+	make run_dv; \
+	sed -i '$$ s/$$/ +B2B_TEST/' qrun; \
+	qrun
+	
+b2b_test_reset:
+	export NR=1; \
+	make run_dv; \
+	sed -i '$$ s/$$/ +RST_RANDOM_EN +B2B_TEST/' qrun; \
+	qrun

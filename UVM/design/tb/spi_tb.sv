@@ -113,8 +113,16 @@ module spi_tb;
         uvm_config_db#(virtual spi_if.drv_mp)::set(null, "*drv*", "vif", spi_if);
         uvm_config_db#(virtual spi_if.mon_mp)::set(null, "*mon*", "vif", spi_if);
         uvm_config_db#(virtual spi_if)::set(null, "*", "vif", spi_if);
-        run_test("spi_test_sanity");
-        //run_test("spi_test_b2b");
+
+		if ($test$plusargs("SANITY_TEST")) begin
+	        run_test("spi_test_sanity");
+		end
+		else if ($test$plusargs("B2B_TEST")) begin
+	        run_test("spi_test_b2b");
+		end	
+		else begin
+			run_test();
+		end
     end
 
     // Simulation timeout 
