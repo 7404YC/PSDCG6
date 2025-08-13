@@ -60,6 +60,9 @@ class spi_mon0 extends uvm_monitor;
             #1;
             item.MS_data[7- ((curr_index++) % 8)] = vif.mosi;
           end 
+          @(posedge vif.mon_cb.done) // Part of T024
+          #1; 
+          item.tx_data = vif.mon_cb.tx_data;
           item.tran_time_end = $time;
           `uvm_info("MON0", $sformatf("BIT: Observed mosi details: %8b on transaction ID: %d", item.MS_data, item.tran_id), UVM_LOW);
           mon0_ap.write(item);

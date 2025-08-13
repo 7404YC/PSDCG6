@@ -133,7 +133,7 @@ VCS compile option:
  option[44]: -Xufe=2steps
  option[45]: -kdb=common_elab
  option[46]: -Xufe=2steps
- option[47]: -debug_report=.debug_acc_report.2018014
+ option[47]: -debug_report=.debug_acc_report.2044375
  option[48]: -top
  option[49]: spi_tb
  option[50]: -o
@@ -420,8 +420,8 @@ argv[5]=line+tgl+cond+fsm+branch+assert
 argv[6]=-assert
 argv[7]=summary
 338 profile - 100
-          CPU/Mem usage: 0.070 sys,  0.220 user,  419.20M mem
-339 Elapsed time:    0:00:00    Wed Aug 13 14:29:54 2025
+          CPU/Mem usage: 0.070 sys,  0.220 user,  419.34M mem
+339 Elapsed time:    0:00:00    Wed Aug 13 14:40:27 2025
 340 User CPU time used: 0 seconds
 341 System CPU time used: 0 seconds
 342 pliAppInit
@@ -441,7 +441,7 @@ argv[7]=summary
 356 LIBSSCORE=found /home/synopsys/verdi/W-2024.09-SP2/share/PLI/lib/LINUXAMD64/libsscore_vcs202409.so through $NOVAS_HOME setting.
 357 FSDB Dumper for VCS, Release Verdi_W-2024.09-SP2, Linux x86_64/64bit, 03/03/2025
 358 (C) 1996 - 2025 by Synopsys, Inc.
-359 sps_call_fsdbDumpfile_main at 0 : /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(131)
+359 sps_call_fsdbDumpfile_main at 0 : /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(134)
 360 argv[0]: (spi_sim.fsdb)
 361 *Verdi* : Create FSDB file 'spi_sim.fsdb'
 362 [spi_vcs_vd_ppi_create_root]: no upf option
@@ -452,96 +452,96 @@ argv[7]=summary
 367 FSDB_VCS_ENABLE_NATIVE_VC is enable
 368 FSDB_VCS_ENABLE_MEMORY_NATIVE_VC is enabled
 369 spi_vcs_vd_vlog_vc_enable_vector_strength is skipped since VCS is not support.
-370 sps_call_fsdbDumpsva_vd_main at 0 : /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(132)
+370 sps_call_fsdbDumpsva_vd_main at 0 : /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(135)
 371 argv[0]: (0)
 372 argv[1]: (handle) spi_tb
 373 *Verdi* : Begin traversing the SVA assertions under scope (spi_tb), layer (0).
 374 *Verdi* : End of traversing the SVA assertions.
 375 pliAppHDL_DumpSVAComplete traverse var: profile - 
-          CPU/Mem usage: 0.080 sys,  0.220 user,  512.66M mem
-                   incr: 0.000 sys,  0.000 user,  2.92M mem
-                   accu: 0.000 sys,  0.000 user,  2.92M mem
-              accu incr: 0.000 sys,  0.000 user,  2.92M mem
+          CPU/Mem usage: 0.080 sys,  0.220 user,  512.94M mem
+                   incr: 0.000 sys,  0.000 user,  3.06M mem
+                   accu: 0.000 sys,  0.000 user,  3.06M mem
+              accu incr: 0.000 sys,  0.000 user,  3.06M mem
 
-          Count usage: 16 var,  16 idcode,  0 callback
-                 incr: 16 var,  16 idcode,  0 callback
-                 accu: 16 var,  16 idcode,  0 callback
-            accu incr: 16 var,  16 idcode,  0 callback
+          Count usage: 17 var,  17 idcode,  0 callback
+                 incr: 17 var,  17 idcode,  0 callback
+                 accu: 17 var,  17 idcode,  0 callback
+            accu incr: 17 var,  17 idcode,  0 callback
 376 Idcode  0 - bc1:0  mda:0
-377 Elapsed time:    0:00:00    Wed Aug 13 14:29:54 2025
+377 Elapsed time:    0:00:00    Wed Aug 13 14:40:27 2025
 378 User CPU time used: 0 seconds
 379 System CPU time used: 0 seconds
 380 pliAppHDL_DumpSVAComplete: profile - 
-          CPU/Mem usage: 0.080 sys,  0.220 user,  512.66M mem
+          CPU/Mem usage: 0.080 sys,  0.220 user,  512.94M mem
                    incr: 0.000 sys,  0.000 user,  0.00M mem
-                   accu: 0.000 sys,  0.000 user,  2.92M mem
+                   accu: 0.000 sys,  0.000 user,  3.06M mem
               accu incr: 0.000 sys,  0.000 user,  0.00M mem
 
-          Count usage: 16 var,  16 idcode,  0 callback
+          Count usage: 17 var,  17 idcode,  0 callback
                  incr: 0 var,  0 idcode,  0 callback
-                 accu: 16 var,  16 idcode,  0 callback
+                 accu: 17 var,  17 idcode,  0 callback
             accu incr: 0 var,  0 idcode,  0 callback
 381 Idcode  0 - bc1:0  mda:0
-382 Elapsed time:    0:00:00    Wed Aug 13 14:29:54 2025
+382 Elapsed time:    0:00:00    Wed Aug 13 14:40:27 2025
 383 User CPU time used: 0 seconds
 384 System CPU time used: 0 seconds
-385 sps_call_fsdbDumpvars_vd_main at 0 : /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(133)
+385 sps_call_fsdbDumpvars_vd_main at 0 : /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(136)
 386 argv[0]: (0)
 387 argv[1]: (handle) spi_tb
 388 *Verdi* : Begin traversing the scope (spi_tb), layer (0).
 389 *Verdi* : End of traversing.
 390 pliAppHDL_DumpVarComplete traverse var: profile - 
-          CPU/Mem usage: 0.080 sys,  0.220 user,  517.79M mem
-                   incr: 0.000 sys,  0.000 user,  5.14M mem
-                   accu: 0.000 sys,  0.000 user,  5.14M mem
-              accu incr: 0.000 sys,  0.000 user,  5.14M mem
+          CPU/Mem usage: 0.080 sys,  0.220 user,  517.94M mem
+                   incr: 0.000 sys,  0.000 user,  5.00M mem
+                   accu: 0.000 sys,  0.000 user,  5.00M mem
+              accu incr: 0.000 sys,  0.000 user,  5.00M mem
 
-          Count usage: 70 var,  61 idcode,  41 callback
+          Count usage: 71 var,  62 idcode,  41 callback
                  incr: 54 var,  45 idcode,  41 callback
                  accu: 54 var,  45 idcode,  41 callback
             accu incr: 54 var,  45 idcode,  41 callback
 391 Idcode  0 - bc1:0  mda:0
-392 Elapsed time:    0:00:00    Wed Aug 13 14:29:54 2025
+392 Elapsed time:    0:00:00    Wed Aug 13 14:40:27 2025
 393 User CPU time used: 0 seconds
 394 System CPU time used: 0 seconds
 395 pliAppHDL_DumpVarComplete: profile - 
-          CPU/Mem usage: 0.080 sys,  0.220 user,  517.79M mem
+          CPU/Mem usage: 0.080 sys,  0.220 user,  517.94M mem
                    incr: 0.000 sys,  0.000 user,  0.00M mem
-                   accu: 0.000 sys,  0.000 user,  5.14M mem
+                   accu: 0.000 sys,  0.000 user,  5.00M mem
               accu incr: 0.000 sys,  0.000 user,  0.00M mem
 
-          Count usage: 70 var,  61 idcode,  41 callback
+          Count usage: 71 var,  62 idcode,  41 callback
                  incr: 0 var,  0 idcode,  0 callback
                  accu: 54 var,  45 idcode,  41 callback
             accu incr: 0 var,  0 idcode,  0 callback
 396 Idcode  0 - bc1:0  mda:0
-397 Elapsed time:    0:00:00    Wed Aug 13 14:29:54 2025
+397 Elapsed time:    0:00:00    Wed Aug 13 14:40:27 2025
 398 User CPU time used: 0 seconds
 399 System CPU time used: 0 seconds
-400 End of simulation at 4175000
-401 Memory usage: 519.307 M
-402 Maximum resident set size: 237 MB
+400 End of simulation at 4465000
+401 Memory usage: 519.455 M
+402 Maximum resident set size: 239 MB
 403 Hard page faults: 0
-404 Soft page faults: 21822
-405 Elapsed time:    0:00:00    Wed Aug 13 14:29:54 2025
+404 Soft page faults: 21801
+405 Elapsed time:    0:00:00    Wed Aug 13 14:40:27 2025
 406 User CPU time used: 0 seconds
 407 System CPU time used: 0 seconds
 408 Begin FSDB profile info:
-409 FSDB Writer : bc1(1629) bcn(812) mtf/stf(0/0)
-FSDB Writer elapsed time : flush(0.003732) io wait(0.000000) theadpool wait(0.000000)
+409 FSDB Writer : bc1(1687) bcn(812) mtf/stf(0/0)
+FSDB Writer elapsed time : flush(0.003765) io wait(0.000000) theadpool wait(0.000000)
 FSDB Writer cpu time : MT Compression : 0
 410 End FSDB profile info
-411 FSDB closed. Name: spi_sim.fsdb Size: 11928
+411 FSDB closed. Name: spi_sim.fsdb Size: 12135
 412 Parallel profile     - ProducerThread:1 ConsumerThread:1 Buffer:64MB
-413                      - BlockUsed:1 Acquire:0 BufferUsed:44353
+413                      - BlockUsed:1 Acquire:0 BufferUsed:45919
 414                      - Flush:4 Expand:0 ProducerWait:0 ConsumerWait:0
-415                      - MainProducerTime:0.352837182 TotalConsumerTime:0.000000000
-416                      - ElapsedTime:0.072626000
-417 Producer   0 profile - BlockUsed:2 Acquire:0 BufferUsed:44353
+415                      - MainProducerTime:0.358257197 TotalConsumerTime:0.000000000
+416                      - ElapsedTime:0.074683000
+417 Producer   0 profile - BlockUsed:2 Acquire:0 BufferUsed:45919
 418 Consumer   0 profile - Affinity:-1 CPUTime:0.000000000 LifeTime:0.000000000 (-nan%)
-419                      - BlockUsed:2 Acquire:0 BufferUsed:44353
+419                      - BlockUsed:2 Acquire:0 BufferUsed:45919
 420 SimExit
-421 Elapsed time:    0:00:00    Wed Aug 13 14:29:54 2025
+421 Elapsed time:    0:00:00    Wed Aug 13 14:40:27 2025
 422 User CPU time used: 0 seconds
 423 System CPU time used: 0 seconds
 424 Sim process exit

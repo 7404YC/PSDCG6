@@ -195,9 +195,11 @@
 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv
 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv
 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq.sv
+/home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_b2b.sv
 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_sanity.sv
 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_sqr.sv
 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv
 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_test.sv
+/home/user06/Downloads/PSDCG6/UVM/design/tb/spi_test_b2b.sv
 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_test_sanity.sv
 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tran.sv

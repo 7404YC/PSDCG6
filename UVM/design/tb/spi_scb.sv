@@ -97,10 +97,17 @@ class spi_scb extends uvm_scoreboard;
     $fclose(log_fd); 
   endfunction
 
+  // T024: Check MOSI/MISO correctness by reporting uvm_error
   function void print_bit(spi_tran t, int mosimiso = 0);
     string hdr, line;
     log_fd   = $fopen("scoreboard_log_bit.txt", "a");
     if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
+    // T024: Check mosi/miso value match
+    if ((mosimiso == 0) && (t.tx_data === t.MS_data)) begin 
+      `uvm_info("SCB", $sformatf("T015 satisfied"), UVM_LOW);
+    end else begin 
+      `uvm_error("SCB", $sformatf("T015 violated"));
+    end
     $sformat(hdr,  "%-12s %-12s %-8s %-8s",
                     "start time", "end time", "ID", (mosimiso) ? "miso" : "mosi");
     $sformat(line, "%-12.2f %-12.2f %-8d 0x%02h",
