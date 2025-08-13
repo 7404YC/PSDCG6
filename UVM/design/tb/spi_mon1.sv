@@ -1,4 +1,4 @@
-class spi_mon1 extends uvm_monitor;
+  class spi_mon1 extends uvm_monitor;
     `uvm_component_utils(spi_mon1)
 
     virtual spi_if.mon_mp vif;
@@ -53,21 +53,25 @@ class spi_mon1 extends uvm_monitor;
             prev_done = vif.mon_cb.done;
         end
       end
-      begin 
+      begin   
         forever begin 
           spi_tran item;
           int curr_index;
           forever begin 
+            #1; // black magic
             item = spi_tran::type_id::create("in_item_t2");
             item.tran_id = mon1_tran_id_bit++;
-            item.mt = BIT;
+            item.tran_time_start = $time;
+            item.mt = BIT_MISO;
             curr_index = 0;
             repeat(8) begin 
               @(negedge vif.sclk) // TODO: using the mon_cb here is really ticking me off
-              item.MS_data[(curr_index++) % 8] = vif.miso;
+              item.MS_data[7 - ((curr_index++) % 8)] = vif.miso;
+              $display("HEREEEEEEEEEEEEEEEEEEEEEE %b %h %d time %p", vif.miso, item.MS_data, 7 - ((curr_index-1) % 8), $time);
             end 
-            mon1_ap.write(item);
+            item.tran_time_end = $time; 
             `uvm_info("MON1", $sformatf("BIT: Observed miso details: %8b on transaction ID: %d", item.MS_data, item.tran_id), UVM_LOW);
+            mon1_ap.write(item);  
           end 
         end
       end

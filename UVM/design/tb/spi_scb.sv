@@ -22,12 +22,23 @@ class spi_scb extends uvm_scoreboard;
     BIT_tran = spi_tran::type_id::create("bit");
   endfunction
 
+  function void build_phase(uvm_phase phase);
+    super.build_phase(phase);
+    log_fd   = $fopen("scoreboard_log_entire.txt", "w");
+    if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
+    $fdisplay(log_fd, "Scoreboard for ENTIRE transaction, generated: %p", $time);
+    $fclose(log_fd); 
+    log_fd   = $fopen("scoreboard_log_bit.txt", "w");
+    if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
+    $fdisplay(log_fd, "Scoreboard for BIT transaction, generated: %p", $time);
+    $fclose(log_fd); 
+  endfunction
+
   function void write(spi_tran tr);
     // will need to handle based on mt and tran_id
     if (tr.mt == ENTIRE) begin 
       int idx[$] = encountered_ENTIRE.find_index() with (item == tr.tran_id); 
       if (!idx.size()) begin  // first time encounter
-        `uvm_info(get_type_name(), "DEBUGGGGGGGGGGGGG entire type, first encounter for this ID. ", UVM_LOW);
         encountered_ENTIRE.push_back(tr.tran_id);
         ENTIRE_tran.tran_time_start = tr.tran_time_start;
         ENTIRE_tran.mt = tr.mt;
@@ -37,32 +48,28 @@ class spi_scb extends uvm_scoreboard;
         ENTIRE_tran.rx_data = 8'b0;
         print_entire(ENTIRE_tran);
       end else if  (idx.size() > 0) begin // not first time
-        `uvm_info(get_type_name(), "DEBUGGGGGGGGGGGGG entire type, not first encounter for this ID. ", UVM_LOW);
         ENTIRE_tran.tran_time_end = tr.tran_time_end;
         ENTIRE_tran.rx_data = tr.rx_data;
         encountered_ENTIRE.delete(idx[0]);
         print_entire(ENTIRE_tran);
       end
     end 
-    else if (tr.mt == BIT) begin 
-      int idx[$] = encountered_BIT.find_index() with (item == tr.tran_id);
-      if (!idx.size()) begin  // first time encounter
-        `uvm_info(get_type_name(), "DEBUGGGGGGGGGGGGG bit type, first encounter for this ID. ", UVM_LOW);
-        encountered_BIT.push_back(tr.tran_id);
-        BIT_tran.tran_time_start = tr.tran_time_start;
+    else if (tr.mt == BIT_MOSI) begin 
         BIT_tran.mt = tr.mt;
         BIT_tran.tran_id = tr.tran_id; 
-        BIT_tran.tran_time_end = 0;
-        BIT_tran.MS_data = 8'b0;
-        print_bit(BIT_tran, 0);
-      end else if  (idx.size() > 0) begin // not first time
-        `uvm_info(get_type_name(), "DEBUGGGGGGGGGGGGG bit type, not first encounter for this ID. ", UVM_LOW);
+        BIT_tran.tran_time_start = tr.tran_time_start;
         BIT_tran.tran_time_end = tr.tran_time_end;
         BIT_tran.MS_data = tr.MS_data;
-        encountered_BIT.delete(idx[0]);
-        print_bit(BIT_tran, 1);
-      end
+        print_bit(BIT_tran, 0);
     end 
+    else if (tr.mt == BIT_MISO) begin
+        BIT_tran.mt = tr.mt;
+        BIT_tran.tran_id = tr.tran_id; 
+        BIT_tran.tran_time_start = tr.tran_time_start;
+        BIT_tran.tran_time_end = tr.tran_time_end;
+        BIT_tran.MS_data = tr.MS_data;
+        print_bit(BIT_tran, 1);
+    end
     else begin 
       `uvm_warning("SCB", "Invalid transaction type from monitor detected, discarding.");
     end 
@@ -71,7 +78,7 @@ class spi_scb extends uvm_scoreboard;
   // T015: Check entire transaction correctness by reporting uvm_error 
   function void print_entire(spi_tran t);
     string hdr, line;
-    log_fd   = $fopen("scoreboard_log.txt", "a");
+    log_fd   = $fopen("scoreboard_log_entire.txt", "a");
     if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
     // T015: Check TX and RX value match
     if (t.tx_data === t.rx_data) begin 
@@ -92,7 +99,7 @@ class spi_scb extends uvm_scoreboard;
 
   function void print_bit(spi_tran t, int mosimiso = 0);
     string hdr, line;
-    log_fd   = $fopen("scoreboard_log.txt", "a");
+    log_fd   = $fopen("scoreboard_log_bit.txt", "a");
     if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
     $sformat(hdr,  "%-12s %-12s %-8s %-8s",
                     "start time", "end time", "ID", (mosimiso) ? "miso" : "mosi");
@@ -103,6 +110,10 @@ class spi_scb extends uvm_scoreboard;
     $fdisplay(log_fd, hdr);
     $fdisplay(log_fd, line);
     $fclose(log_fd);
+  endfunction
+
+  function void report_phase (uvm_phase phase);
+
   endfunction
 endclass
 

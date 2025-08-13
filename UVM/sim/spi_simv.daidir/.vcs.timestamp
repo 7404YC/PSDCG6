@@ -853,7 +853,7 @@
 -assert
 -cm
 -debug_access+all
--debug_report=.debug_acc_report.1770070
+-debug_report=.debug_acc_report.2018014
 -fsdb
 -full64
 -gen_obj
@@ -880,7 +880,7 @@ line+tgl+cond+fsm+branch+assert
 enable_diag
 /home/synopsys/verdi/W-2024.09-SP2/share/PLI/VCS/LINUX64/verdi.tab
 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv
-139
+138
 which_declare=declare -f
 XRDP_SOCKET_PATH=/run/xrdp/1001
 XRDP_SESSION=3691886
@@ -976,7 +976,6 @@ MODULE=spi
 MODE=dv
 MFLAGS=
 MANAGERPID=3691893
-MAKE_TERMOUT=/dev/pts/23
 MAKE_TERMERR=/dev/pts/23
 MAKELEVEL=1
 MAKEFLAGS=
@@ -1027,16 +1026,16 @@ ASSERT=1
 1755058705 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_test.sv
 1755059332 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_env.sv
 1755059332 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_cov.sv
-1755058794 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv
+1755066209 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv
 1754977364 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_agt1.sv
 1754977364 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_agt0.sv
-1755058310 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv
-1755059332 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv
+1755066569 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv
+1755065413 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv
 1755058705 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv
 1754977364 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_sqr.sv
 1755058705 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_sanity.sv
 1755058705 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq.sv
-1755058705 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tran.sv
+1755065350 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tran.sv
 1755058705 /home/user06/Downloads/PSDCG6/UVM/design/rtl/spi.sv
 1755055808 /home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_yk.svh
 1754985821 /home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_yc.svh
@@ -1237,5 +1236,5 @@ ASSERT=1
 1740889567 /home/synopsys/vcs/W-2024.09-SP2/linux64/lib/liberrorinf.so
 1740889560 /home/synopsys/vcs/W-2024.09-SP2/linux64/lib/libsnpsmalloc.so
 1740889556 /home/synopsys/vcs/W-2024.09-SP2/linux64/lib/libvfs.so
-1755059352 spi_simv.daidir
+1755066594 spi_simv.daidir
 -1 partitionlib

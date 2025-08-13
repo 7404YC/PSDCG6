@@ -1,7 +1,7 @@
 Command: /home/user06/Downloads/PSDCG6/UVM/sim/./spi_simv -l spi_sim.log +UVM_NO_RELNOTES -cm line+tgl+cond+fsm+branch+assert -assert summary
 Chronologic VCS simulator copyright 1991-2024
 Contains Synopsys proprietary information.
-Compiler version W-2024.09-SP2_Full64; Runtime version W-2024.09-SP2_Full64;  Aug 13 12:29 2025
+Compiler version W-2024.09-SP2_Full64; Runtime version W-2024.09-SP2_Full64;  Aug 13 14:29 2025
 >>>>>>>> SIM TIME START: 0
 UVM_INFO @ 0: reporter [RNTST] Running test spi_test_sanity...
 *Verdi* Loading libsscore_vcs202409.so
@@ -23,368 +23,408 @@ Error: "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 77:
 ASSERTError T023
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_sanity.sv(26) @ 25000: uvm_test_top.env.agt0.sqr@@seq [spi_seq_sanity] Sent 1/10 normal sequence: rst_n=1, start=1, tx_data=0x50
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(46) @ 25000: uvm_test_top.env.agt0.COMP_358 [spi_drv] Drive 1/10 transaction to DUT: rst_n=1, start=1, tx_data=0x50
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(30) @ 36000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG entire type, first encounter for this ID. 
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(80) @ 36000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(86) @ 36000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 36000: uvm_test_top.env.scb [SCB]        36.00         0.00 0        0x50    0x00
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 36000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 36000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 36000: uvm_test_top.env.scb [SCB]        36.00         0.00 0        0x50    0x00
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(46) @ 36000: uvm_test_top.env.agt0.mon0 [MON0] ENTIRE: Observed input transaction: 
 TX | RX
 0x50 0xxx 
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 55000: reporter [SLV] RX_REG=0x00 (00000000), TX_REG=0xb9 (10111001)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 Xx           7 time                   75
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 95000: reporter [SLV] RX_REG=0x00 (00000000), TX_REG=0x72 (01110010)
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(56) @ 95000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 1/10 transaction to DUT: after 7 delay, drive rst_n=1, start=0, tx_data=0x50
+HEREEEEEEEEEEEEEEEEEEEEEE 0 Xx           6 time                  115
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 135000: reporter [SLV] RX_REG=0x01 (00000001), TX_REG=0xe4 (11100100)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 Xx           5 time                  155
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 175000: reporter [SLV] RX_REG=0x02 (00000010), TX_REG=0xc8 (11001000)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 bx           4 time                  195
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 215000: reporter [SLV] RX_REG=0x05 (00000101), TX_REG=0x90 (10010000)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 bX           3 time                  235
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 255000: reporter [SLV] RX_REG=0x0a (00001010), TX_REG=0x20 (00100000)
+HEREEEEEEEEEEEEEEEEEEEEEE 0 bX           2 time                  275
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 295000: reporter [SLV] RX_REG=0x14 (00010100), TX_REG=0x40 (01000000)
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(50) @ 315000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG bit type, first encounter for this ID. 
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(101) @ 315000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(102) @ 315000: uvm_test_top.env.scb [SCB]         0.00         0.00 0        0x00
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(70) @ 315000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 00111010 on transaction ID:           0
+HEREEEEEEEEEEEEEEEEEEEEEE 0 bX           1 time                  315
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 335000: reporter [SLV] RX_REG=0x28 (00101000), TX_REG=0x80 (10000000)
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(59) @ 336000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG bit type, not first encounter for this ID. 
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(101) @ 336000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(102) @ 336000: uvm_test_top.env.scb [SCB]         0.00         0.00 0        0x0a
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(63) @ 336000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 00001010 on transaction ID:           0
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(64) @ 336000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 01010000 on transaction ID:           0
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(108) @ 336000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 336000: uvm_test_top.env.scb [SCB]         0.00       336.00 0        0x50
+HEREEEEEEEEEEEEEEEEEEEEEE 1 b9           0 time                  355
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(73) @ 355000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 10111001 on transaction ID:           0
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(108) @ 355000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 355000: uvm_test_top.env.scb [SCB]         1.00       355.00 0        0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(91) @ 355000: reporter [SLV-RLD] RX_REG=0x50 (01010000), TX_REG=0x00 (00000000)
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(40) @ 365000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG entire type, not first encounter for this ID. 
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(80) @ 365000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(86) @ 365000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 365000: uvm_test_top.env.scb [SCB]        36.00       365.00 0        0x50    0xb9
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 365000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 365000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 365000: uvm_test_top.env.scb [SCB]        36.00       365.00 0        0x50    0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(51) @ 365000: uvm_test_top.env.agt1.mon1 [MON1] ENTIRE: Observed output transaction: 0xb9 on transaction ID:           0
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(66) @ 365000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 1/10 transaction to DUT: receiving busy = 0, proceed to next sequence
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_sanity.sv(26) @ 375000: uvm_test_top.env.agt0.sqr@@seq [spi_seq_sanity] Sent 2/10 normal sequence: rst_n=1, start=1, tx_data=0x92
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(46) @ 375000: uvm_test_top.env.agt0.COMP_358 [spi_drv] Drive 2/10 transaction to DUT: rst_n=1, start=1, tx_data=0x92
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(30) @ 386000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG entire type, first encounter for this ID. 
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(80) @ 386000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(86) @ 386000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 386000: uvm_test_top.env.scb [SCB]       386.00         0.00 1        0x92    0x00
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 386000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 386000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 386000: uvm_test_top.env.scb [SCB]       386.00         0.00 1        0x92    0x00
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(46) @ 386000: uvm_test_top.env.agt0.mon0 [MON0] ENTIRE: Observed input transaction: 
 TX | RX
 0x92 0xxx 
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 405000: reporter [SLV] RX_REG=0x50 (01010000), TX_REG=0xb9 (10111001)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 Xx           7 time                  425
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 445000: reporter [SLV] RX_REG=0xa1 (10100001), TX_REG=0x72 (01110010)
+HEREEEEEEEEEEEEEEEEEEEEEE 0 Xx           6 time                  465
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 485000: reporter [SLV] RX_REG=0x42 (01000010), TX_REG=0xe4 (11100100)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 Xx           5 time                  505
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 525000: reporter [SLV] RX_REG=0x84 (10000100), TX_REG=0xc8 (11001000)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 bx           4 time                  545
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 565000: reporter [SLV] RX_REG=0x09 (00001001), TX_REG=0x90 (10010000)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 bX           3 time                  585
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 605000: reporter [SLV] RX_REG=0x12 (00010010), TX_REG=0x20 (00100000)
+HEREEEEEEEEEEEEEEEEEEEEEE 0 bX           2 time                  625
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(56) @ 635000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 2/10 transaction to DUT: after 26 delay, drive rst_n=1, start=0, tx_data=0x92
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 645000: reporter [SLV] RX_REG=0x24 (00100100), TX_REG=0x40 (01000000)
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(50) @ 665000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG bit type, first encounter for this ID. 
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(101) @ 665000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(102) @ 665000: uvm_test_top.env.scb [SCB]         0.00         0.00 1        0x00
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(70) @ 665000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 00111011 on transaction ID:           1
+HEREEEEEEEEEEEEEEEEEEEEEE 0 bX           1 time                  665
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 685000: reporter [SLV] RX_REG=0x49 (01001001), TX_REG=0x80 (10000000)
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(59) @ 686000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG bit type, not first encounter for this ID. 
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(101) @ 686000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(102) @ 686000: uvm_test_top.env.scb [SCB]         0.00         0.00 1        0x49
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(63) @ 686000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 01001001 on transaction ID:           1
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(64) @ 686000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 10010010 on transaction ID:           1
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(108) @ 686000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 686000: uvm_test_top.env.scb [SCB]       336.00       686.00 1        0x92
+HEREEEEEEEEEEEEEEEEEEEEEE 1 b9           0 time                  705
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(73) @ 705000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 10111001 on transaction ID:           1
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(108) @ 705000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 705000: uvm_test_top.env.scb [SCB]       356.00       705.00 1        0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(91) @ 705000: reporter [SLV-RLD] RX_REG=0x92 (10010010), TX_REG=0x00 (00000000)
 "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: spi_tb.spi_if.ASSERT_T003: started at 45000ps failed at 705000ps
 	Offending '$fell(busy)'
 Error: "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: spi_tb.spi_if.ASSERT_T003: at time 705000 ps
 ASSERTError T003
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(40) @ 715000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG entire type, not first encounter for this ID. 
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(80) @ 715000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(86) @ 715000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 715000: uvm_test_top.env.scb [SCB]       386.00       715.00 1        0x92    0xb9
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 715000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 715000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 715000: uvm_test_top.env.scb [SCB]       386.00       715.00 1        0x92    0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(51) @ 715000: uvm_test_top.env.agt1.mon1 [MON1] ENTIRE: Observed output transaction: 0xb9 on transaction ID:           1
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(66) @ 715000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 2/10 transaction to DUT: receiving busy = 0, proceed to next sequence
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_sanity.sv(26) @ 725000: uvm_test_top.env.agt0.sqr@@seq [spi_seq_sanity] Sent 3/10 normal sequence: rst_n=1, start=1, tx_data=0x4b
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(46) @ 725000: uvm_test_top.env.agt0.COMP_358 [spi_drv] Drive 3/10 transaction to DUT: rst_n=1, start=1, tx_data=0x4b
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(30) @ 736000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG entire type, first encounter for this ID. 
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(80) @ 736000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(86) @ 736000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 736000: uvm_test_top.env.scb [SCB]       736.00         0.00 2        0x4b    0x00
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 736000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 736000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 736000: uvm_test_top.env.scb [SCB]       736.00         0.00 2        0x4b    0x00
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(46) @ 736000: uvm_test_top.env.agt0.mon0 [MON0] ENTIRE: Observed input transaction: 
 TX | RX
 0x4b 0xxx 
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 755000: reporter [SLV] RX_REG=0x92 (10010010), TX_REG=0xb9 (10111001)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 Xx           7 time                  775
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 795000: reporter [SLV] RX_REG=0x24 (00100100), TX_REG=0x72 (01110010)
+HEREEEEEEEEEEEEEEEEEEEEEE 0 Xx           6 time                  815
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 835000: reporter [SLV] RX_REG=0x49 (01001001), TX_REG=0xe4 (11100100)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 Xx           5 time                  855
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 875000: reporter [SLV] RX_REG=0x92 (10010010), TX_REG=0xc8 (11001000)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 bx           4 time                  895
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 915000: reporter [SLV] RX_REG=0x24 (00100100), TX_REG=0x90 (10010000)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 bX           3 time                  935
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 955000: reporter [SLV] RX_REG=0x49 (01001001), TX_REG=0x20 (00100000)
+HEREEEEEEEEEEEEEEEEEEEEEE 0 bX           2 time                  975
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 995000: reporter [SLV] RX_REG=0x92 (10010010), TX_REG=0x40 (01000000)
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(50) @ 1015000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG bit type, first encounter for this ID. 
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(101) @ 1015000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(102) @ 1015000: uvm_test_top.env.scb [SCB]         0.00         0.00 2        0x00
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(70) @ 1015000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 00111011 on transaction ID:           2
+HEREEEEEEEEEEEEEEEEEEEEEE 0 bX           1 time                 1015
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 1035000: reporter [SLV] RX_REG=0x25 (00100101), TX_REG=0x80 (10000000)
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(59) @ 1036000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG bit type, not first encounter for this ID. 
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(101) @ 1036000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(102) @ 1036000: uvm_test_top.env.scb [SCB]         0.00         0.00 2        0xd2
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(63) @ 1036000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 11010010 on transaction ID:           2
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(64) @ 1036000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 01001011 on transaction ID:           2
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(108) @ 1036000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 1036000: uvm_test_top.env.scb [SCB]       686.00      1036.00 2        0x4b
+HEREEEEEEEEEEEEEEEEEEEEEE 1 b9           0 time                 1055
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(73) @ 1055000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 10111001 on transaction ID:           2
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(108) @ 1055000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 1055000: uvm_test_top.env.scb [SCB]       706.00      1055.00 2        0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(91) @ 1055000: reporter [SLV-RLD] RX_REG=0x4b (01001011), TX_REG=0x00 (00000000)
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(56) @ 1055000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 3/10 transaction to DUT: after 33 delay, drive rst_n=1, start=0, tx_data=0x4b
 "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: spi_tb.spi_if.ASSERT_T003: started at 395000ps failed at 1055000ps
 	Offending '$fell(busy)'
 Error: "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: spi_tb.spi_if.ASSERT_T003: at time 1055000 ps
 ASSERTError T003
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(40) @ 1065000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG entire type, not first encounter for this ID. 
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(80) @ 1065000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(86) @ 1065000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 1065000: uvm_test_top.env.scb [SCB]       736.00      1065.00 2        0x4b    0xb9
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 1065000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 1065000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 1065000: uvm_test_top.env.scb [SCB]       736.00      1065.00 2        0x4b    0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(51) @ 1065000: uvm_test_top.env.agt1.mon1 [MON1] ENTIRE: Observed output transaction: 0xb9 on transaction ID:           2
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(66) @ 1065000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 3/10 transaction to DUT: receiving busy = 0, proceed to next sequence
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_sanity.sv(26) @ 1075000: uvm_test_top.env.agt0.sqr@@seq [spi_seq_sanity] Sent 4/10 normal sequence: rst_n=1, start=1, tx_data=0x1f
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(46) @ 1075000: uvm_test_top.env.agt0.COMP_358 [spi_drv] Drive 4/10 transaction to DUT: rst_n=1, start=1, tx_data=0x1f
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(30) @ 1086000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG entire type, first encounter for this ID. 
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(80) @ 1086000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(86) @ 1086000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 1086000: uvm_test_top.env.scb [SCB]      1086.00         0.00 3        0x1f    0x00
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 1086000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 1086000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 1086000: uvm_test_top.env.scb [SCB]      1086.00         0.00 3        0x1f    0x00
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(46) @ 1086000: uvm_test_top.env.agt0.mon0 [MON0] ENTIRE: Observed input transaction: 
 TX | RX
 0x1f 0xxx 
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 1105000: reporter [SLV] RX_REG=0x4b (01001011), TX_REG=0xb9 (10111001)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 Xx           7 time                 1125
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 1145000: reporter [SLV] RX_REG=0x96 (10010110), TX_REG=0x72 (01110010)
+HEREEEEEEEEEEEEEEEEEEEEEE 0 Xx           6 time                 1165
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 1185000: reporter [SLV] RX_REG=0x2c (00101100), TX_REG=0xe4 (11100100)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 Xx           5 time                 1205
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 1225000: reporter [SLV] RX_REG=0x58 (01011000), TX_REG=0xc8 (11001000)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 bx           4 time                 1245
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 1265000: reporter [SLV] RX_REG=0xb1 (10110001), TX_REG=0x90 (10010000)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 bX           3 time                 1285
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 1305000: reporter [SLV] RX_REG=0x63 (01100011), TX_REG=0x20 (00100000)
+HEREEEEEEEEEEEEEEEEEEEEEE 0 bX           2 time                 1325
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 1345000: reporter [SLV] RX_REG=0xc7 (11000111), TX_REG=0x40 (01000000)
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(50) @ 1365000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG bit type, first encounter for this ID. 
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(101) @ 1365000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(102) @ 1365000: uvm_test_top.env.scb [SCB]         0.00         0.00 3        0x00
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(70) @ 1365000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 00111011 on transaction ID:           3
+HEREEEEEEEEEEEEEEEEEEEEEE 0 bX           1 time                 1365
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 1385000: reporter [SLV] RX_REG=0x8f (10001111), TX_REG=0x80 (10000000)
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(59) @ 1386000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG bit type, not first encounter for this ID. 
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(101) @ 1386000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(102) @ 1386000: uvm_test_top.env.scb [SCB]         0.00         0.00 3        0xf8
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(63) @ 1386000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 11111000 on transaction ID:           3
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(64) @ 1386000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 00011111 on transaction ID:           3
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(108) @ 1386000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 1386000: uvm_test_top.env.scb [SCB]      1036.00      1386.00 3        0x1f
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(56) @ 1395000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 4/10 transaction to DUT: after 32 delay, drive rst_n=1, start=0, tx_data=0x1f
+HEREEEEEEEEEEEEEEEEEEEEEE 1 b9           0 time                 1405
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(73) @ 1405000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 10111001 on transaction ID:           3
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(108) @ 1405000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 1405000: uvm_test_top.env.scb [SCB]      1056.00      1405.00 3        0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(91) @ 1405000: reporter [SLV-RLD] RX_REG=0x1f (00011111), TX_REG=0x00 (00000000)
 "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: spi_tb.spi_if.ASSERT_T003: started at 745000ps failed at 1405000ps
 	Offending '$fell(busy)'
 Error: "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: spi_tb.spi_if.ASSERT_T003: at time 1405000 ps
 ASSERTError T003
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(40) @ 1415000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG entire type, not first encounter for this ID. 
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(80) @ 1415000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(86) @ 1415000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 1415000: uvm_test_top.env.scb [SCB]      1086.00      1415.00 3        0x1f    0xb9
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 1415000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 1415000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 1415000: uvm_test_top.env.scb [SCB]      1086.00      1415.00 3        0x1f    0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(51) @ 1415000: uvm_test_top.env.agt1.mon1 [MON1] ENTIRE: Observed output transaction: 0xb9 on transaction ID:           3
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(66) @ 1415000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 4/10 transaction to DUT: receiving busy = 0, proceed to next sequence
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_sanity.sv(26) @ 1425000: uvm_test_top.env.agt0.sqr@@seq [spi_seq_sanity] Sent 5/10 normal sequence: rst_n=1, start=1, tx_data=0x1c
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(46) @ 1425000: uvm_test_top.env.agt0.COMP_358 [spi_drv] Drive 5/10 transaction to DUT: rst_n=1, start=1, tx_data=0x1c
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(30) @ 1436000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG entire type, first encounter for this ID. 
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(80) @ 1436000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(86) @ 1436000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 1436000: uvm_test_top.env.scb [SCB]      1436.00         0.00 4        0x1c    0x00
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 1436000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 1436000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 1436000: uvm_test_top.env.scb [SCB]      1436.00         0.00 4        0x1c    0x00
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(46) @ 1436000: uvm_test_top.env.agt0.mon0 [MON0] ENTIRE: Observed input transaction: 
 TX | RX
 0x1c 0xxx 
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 1455000: reporter [SLV] RX_REG=0x1f (00011111), TX_REG=0xb9 (10111001)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 Xx           7 time                 1475
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 1495000: reporter [SLV] RX_REG=0x3e (00111110), TX_REG=0x72 (01110010)
+HEREEEEEEEEEEEEEEEEEEEEEE 0 Xx           6 time                 1515
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 1535000: reporter [SLV] RX_REG=0x7c (01111100), TX_REG=0xe4 (11100100)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 Xx           5 time                 1555
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(56) @ 1565000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 5/10 transaction to DUT: after 14 delay, drive rst_n=1, start=0, tx_data=0x1c
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 1575000: reporter [SLV] RX_REG=0xf8 (11111000), TX_REG=0xc8 (11001000)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 bx           4 time                 1595
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 1615000: reporter [SLV] RX_REG=0xf1 (11110001), TX_REG=0x90 (10010000)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 bX           3 time                 1635
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 1655000: reporter [SLV] RX_REG=0xe3 (11100011), TX_REG=0x20 (00100000)
+HEREEEEEEEEEEEEEEEEEEEEEE 0 bX           2 time                 1675
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 1695000: reporter [SLV] RX_REG=0xc7 (11000111), TX_REG=0x40 (01000000)
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(50) @ 1715000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG bit type, first encounter for this ID. 
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(101) @ 1715000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(102) @ 1715000: uvm_test_top.env.scb [SCB]         0.00         0.00 4        0x00
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(70) @ 1715000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 00111011 on transaction ID:           4
+HEREEEEEEEEEEEEEEEEEEEEEE 0 bX           1 time                 1715
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 1735000: reporter [SLV] RX_REG=0x8e (10001110), TX_REG=0x80 (10000000)
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(59) @ 1736000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG bit type, not first encounter for this ID. 
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(101) @ 1736000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(102) @ 1736000: uvm_test_top.env.scb [SCB]         0.00         0.00 4        0x38
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(63) @ 1736000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 00111000 on transaction ID:           4
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(64) @ 1736000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 00011100 on transaction ID:           4
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(108) @ 1736000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 1736000: uvm_test_top.env.scb [SCB]      1386.00      1736.00 4        0x1c
+HEREEEEEEEEEEEEEEEEEEEEEE 1 b9           0 time                 1755
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(73) @ 1755000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 10111001 on transaction ID:           4
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(108) @ 1755000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 1755000: uvm_test_top.env.scb [SCB]      1406.00      1755.00 4        0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(91) @ 1755000: reporter [SLV-RLD] RX_REG=0x1c (00011100), TX_REG=0x00 (00000000)
 "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: spi_tb.spi_if.ASSERT_T003: started at 1095000ps failed at 1755000ps
 	Offending '$fell(busy)'
 Error: "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: spi_tb.spi_if.ASSERT_T003: at time 1755000 ps
 ASSERTError T003
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(40) @ 1765000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG entire type, not first encounter for this ID. 
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(80) @ 1765000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(86) @ 1765000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 1765000: uvm_test_top.env.scb [SCB]      1436.00      1765.00 4        0x1c    0xb9
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 1765000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 1765000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 1765000: uvm_test_top.env.scb [SCB]      1436.00      1765.00 4        0x1c    0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(51) @ 1765000: uvm_test_top.env.agt1.mon1 [MON1] ENTIRE: Observed output transaction: 0xb9 on transaction ID:           4
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(66) @ 1765000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 5/10 transaction to DUT: receiving busy = 0, proceed to next sequence
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_sanity.sv(26) @ 1775000: uvm_test_top.env.agt0.sqr@@seq [spi_seq_sanity] Sent 6/10 normal sequence: rst_n=1, start=1, tx_data=0x18
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(46) @ 1775000: uvm_test_top.env.agt0.COMP_358 [spi_drv] Drive 6/10 transaction to DUT: rst_n=1, start=1, tx_data=0x18
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(30) @ 1786000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG entire type, first encounter for this ID. 
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(80) @ 1786000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(86) @ 1786000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 1786000: uvm_test_top.env.scb [SCB]      1786.00         0.00 5        0x18    0x00
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 1786000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 1786000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 1786000: uvm_test_top.env.scb [SCB]      1786.00         0.00 5        0x18    0x00
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(46) @ 1786000: uvm_test_top.env.agt0.mon0 [MON0] ENTIRE: Observed input transaction: 
 TX | RX
 0x18 0xxx 
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 1805000: reporter [SLV] RX_REG=0x1c (00011100), TX_REG=0xb9 (10111001)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 Xx           7 time                 1825
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 1845000: reporter [SLV] RX_REG=0x38 (00111000), TX_REG=0x72 (01110010)
+HEREEEEEEEEEEEEEEEEEEEEEE 0 Xx           6 time                 1865
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 1885000: reporter [SLV] RX_REG=0x70 (01110000), TX_REG=0xe4 (11100100)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 Xx           5 time                 1905
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 1925000: reporter [SLV] RX_REG=0xe0 (11100000), TX_REG=0xc8 (11001000)
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(56) @ 1925000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 6/10 transaction to DUT: after 15 delay, drive rst_n=1, start=0, tx_data=0x18
+HEREEEEEEEEEEEEEEEEEEEEEE 1 bx           4 time                 1945
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 1965000: reporter [SLV] RX_REG=0xc1 (11000001), TX_REG=0x90 (10010000)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 bX           3 time                 1985
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2005000: reporter [SLV] RX_REG=0x83 (10000011), TX_REG=0x20 (00100000)
+HEREEEEEEEEEEEEEEEEEEEEEE 0 bX           2 time                 2025
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2045000: reporter [SLV] RX_REG=0x06 (00000110), TX_REG=0x40 (01000000)
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(50) @ 2065000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG bit type, first encounter for this ID. 
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(101) @ 2065000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(102) @ 2065000: uvm_test_top.env.scb [SCB]         0.00         0.00 5        0x00
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(70) @ 2065000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 00111011 on transaction ID:           5
+HEREEEEEEEEEEEEEEEEEEEEEE 0 bX           1 time                 2065
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2085000: reporter [SLV] RX_REG=0x0c (00001100), TX_REG=0x80 (10000000)
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(59) @ 2086000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG bit type, not first encounter for this ID. 
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(101) @ 2086000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(102) @ 2086000: uvm_test_top.env.scb [SCB]         0.00         0.00 5        0x18
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(63) @ 2086000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 00011000 on transaction ID:           5
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(64) @ 2086000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 00011000 on transaction ID:           5
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(108) @ 2086000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 2086000: uvm_test_top.env.scb [SCB]      1736.00      2086.00 5        0x18
+HEREEEEEEEEEEEEEEEEEEEEEE 1 b9           0 time                 2105
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(73) @ 2105000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 10111001 on transaction ID:           5
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(108) @ 2105000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 2105000: uvm_test_top.env.scb [SCB]      1756.00      2105.00 5        0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(91) @ 2105000: reporter [SLV-RLD] RX_REG=0x18 (00011000), TX_REG=0x00 (00000000)
 "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: spi_tb.spi_if.ASSERT_T003: started at 1445000ps failed at 2105000ps
 	Offending '$fell(busy)'
 Error: "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: spi_tb.spi_if.ASSERT_T003: at time 2105000 ps
 ASSERTError T003
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(40) @ 2115000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG entire type, not first encounter for this ID. 
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(80) @ 2115000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(86) @ 2115000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 2115000: uvm_test_top.env.scb [SCB]      1786.00      2115.00 5        0x18    0xb9
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 2115000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 2115000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 2115000: uvm_test_top.env.scb [SCB]      1786.00      2115.00 5        0x18    0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(51) @ 2115000: uvm_test_top.env.agt1.mon1 [MON1] ENTIRE: Observed output transaction: 0xb9 on transaction ID:           5
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(66) @ 2115000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 6/10 transaction to DUT: receiving busy = 0, proceed to next sequence
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_sanity.sv(26) @ 2125000: uvm_test_top.env.agt0.sqr@@seq [spi_seq_sanity] Sent 7/10 normal sequence: rst_n=1, start=1, tx_data=0xee
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(46) @ 2125000: uvm_test_top.env.agt0.COMP_358 [spi_drv] Drive 7/10 transaction to DUT: rst_n=1, start=1, tx_data=0xee
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(30) @ 2136000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG entire type, first encounter for this ID. 
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(80) @ 2136000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(86) @ 2136000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 2136000: uvm_test_top.env.scb [SCB]      2136.00         0.00 6        0xee    0x00
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 2136000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 2136000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 2136000: uvm_test_top.env.scb [SCB]      2136.00         0.00 6        0xee    0x00
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(46) @ 2136000: uvm_test_top.env.agt0.mon0 [MON0] ENTIRE: Observed input transaction: 
 TX | RX
 0xee 0xxx 
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2155000: reporter [SLV] RX_REG=0x18 (00011000), TX_REG=0xb9 (10111001)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 Xx           7 time                 2175
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2195000: reporter [SLV] RX_REG=0x31 (00110001), TX_REG=0x72 (01110010)
+HEREEEEEEEEEEEEEEEEEEEEEE 0 Xx           6 time                 2215
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2235000: reporter [SLV] RX_REG=0x63 (01100011), TX_REG=0xe4 (11100100)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 Xx           5 time                 2255
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2275000: reporter [SLV] RX_REG=0xc7 (11000111), TX_REG=0xc8 (11001000)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 bx           4 time                 2295
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2315000: reporter [SLV] RX_REG=0x8e (10001110), TX_REG=0x90 (10010000)
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(56) @ 2325000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 7/10 transaction to DUT: after 20 delay, drive rst_n=1, start=0, tx_data=0xee
+HEREEEEEEEEEEEEEEEEEEEEEE 1 bX           3 time                 2335
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2355000: reporter [SLV] RX_REG=0x1d (00011101), TX_REG=0x20 (00100000)
+HEREEEEEEEEEEEEEEEEEEEEEE 0 bX           2 time                 2375
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2395000: reporter [SLV] RX_REG=0x3b (00111011), TX_REG=0x40 (01000000)
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(50) @ 2415000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG bit type, first encounter for this ID. 
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(101) @ 2415000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(102) @ 2415000: uvm_test_top.env.scb [SCB]         0.00         0.00 6        0x00
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(70) @ 2415000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 00111011 on transaction ID:           6
+HEREEEEEEEEEEEEEEEEEEEEEE 0 bX           1 time                 2415
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2435000: reporter [SLV] RX_REG=0x77 (01110111), TX_REG=0x80 (10000000)
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(59) @ 2436000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG bit type, not first encounter for this ID. 
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(101) @ 2436000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(102) @ 2436000: uvm_test_top.env.scb [SCB]         0.00         0.00 6        0x77
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(63) @ 2436000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 01110111 on transaction ID:           6
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(64) @ 2436000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 11101110 on transaction ID:           6
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(108) @ 2436000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 2436000: uvm_test_top.env.scb [SCB]      2086.00      2436.00 6        0xee
+HEREEEEEEEEEEEEEEEEEEEEEE 1 b9           0 time                 2455
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(73) @ 2455000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 10111001 on transaction ID:           6
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(108) @ 2455000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 2455000: uvm_test_top.env.scb [SCB]      2106.00      2455.00 6        0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(91) @ 2455000: reporter [SLV-RLD] RX_REG=0xee (11101110), TX_REG=0x00 (00000000)
 "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: spi_tb.spi_if.ASSERT_T003: started at 1795000ps failed at 2455000ps
 	Offending '$fell(busy)'
 Error: "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: spi_tb.spi_if.ASSERT_T003: at time 2455000 ps
 ASSERTError T003
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(40) @ 2465000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG entire type, not first encounter for this ID. 
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(80) @ 2465000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(86) @ 2465000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 2465000: uvm_test_top.env.scb [SCB]      2136.00      2465.00 6        0xee    0xb9
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 2465000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 2465000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 2465000: uvm_test_top.env.scb [SCB]      2136.00      2465.00 6        0xee    0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(51) @ 2465000: uvm_test_top.env.agt1.mon1 [MON1] ENTIRE: Observed output transaction: 0xb9 on transaction ID:           6
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(66) @ 2465000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 7/10 transaction to DUT: receiving busy = 0, proceed to next sequence
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_sanity.sv(26) @ 2475000: uvm_test_top.env.agt0.sqr@@seq [spi_seq_sanity] Sent 8/10 normal sequence: rst_n=1, start=1, tx_data=0x4a
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(46) @ 2475000: uvm_test_top.env.agt0.COMP_358 [spi_drv] Drive 8/10 transaction to DUT: rst_n=1, start=1, tx_data=0x4a
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(30) @ 2486000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG entire type, first encounter for this ID. 
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(80) @ 2486000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(86) @ 2486000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 2486000: uvm_test_top.env.scb [SCB]      2486.00         0.00 7        0x4a    0x00
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 2486000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 2486000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 2486000: uvm_test_top.env.scb [SCB]      2486.00         0.00 7        0x4a    0x00
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(46) @ 2486000: uvm_test_top.env.agt0.mon0 [MON0] ENTIRE: Observed input transaction: 
 TX | RX
 0x4a 0xxx 
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2505000: reporter [SLV] RX_REG=0xee (11101110), TX_REG=0xb9 (10111001)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 Xx           7 time                 2525
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2545000: reporter [SLV] RX_REG=0xdc (11011100), TX_REG=0x72 (01110010)
+HEREEEEEEEEEEEEEEEEEEEEEE 0 Xx           6 time                 2565
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2585000: reporter [SLV] RX_REG=0xb9 (10111001), TX_REG=0xe4 (11100100)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 Xx           5 time                 2605
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2625000: reporter [SLV] RX_REG=0x72 (01110010), TX_REG=0xc8 (11001000)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 bx           4 time                 2645
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2665000: reporter [SLV] RX_REG=0xe4 (11100100), TX_REG=0x90 (10010000)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 bX           3 time                 2685
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2705000: reporter [SLV] RX_REG=0xc9 (11001001), TX_REG=0x20 (00100000)
+HEREEEEEEEEEEEEEEEEEEEEEE 0 bX           2 time                 2725
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2745000: reporter [SLV] RX_REG=0x92 (10010010), TX_REG=0x40 (01000000)
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(50) @ 2765000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG bit type, first encounter for this ID. 
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(101) @ 2765000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(102) @ 2765000: uvm_test_top.env.scb [SCB]         0.00         0.00 7        0x00
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(70) @ 2765000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 00111011 on transaction ID:           7
+HEREEEEEEEEEEEEEEEEEEEEEE 0 bX           1 time                 2765
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2785000: reporter [SLV] RX_REG=0x25 (00100101), TX_REG=0x80 (10000000)
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(59) @ 2786000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG bit type, not first encounter for this ID. 
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(101) @ 2786000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(102) @ 2786000: uvm_test_top.env.scb [SCB]         0.00         0.00 7        0x52
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(63) @ 2786000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 01010010 on transaction ID:           7
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(64) @ 2786000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 01001010 on transaction ID:           7
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(108) @ 2786000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 2786000: uvm_test_top.env.scb [SCB]      2436.00      2786.00 7        0x4a
+HEREEEEEEEEEEEEEEEEEEEEEE 1 b9           0 time                 2805
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(73) @ 2805000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 10111001 on transaction ID:           7
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(108) @ 2805000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 2805000: uvm_test_top.env.scb [SCB]      2456.00      2805.00 7        0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(91) @ 2805000: reporter [SLV-RLD] RX_REG=0x4a (01001010), TX_REG=0x00 (00000000)
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(56) @ 2805000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 8/10 transaction to DUT: after 33 delay, drive rst_n=1, start=0, tx_data=0x4a
 "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: spi_tb.spi_if.ASSERT_T003: started at 2145000ps failed at 2805000ps
 	Offending '$fell(busy)'
 Error: "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: spi_tb.spi_if.ASSERT_T003: at time 2805000 ps
 ASSERTError T003
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(40) @ 2815000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG entire type, not first encounter for this ID. 
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(80) @ 2815000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(86) @ 2815000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 2815000: uvm_test_top.env.scb [SCB]      2486.00      2815.00 7        0x4a    0xb9
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 2815000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 2815000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 2815000: uvm_test_top.env.scb [SCB]      2486.00      2815.00 7        0x4a    0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(51) @ 2815000: uvm_test_top.env.agt1.mon1 [MON1] ENTIRE: Observed output transaction: 0xb9 on transaction ID:           7
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(66) @ 2815000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 8/10 transaction to DUT: receiving busy = 0, proceed to next sequence
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_sanity.sv(26) @ 2825000: uvm_test_top.env.agt0.sqr@@seq [spi_seq_sanity] Sent 9/10 normal sequence: rst_n=1, start=1, tx_data=0xfa
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(46) @ 2825000: uvm_test_top.env.agt0.COMP_358 [spi_drv] Drive 9/10 transaction to DUT: rst_n=1, start=1, tx_data=0xfa
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(30) @ 2836000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG entire type, first encounter for this ID. 
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(80) @ 2836000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(86) @ 2836000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 2836000: uvm_test_top.env.scb [SCB]      2836.00         0.00 8        0xfa    0x00
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 2836000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 2836000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 2836000: uvm_test_top.env.scb [SCB]      2836.00         0.00 8        0xfa    0x00
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(46) @ 2836000: uvm_test_top.env.agt0.mon0 [MON0] ENTIRE: Observed input transaction: 
 TX | RX
 0xfa 0xxx 
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2855000: reporter [SLV] RX_REG=0x4a (01001010), TX_REG=0xb9 (10111001)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 Xx           7 time                 2875
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2895000: reporter [SLV] RX_REG=0x95 (10010101), TX_REG=0x72 (01110010)
+HEREEEEEEEEEEEEEEEEEEEEEE 0 Xx           6 time                 2915
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2935000: reporter [SLV] RX_REG=0x2b (00101011), TX_REG=0xe4 (11100100)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 Xx           5 time                 2955
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(56) @ 2955000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 9/10 transaction to DUT: after 13 delay, drive rst_n=1, start=0, tx_data=0xfa
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 2975000: reporter [SLV] RX_REG=0x57 (01010111), TX_REG=0xc8 (11001000)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 bx           4 time                 2995
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 3015000: reporter [SLV] RX_REG=0xaf (10101111), TX_REG=0x90 (10010000)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 bX           3 time                 3035
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 3055000: reporter [SLV] RX_REG=0x5f (01011111), TX_REG=0x20 (00100000)
+HEREEEEEEEEEEEEEEEEEEEEEE 0 bX           2 time                 3075
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 3095000: reporter [SLV] RX_REG=0xbe (10111110), TX_REG=0x40 (01000000)
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(50) @ 3115000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG bit type, first encounter for this ID. 
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(101) @ 3115000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(102) @ 3115000: uvm_test_top.env.scb [SCB]         0.00         0.00 8        0x00
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(70) @ 3115000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 00111011 on transaction ID:           8
+HEREEEEEEEEEEEEEEEEEEEEEE 0 bX           1 time                 3115
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 3135000: reporter [SLV] RX_REG=0x7d (01111101), TX_REG=0x80 (10000000)
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(59) @ 3136000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG bit type, not first encounter for this ID. 
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(101) @ 3136000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(102) @ 3136000: uvm_test_top.env.scb [SCB]         0.00         0.00 8        0x5f
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(63) @ 3136000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 01011111 on transaction ID:           8
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(64) @ 3136000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 11111010 on transaction ID:           8
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(108) @ 3136000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 3136000: uvm_test_top.env.scb [SCB]      2786.00      3136.00 8        0xfa
+HEREEEEEEEEEEEEEEEEEEEEEE 1 b9           0 time                 3155
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(73) @ 3155000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 10111001 on transaction ID:           8
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(108) @ 3155000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 3155000: uvm_test_top.env.scb [SCB]      2806.00      3155.00 8        0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(91) @ 3155000: reporter [SLV-RLD] RX_REG=0xfa (11111010), TX_REG=0x00 (00000000)
 "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: spi_tb.spi_if.ASSERT_T003: started at 2495000ps failed at 3155000ps
 	Offending '$fell(busy)'
 Error: "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: spi_tb.spi_if.ASSERT_T003: at time 3155000 ps
 ASSERTError T003
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(40) @ 3165000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG entire type, not first encounter for this ID. 
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(80) @ 3165000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(86) @ 3165000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 3165000: uvm_test_top.env.scb [SCB]      2836.00      3165.00 8        0xfa    0xb9
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 3165000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 3165000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 3165000: uvm_test_top.env.scb [SCB]      2836.00      3165.00 8        0xfa    0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(51) @ 3165000: uvm_test_top.env.agt1.mon1 [MON1] ENTIRE: Observed output transaction: 0xb9 on transaction ID:           8
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(66) @ 3165000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 9/10 transaction to DUT: receiving busy = 0, proceed to next sequence
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_sanity.sv(26) @ 3175000: uvm_test_top.env.agt0.sqr@@seq [spi_seq_sanity] Sent 10/10 normal sequence: rst_n=1, start=1, tx_data=0xe0
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(46) @ 3175000: uvm_test_top.env.agt0.COMP_358 [spi_drv] Drive 10/10 transaction to DUT: rst_n=1, start=1, tx_data=0xe0
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(30) @ 3186000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG entire type, first encounter for this ID. 
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(80) @ 3186000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(86) @ 3186000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 3186000: uvm_test_top.env.scb [SCB]      3186.00         0.00 9        0xe0    0x00
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 3186000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 3186000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 3186000: uvm_test_top.env.scb [SCB]      3186.00         0.00 9        0xe0    0x00
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(46) @ 3186000: uvm_test_top.env.agt0.mon0 [MON0] ENTIRE: Observed input transaction: 
 TX | RX
 0xe0 0xxx 
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 3205000: reporter [SLV] RX_REG=0xfa (11111010), TX_REG=0xb9 (10111001)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 Xx           7 time                 3225
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 3245000: reporter [SLV] RX_REG=0xf5 (11110101), TX_REG=0x72 (01110010)
+HEREEEEEEEEEEEEEEEEEEEEEE 0 Xx           6 time                 3265
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(56) @ 3265000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 10/10 transaction to DUT: after 9 delay, drive rst_n=1, start=0, tx_data=0xe0
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 3285000: reporter [SLV] RX_REG=0xeb (11101011), TX_REG=0xe4 (11100100)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 Xx           5 time                 3305
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 3325000: reporter [SLV] RX_REG=0xd7 (11010111), TX_REG=0xc8 (11001000)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 bx           4 time                 3345
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 3365000: reporter [SLV] RX_REG=0xae (10101110), TX_REG=0x90 (10010000)
+HEREEEEEEEEEEEEEEEEEEEEEE 1 bX           3 time                 3385
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 3405000: reporter [SLV] RX_REG=0x5c (01011100), TX_REG=0x20 (00100000)
+HEREEEEEEEEEEEEEEEEEEEEEE 0 bX           2 time                 3425
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 3445000: reporter [SLV] RX_REG=0xb8 (10111000), TX_REG=0x40 (01000000)
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(50) @ 3465000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG bit type, first encounter for this ID. 
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(101) @ 3465000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(102) @ 3465000: uvm_test_top.env.scb [SCB]         0.00         0.00 9        0x00
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(70) @ 3465000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 00111011 on transaction ID:           9
+HEREEEEEEEEEEEEEEEEEEEEEE 0 bX           1 time                 3465
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(102) @ 3485000: reporter [SLV] RX_REG=0x70 (01110000), TX_REG=0x80 (10000000)
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(59) @ 3486000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG bit type, not first encounter for this ID. 
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(101) @ 3486000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(102) @ 3486000: uvm_test_top.env.scb [SCB]         0.00         0.00 9        0x07
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(63) @ 3486000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 00000111 on transaction ID:           9
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(64) @ 3486000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 11100000 on transaction ID:           9
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(108) @ 3486000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 3486000: uvm_test_top.env.scb [SCB]      3136.00      3486.00 9        0xe0
+HEREEEEEEEEEEEEEEEEEEEEEE 1 b9           0 time                 3505
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(73) @ 3505000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 10111001 on transaction ID:           9
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(108) @ 3505000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 3505000: uvm_test_top.env.scb [SCB]      3156.00      3505.00 9        0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(91) @ 3505000: reporter [SLV-RLD] RX_REG=0xe0 (11100000), TX_REG=0x00 (00000000)
 "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: spi_tb.spi_if.ASSERT_T003: started at 2845000ps failed at 3505000ps
 	Offending '$fell(busy)'
 Error: "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: spi_tb.spi_if.ASSERT_T003: at time 3505000 ps
 ASSERTError T003
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(40) @ 3515000: uvm_test_top.env.scb [spi_scb] DEBUGGGGGGGGGGGGG entire type, not first encounter for this ID. 
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(80) @ 3515000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(86) @ 3515000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 3515000: uvm_test_top.env.scb [SCB]      3186.00      3515.00 9        0xe0    0xb9
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 3515000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 3515000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
+UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 3515000: uvm_test_top.env.scb [SCB]      3186.00      3515.00 9        0xe0    0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(51) @ 3515000: uvm_test_top.env.agt1.mon1 [MON1] ENTIRE: Observed output transaction: 0xb9 on transaction ID:           9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(66) @ 3515000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 10/10 transaction to DUT: receiving busy = 0, proceed to next sequence
 "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: spi_tb.spi_if.ASSERT_T003: started at 3195000ps failed at 3855000ps
@@ -408,7 +448,7 @@ UVM_INFO /home/synopsys/vcs/W-2024.09-SP2/etc/uvm-ieee-2020-2.0/base/uvm_report_
 --- UVM Report Summary ---
 
 ** Report counts by severity
-UVM_INFO :  305
+UVM_INFO :  265
 UVM_WARNING :    0
 UVM_ERROR :   20
 UVM_FATAL :    0
@@ -422,7 +462,6 @@ UVM_FATAL :    0
 [SLV-RLD]    10
 [TEST]     1
 [spi_drv]    30
-[spi_scb]    40
 [spi_seq_sanity]    10
 
 $finish called from file "/home/synopsys/vcs/W-2024.09-SP2/etc/uvm-ieee-2020-2.0/base/uvm_root.svh", line 599.
@@ -460,5 +499,5 @@ VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitor
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 4175000 ps
-CPU Time:      0.360 seconds;       Data structure size:   0.7Mb
-Wed Aug 13 12:29:12 2025
+CPU Time:      0.350 seconds;       Data structure size:   0.7Mb
+Wed Aug 13 14:29:54 2025
