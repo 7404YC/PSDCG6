@@ -74,7 +74,7 @@ class spi_scb extends uvm_scoreboard;
     log_fd   = $fopen("scoreboard_log.txt", "a");
     if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
     // T015: Check TX and RX value match
-    if (t.tx_data === rx_data) begin 
+    if (t.tx_data === t.rx_data) begin 
       `uvm_info("SCB", $sformatf("T015 satisfied"), UVM_LOW);
     end else begin 
       `uvm_error("SCB", $sformatf("T015 violated"));
