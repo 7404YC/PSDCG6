@@ -29,7 +29,7 @@ class spi_mon0 extends uvm_monitor;
         spi_tran item;
         forever begin
           // Trigger on vif.start
-          @(posedge vif.mon_cb.start)
+          @(posedge vif.mon_cb.start iff !vif.mon_cb.busy)
           #1;
           // create item 
           item = spi_tran::type_id::create("in_item_t1");

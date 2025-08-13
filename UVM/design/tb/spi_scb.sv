@@ -47,7 +47,7 @@ class spi_scb extends uvm_scoreboard;
         ENTIRE_tran.tran_time_end = 0;
         ENTIRE_tran.rx_data = 8'b0;
         // print_entire(ENTIRE_tran);
-      end else if  (idx.size() > 0) begin // not first time
+      end else if  (idx.size() > 0) begin // not first time     
         ENTIRE_tran.tran_time_end = tr.tran_time_end;
         ENTIRE_tran.rx_data = tr.rx_data;
         encountered_ENTIRE.delete(idx[0]);
