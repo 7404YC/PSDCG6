@@ -67,7 +67,6 @@
             repeat(8) begin 
               @(negedge vif.sclk) // TODO: using the mon_cb here is really ticking me off
               item.MS_data[7 - ((curr_index++) % 8)] = vif.miso;
-              $display("HEREEEEEEEEEEEEEEEEEEEEEE %b %h %d time %p", vif.miso, item.MS_data, 7 - ((curr_index-1) % 8), $time);
             end 
             item.tran_time_end = $time; 
             `uvm_info("MON1", $sformatf("BIT: Observed miso details: %8b on transaction ID: %d", item.MS_data, item.tran_id), UVM_LOW);
