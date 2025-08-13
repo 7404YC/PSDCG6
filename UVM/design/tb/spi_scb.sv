@@ -27,6 +27,7 @@ class spi_scb extends uvm_scoreboard;
     if (tr.mt == ENTIRE) begin 
       int idx[$] = encountered_ENTIRE.find_index() with (item == tr.tran_id); 
       if (!idx.size()) begin  // first time encounter
+        `uvm_info(get_type_name(), "DEBUGGGGGGGGGGGGG entire type, first encounter for this ID. ", UVM_LOW);
         encountered_ENTIRE.push_back(tr.tran_id);
         ENTIRE_tran.tran_time_start = tr.tran_time_start;
         ENTIRE_tran.mt = tr.mt;
@@ -36,6 +37,7 @@ class spi_scb extends uvm_scoreboard;
         ENTIRE_tran.rx_data = 8'b0;
         print_entire(ENTIRE_tran);
       end else if  (idx.size() > 0) begin // not first time
+        `uvm_info(get_type_name(), "DEBUGGGGGGGGGGGGG entire type, not first encounter for this ID. ", UVM_LOW);
         ENTIRE_tran.tran_time_end = tr.tran_time_end;
         ENTIRE_tran.rx_data = tr.rx_data;
         encountered_ENTIRE.delete(idx[0]);
@@ -45,6 +47,7 @@ class spi_scb extends uvm_scoreboard;
     else if (tr.mt == BIT) begin 
       int idx[$] = encountered_BIT.find_index() with (item == tr.tran_id);
       if (!idx.size()) begin  // first time encounter
+        `uvm_info(get_type_name(), "DEBUGGGGGGGGGGGGG bit type, first encounter for this ID. ", UVM_LOW);
         encountered_BIT.push_back(tr.tran_id);
         BIT_tran.tran_time_start = tr.tran_time_start;
         BIT_tran.mt = tr.mt;
@@ -53,6 +56,7 @@ class spi_scb extends uvm_scoreboard;
         BIT_tran.MS_data = 8'b0;
         print_bit(BIT_tran, 0);
       end else if  (idx.size() > 0) begin // not first time
+        `uvm_info(get_type_name(), "DEBUGGGGGGGGGGGGG bit type, not first encounter for this ID. ", UVM_LOW);
         BIT_tran.tran_time_end = tr.tran_time_end;
         BIT_tran.MS_data = tr.MS_data;
         encountered_BIT.delete(idx[0]);
