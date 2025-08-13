@@ -13,6 +13,7 @@ module spi_tb;
     `include "spi_tran.sv"
     `include "spi_seq.sv"       // Sequence class
     `include "spi_seq_sanity.sv"       // Sequence class
+    `include "spi_seq_b2b.sv"       // Sequence class
     `include "spi_sqr.sv"       // Sequencer class
     `include "spi_drv.sv"       // Driver class
     `include "spi_mon0.sv"       // Monitor class
@@ -24,6 +25,7 @@ module spi_tb;
     `include "spi_env.sv"       // Env class
     `include "spi_test.sv"      // Test class
     `include "spi_test_sanity.sv"      // Test class
+    `include "spi_test_b2b.sv"      // Test class
 
     spi_if spi_if();
 
@@ -112,6 +114,7 @@ module spi_tb;
         uvm_config_db#(virtual spi_if.mon_mp)::set(null, "*mon*", "vif", spi_if);
         uvm_config_db#(virtual spi_if)::set(null, "*", "vif", spi_if);
         run_test("spi_test_sanity");
+        //run_test("spi_test_b2b");
     end
 
     // Simulation timeout 

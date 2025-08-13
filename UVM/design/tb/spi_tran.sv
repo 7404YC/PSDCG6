@@ -18,6 +18,7 @@ class spi_tran extends uvm_sequence_item;
     int seq_count;
     int seq_index;
 	string seq_type;
+	int b2b_interval_delay;
 
     int tran_count;
     int tran_index;

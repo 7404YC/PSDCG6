@@ -70,6 +70,8 @@ class spi_drv extends uvm_driver #(spi_tran);
 				end
 			join
 
+			repeat (tr.b2b_interval_delay) @ (vif.drv_cb);
+
 		end
 	endtask
 endclass

@@ -1,8 +1,8 @@
-class spi_seq_sanity extends spi_seq;
+class spi_seq_b2b extends spi_seq;
 
-	`uvm_object_utils(spi_seq_sanity)
+	`uvm_object_utils(spi_seq_b2b)
 
-	function new (string name="spi_seq_sanity");
+	function new (string name="spi_seq_b2b");
 		super.new(name);
 	endfunction
 
