@@ -1,0 +1,9 @@
+{"vcs1":{"timestamp_begin":1755067634.017914115, "rt":17.62, "ut":17.64, "st":0.61}}
+{"vcselab":{"timestamp_begin":1755067651.716418906, "rt":0.24, "ut":0.17, "st":0.06}}
+{"link":{"timestamp_begin":1755067652.011080735, "rt":0.95, "ut":0.70, "st":0.27}}
+{"SNPS_VCS_INTERNAL_ROOT_START_TIME": 1755067633.263056652}
+{"VCS_COMP_START_TIME": 1755067633.263056652}
+{"VCS_COMP_END_TIME": 1755067653.090173516}
+{"VCS_USER_OPTIONS": "-full64 -l spi_comp.log -sverilog +v2k +vcs+lic+wait +vcs+flush+all -debug_access+all -kdb -debug_report -top spi_tb -o spi_simv -ntb_opts uvm-ieee-2020-2.0 +define+UVM_OBJECT_MUST_HAVE_CONSTRUCTOR -file /home/user06/Downloads/PSDCG6/UVM/design/rtl/spi.f -timescale=1ns/1ps -cm line+tgl+cond+fsm+branch+assert -assert enable_diag"}
+{"vcs1": {"peak_mem": 569200}}
+{"vcselab": {"peak_mem": 178904}}

@@ -1,7 +1,7 @@
 Command: /home/user06/Downloads/PSDCG6/UVM/sim/./spi_simv -l spi_sim.log +UVM_NO_RELNOTES -cm line+tgl+cond+fsm+branch+assert -assert summary
 Chronologic VCS simulator copyright 1991-2024
 Contains Synopsys proprietary information.
-Compiler version W-2024.09-SP2_Full64; Runtime version W-2024.09-SP2_Full64;  Aug 13 14:40 2025
+Compiler version W-2024.09-SP2_Full64; Runtime version W-2024.09-SP2_Full64;  Aug 13 14:47 2025
 >>>>>>>> SIM TIME START: 0
 UVM_INFO @ 0: reporter [RNTST] Running test spi_test_sanity...
 *Verdi* Loading libsscore_vcs202409.so
@@ -23,9 +23,6 @@ Error: "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 77:
 ASSERTError T023
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_sanity.sv(27) @ 25000: uvm_test_top.env.agt0.sqr@@seq [spi_seq_sanity] Sent 1/10 normal sequence after delay 4: rst_n=1, start=1, tx_data=0x50
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(46) @ 25000: uvm_test_top.env.agt0.COMP_358 [spi_drv] Drive 1/10 transaction to DUT: rst_n=1, start=1, tx_data=0x50
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 36000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 36000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 36000: uvm_test_top.env.scb [SCB]        36.00         0.00 0        0x50    0x00
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(46) @ 36000: uvm_test_top.env.agt0.mon0 [MON0] ENTIRE: Observed input transaction: 
 TX | RX
 0x50 0xxx 
@@ -47,7 +44,6 @@ HEREEEEEEEEEEEEEEEEEEEEEE 0 bX           1 time                  315
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(104) @ 335000: reporter [SLV] RX_REG=0x28 (00101000), TX_REG=0x80 (10000000)
 HEREEEEEEEEEEEEEEEEEEEEEE 1 b9           0 time                  355
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(73) @ 355000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 10111001 on transaction ID:           0
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 355000: uvm_test_top.env.scb [SCB] T015 violated
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(115) @ 355000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(116) @ 355000: uvm_test_top.env.scb [SCB]         1.00       355.00 0        0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(93) @ 355000: reporter [SLV-RLD] RX_REG=0x50 (01010000), TX_REG=0x00 (00000000)
@@ -57,14 +53,11 @@ UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 365000: uv
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(51) @ 365000: uvm_test_top.env.agt1.mon1 [MON1] ENTIRE: Observed output transaction: 0xb9 on transaction ID:           0
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(66) @ 365000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 1/10 transaction to DUT: receiving busy = 0, proceed to next sequence
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(67) @ 366000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 01010000 on transaction ID:           0
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 366000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 366000: uvm_test_top.env.scb [SCB] T024 violated
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(115) @ 366000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(116) @ 366000: uvm_test_top.env.scb [SCB]         0.00       366.00 0        0x50
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_sanity.sv(27) @ 415000: uvm_test_top.env.agt0.sqr@@seq [spi_seq_sanity] Sent 2/10 normal sequence after delay 4: rst_n=1, start=1, tx_data=0x92
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(46) @ 415000: uvm_test_top.env.agt0.COMP_358 [spi_drv] Drive 2/10 transaction to DUT: rst_n=1, start=1, tx_data=0x92
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 426000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 426000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 426000: uvm_test_top.env.scb [SCB]       426.00         0.00 1        0x92    0x00
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(46) @ 426000: uvm_test_top.env.agt0.mon0 [MON0] ENTIRE: Observed input transaction: 
 TX | RX
 0x92 0xxx 
@@ -90,7 +83,6 @@ ASSERTError T003
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(104) @ 725000: reporter [SLV] RX_REG=0x49 (01001001), TX_REG=0x80 (10000000)
 HEREEEEEEEEEEEEEEEEEEEEEE 1 b9           0 time                  745
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(73) @ 745000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 10111001 on transaction ID:           1
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 745000: uvm_test_top.env.scb [SCB] T015 violated
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(115) @ 745000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(116) @ 745000: uvm_test_top.env.scb [SCB]       356.00       745.00 1        0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(93) @ 745000: reporter [SLV-RLD] RX_REG=0x92 (10010010), TX_REG=0x00 (00000000)
@@ -100,14 +92,11 @@ UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 755000: uv
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(51) @ 755000: uvm_test_top.env.agt1.mon1 [MON1] ENTIRE: Observed output transaction: 0xb9 on transaction ID:           1
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(66) @ 755000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 2/10 transaction to DUT: receiving busy = 0, proceed to next sequence
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(67) @ 756000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 10010010 on transaction ID:           1
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 756000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 756000: uvm_test_top.env.scb [SCB] T024 violated
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(115) @ 756000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(116) @ 756000: uvm_test_top.env.scb [SCB]       366.00       756.00 1        0x92
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_sanity.sv(27) @ 805000: uvm_test_top.env.agt0.sqr@@seq [spi_seq_sanity] Sent 3/10 normal sequence after delay 4: rst_n=1, start=1, tx_data=0x4b
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(46) @ 805000: uvm_test_top.env.agt0.COMP_358 [spi_drv] Drive 3/10 transaction to DUT: rst_n=1, start=1, tx_data=0x4b
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 816000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 816000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 816000: uvm_test_top.env.scb [SCB]       816.00         0.00 2        0x4b    0x00
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(46) @ 816000: uvm_test_top.env.agt0.mon0 [MON0] ENTIRE: Observed input transaction: 
 TX | RX
 0x4b 0xxx 
@@ -132,7 +121,6 @@ ASSERTError T003
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(104) @ 1115000: reporter [SLV] RX_REG=0x25 (00100101), TX_REG=0x80 (10000000)
 HEREEEEEEEEEEEEEEEEEEEEEE 1 b9           0 time                 1135
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(73) @ 1135000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 10111001 on transaction ID:           2
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 1135000: uvm_test_top.env.scb [SCB] T015 violated
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(115) @ 1135000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(116) @ 1135000: uvm_test_top.env.scb [SCB]       746.00      1135.00 2        0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(93) @ 1135000: reporter [SLV-RLD] RX_REG=0x4b (01001011), TX_REG=0x00 (00000000)
@@ -143,14 +131,11 @@ UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 1145000: u
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(51) @ 1145000: uvm_test_top.env.agt1.mon1 [MON1] ENTIRE: Observed output transaction: 0xb9 on transaction ID:           2
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(66) @ 1145000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 3/10 transaction to DUT: receiving busy = 0, proceed to next sequence
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(67) @ 1146000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 01001011 on transaction ID:           2
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 1146000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 1146000: uvm_test_top.env.scb [SCB] T024 violated
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(115) @ 1146000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(116) @ 1146000: uvm_test_top.env.scb [SCB]       756.00      1146.00 2        0x4b
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_sanity.sv(27) @ 1195000: uvm_test_top.env.agt0.sqr@@seq [spi_seq_sanity] Sent 4/10 normal sequence after delay 3: rst_n=1, start=1, tx_data=0x1f
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(46) @ 1195000: uvm_test_top.env.agt0.COMP_358 [spi_drv] Drive 4/10 transaction to DUT: rst_n=1, start=1, tx_data=0x1f
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 1206000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 1206000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 1206000: uvm_test_top.env.scb [SCB]      1206.00         0.00 3        0x1f    0x00
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(46) @ 1206000: uvm_test_top.env.agt0.mon0 [MON0] ENTIRE: Observed input transaction: 
 TX | RX
 0x1f 0xxx 
@@ -176,7 +161,6 @@ UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(104) @ 1505000: r
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(56) @ 1515000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 4/10 transaction to DUT: after 32 delay, drive rst_n=1, start=0, tx_data=0x1f
 HEREEEEEEEEEEEEEEEEEEEEEE 1 b9           0 time                 1525
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(73) @ 1525000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 10111001 on transaction ID:           3
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 1525000: uvm_test_top.env.scb [SCB] T015 violated
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(115) @ 1525000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(116) @ 1525000: uvm_test_top.env.scb [SCB]      1136.00      1525.00 3        0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(93) @ 1525000: reporter [SLV-RLD] RX_REG=0x1f (00011111), TX_REG=0x00 (00000000)
@@ -186,14 +170,11 @@ UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 1535000: u
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(51) @ 1535000: uvm_test_top.env.agt1.mon1 [MON1] ENTIRE: Observed output transaction: 0xb9 on transaction ID:           3
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(66) @ 1535000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 4/10 transaction to DUT: receiving busy = 0, proceed to next sequence
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(67) @ 1536000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 00011111 on transaction ID:           3
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 1536000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 1536000: uvm_test_top.env.scb [SCB] T024 violated
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(115) @ 1536000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(116) @ 1536000: uvm_test_top.env.scb [SCB]      1146.00      1536.00 3        0x1f
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_sanity.sv(27) @ 1575000: uvm_test_top.env.agt0.sqr@@seq [spi_seq_sanity] Sent 5/10 normal sequence after delay 2: rst_n=1, start=1, tx_data=0x1c
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(46) @ 1575000: uvm_test_top.env.agt0.COMP_358 [spi_drv] Drive 5/10 transaction to DUT: rst_n=1, start=1, tx_data=0x1c
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 1586000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 1586000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 1586000: uvm_test_top.env.scb [SCB]      1586.00         0.00 4        0x1c    0x00
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(46) @ 1586000: uvm_test_top.env.agt0.mon0 [MON0] ENTIRE: Observed input transaction: 
 TX | RX
 0x1c 0xxx 
@@ -219,7 +200,6 @@ ASSERTError T003
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(104) @ 1885000: reporter [SLV] RX_REG=0x8e (10001110), TX_REG=0x80 (10000000)
 HEREEEEEEEEEEEEEEEEEEEEEE 1 b9           0 time                 1905
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(73) @ 1905000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 10111001 on transaction ID:           4
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 1905000: uvm_test_top.env.scb [SCB] T015 violated
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(115) @ 1905000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(116) @ 1905000: uvm_test_top.env.scb [SCB]      1526.00      1905.00 4        0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(93) @ 1905000: reporter [SLV-RLD] RX_REG=0x1c (00011100), TX_REG=0x00 (00000000)
@@ -229,14 +209,11 @@ UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 1915000: u
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(51) @ 1915000: uvm_test_top.env.agt1.mon1 [MON1] ENTIRE: Observed output transaction: 0xb9 on transaction ID:           4
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(66) @ 1915000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 5/10 transaction to DUT: receiving busy = 0, proceed to next sequence
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(67) @ 1916000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 00011100 on transaction ID:           4
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 1916000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 1916000: uvm_test_top.env.scb [SCB] T024 violated
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(115) @ 1916000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(116) @ 1916000: uvm_test_top.env.scb [SCB]      1536.00      1916.00 4        0x1c
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_sanity.sv(27) @ 1945000: uvm_test_top.env.agt0.sqr@@seq [spi_seq_sanity] Sent 6/10 normal sequence after delay 3: rst_n=1, start=1, tx_data=0x18
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(46) @ 1945000: uvm_test_top.env.agt0.COMP_358 [spi_drv] Drive 6/10 transaction to DUT: rst_n=1, start=1, tx_data=0x18
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 1956000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 1956000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 1956000: uvm_test_top.env.scb [SCB]      1956.00         0.00 5        0x18    0x00
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(46) @ 1956000: uvm_test_top.env.agt0.mon0 [MON0] ENTIRE: Observed input transaction: 
 TX | RX
 0x18 0xxx 
@@ -262,7 +239,6 @@ Error: "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: 
 ASSERTError T003
 HEREEEEEEEEEEEEEEEEEEEEEE 1 b9           0 time                 2275
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(73) @ 2275000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 10111001 on transaction ID:           5
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 2275000: uvm_test_top.env.scb [SCB] T015 violated
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(115) @ 2275000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(116) @ 2275000: uvm_test_top.env.scb [SCB]      1906.00      2275.00 5        0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(93) @ 2275000: reporter [SLV-RLD] RX_REG=0x18 (00011000), TX_REG=0x00 (00000000)
@@ -272,14 +248,11 @@ UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 2285000: u
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(51) @ 2285000: uvm_test_top.env.agt1.mon1 [MON1] ENTIRE: Observed output transaction: 0xb9 on transaction ID:           5
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(66) @ 2285000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 6/10 transaction to DUT: receiving busy = 0, proceed to next sequence
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(67) @ 2286000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 00011000 on transaction ID:           5
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 2286000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 2286000: uvm_test_top.env.scb [SCB] T024 violated
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(115) @ 2286000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(116) @ 2286000: uvm_test_top.env.scb [SCB]      1916.00      2286.00 5        0x18
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_sanity.sv(27) @ 2325000: uvm_test_top.env.agt0.sqr@@seq [spi_seq_sanity] Sent 7/10 normal sequence after delay 2: rst_n=1, start=1, tx_data=0xee
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(46) @ 2325000: uvm_test_top.env.agt0.COMP_358 [spi_drv] Drive 7/10 transaction to DUT: rst_n=1, start=1, tx_data=0xee
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 2336000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 2336000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 2336000: uvm_test_top.env.scb [SCB]      2336.00         0.00 6        0xee    0x00
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(46) @ 2336000: uvm_test_top.env.agt0.mon0 [MON0] ENTIRE: Observed input transaction: 
 TX | RX
 0xee 0xxx 
@@ -305,7 +278,6 @@ ASSERTError T003
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(104) @ 2635000: reporter [SLV] RX_REG=0x77 (01110111), TX_REG=0x80 (10000000)
 HEREEEEEEEEEEEEEEEEEEEEEE 1 b9           0 time                 2655
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(73) @ 2655000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 10111001 on transaction ID:           6
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 2655000: uvm_test_top.env.scb [SCB] T015 violated
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(115) @ 2655000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(116) @ 2655000: uvm_test_top.env.scb [SCB]      2276.00      2655.00 6        0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(93) @ 2655000: reporter [SLV-RLD] RX_REG=0xee (11101110), TX_REG=0x00 (00000000)
@@ -315,14 +287,11 @@ UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 2665000: u
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(51) @ 2665000: uvm_test_top.env.agt1.mon1 [MON1] ENTIRE: Observed output transaction: 0xb9 on transaction ID:           6
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(66) @ 2665000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 7/10 transaction to DUT: receiving busy = 0, proceed to next sequence
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(67) @ 2666000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 11101110 on transaction ID:           6
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 2666000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 2666000: uvm_test_top.env.scb [SCB] T024 violated
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(115) @ 2666000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(116) @ 2666000: uvm_test_top.env.scb [SCB]      2286.00      2666.00 6        0xee
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_sanity.sv(27) @ 2695000: uvm_test_top.env.agt0.sqr@@seq [spi_seq_sanity] Sent 8/10 normal sequence after delay 2: rst_n=1, start=1, tx_data=0x4a
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(46) @ 2695000: uvm_test_top.env.agt0.COMP_358 [spi_drv] Drive 8/10 transaction to DUT: rst_n=1, start=1, tx_data=0x4a
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 2706000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 2706000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 2706000: uvm_test_top.env.scb [SCB]      2706.00         0.00 7        0x4a    0x00
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(46) @ 2706000: uvm_test_top.env.agt0.mon0 [MON0] ENTIRE: Observed input transaction: 
 TX | RX
 0x4a 0xxx 
@@ -347,7 +316,6 @@ Error: "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: 
 ASSERTError T003
 HEREEEEEEEEEEEEEEEEEEEEEE 1 b9           0 time                 3025
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(73) @ 3025000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 10111001 on transaction ID:           7
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 3025000: uvm_test_top.env.scb [SCB] T015 violated
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(115) @ 3025000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(116) @ 3025000: uvm_test_top.env.scb [SCB]      2656.00      3025.00 7        0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(93) @ 3025000: reporter [SLV-RLD] RX_REG=0x4a (01001010), TX_REG=0x00 (00000000)
@@ -358,14 +326,11 @@ UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 3035000: u
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(51) @ 3035000: uvm_test_top.env.agt1.mon1 [MON1] ENTIRE: Observed output transaction: 0xb9 on transaction ID:           7
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(66) @ 3035000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 8/10 transaction to DUT: receiving busy = 0, proceed to next sequence
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(67) @ 3036000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 01001010 on transaction ID:           7
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 3036000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 3036000: uvm_test_top.env.scb [SCB] T024 violated
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(115) @ 3036000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(116) @ 3036000: uvm_test_top.env.scb [SCB]      2666.00      3036.00 7        0x4a
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_sanity.sv(27) @ 3065000: uvm_test_top.env.agt0.sqr@@seq [spi_seq_sanity] Sent 9/10 normal sequence after delay 5: rst_n=1, start=1, tx_data=0xfa
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(46) @ 3065000: uvm_test_top.env.agt0.COMP_358 [spi_drv] Drive 9/10 transaction to DUT: rst_n=1, start=1, tx_data=0xfa
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 3076000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 3076000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 3076000: uvm_test_top.env.scb [SCB]      3076.00         0.00 8        0xfa    0x00
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(46) @ 3076000: uvm_test_top.env.agt0.mon0 [MON0] ENTIRE: Observed input transaction: 
 TX | RX
 0xfa 0xxx 
@@ -391,7 +356,6 @@ Error: "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: 
 ASSERTError T003
 HEREEEEEEEEEEEEEEEEEEEEEE 1 b9           0 time                 3395
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(73) @ 3395000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 10111001 on transaction ID:           8
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 3395000: uvm_test_top.env.scb [SCB] T015 violated
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(115) @ 3395000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(116) @ 3395000: uvm_test_top.env.scb [SCB]      3026.00      3395.00 8        0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(93) @ 3395000: reporter [SLV-RLD] RX_REG=0xfa (11111010), TX_REG=0x00 (00000000)
@@ -401,14 +365,11 @@ UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 3405000: u
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(51) @ 3405000: uvm_test_top.env.agt1.mon1 [MON1] ENTIRE: Observed output transaction: 0xb9 on transaction ID:           8
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(66) @ 3405000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 9/10 transaction to DUT: receiving busy = 0, proceed to next sequence
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(67) @ 3406000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 11111010 on transaction ID:           8
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 3406000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 3406000: uvm_test_top.env.scb [SCB] T024 violated
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(115) @ 3406000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(116) @ 3406000: uvm_test_top.env.scb [SCB]      3036.00      3406.00 8        0xfa
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_seq_sanity.sv(27) @ 3465000: uvm_test_top.env.agt0.sqr@@seq [spi_seq_sanity] Sent 10/10 normal sequence after delay 5: rst_n=1, start=1, tx_data=0xe0
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(46) @ 3465000: uvm_test_top.env.agt0.COMP_358 [spi_drv] Drive 10/10 transaction to DUT: rst_n=1, start=1, tx_data=0xe0
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(87) @ 3476000: uvm_test_top.env.scb [SCB] T015 violated
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(93) @ 3476000: uvm_test_top.env.scb [SCB] start time   end time     ID       TX       RX      
-UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 3476000: uvm_test_top.env.scb [SCB]      3476.00         0.00 9        0xe0    0x00
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(46) @ 3476000: uvm_test_top.env.agt0.mon0 [MON0] ENTIRE: Observed input transaction: 
 TX | RX
 0xe0 0xxx 
@@ -434,7 +395,6 @@ HEREEEEEEEEEEEEEEEEEEEEEE 0 bX           1 time                 3755
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(104) @ 3775000: reporter [SLV] RX_REG=0x70 (01110000), TX_REG=0x80 (10000000)
 HEREEEEEEEEEEEEEEEEEEEEEE 1 b9           0 time                 3795
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(73) @ 3795000: uvm_test_top.env.agt1.mon1 [MON1] BIT: Observed miso details: 10111001 on transaction ID:           9
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 3795000: uvm_test_top.env.scb [SCB] T015 violated
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(115) @ 3795000: uvm_test_top.env.scb [SCB] start time   end time     ID       miso    
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(116) @ 3795000: uvm_test_top.env.scb [SCB]      3396.00      3795.00 9        0xb9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_tb.sv(93) @ 3795000: reporter [SLV-RLD] RX_REG=0xe0 (11100000), TX_REG=0x00 (00000000)
@@ -444,7 +404,7 @@ UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(94) @ 3805000: u
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv(51) @ 3805000: uvm_test_top.env.agt1.mon1 [MON1] ENTIRE: Observed output transaction: 0xb9 on transaction ID:           9
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_drv.sv(66) @ 3805000: uvm_test_top.env.agt0.COMP_358 [spi_drv] For 10/10 transaction to DUT: receiving busy = 0, proceed to next sequence
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon0.sv(67) @ 3806000: uvm_test_top.env.agt0.mon0 [MON0] BIT: Observed mosi details: 11100000 on transaction ID:           9
-UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 3806000: uvm_test_top.env.scb [SCB] T015 violated
+UVM_ERROR /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(109) @ 3806000: uvm_test_top.env.scb [SCB] T024 violated
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(115) @ 3806000: uvm_test_top.env.scb [SCB] start time   end time     ID       mosi    
 UVM_INFO /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv(116) @ 3806000: uvm_test_top.env.scb [SCB]      3406.00      3806.00 9        0xe0
 "/home/user06/Downloads/PSDCG6/UVM/design/tb/include/spi_ass_xy.svh", 9: spi_tb.spi_if.ASSERT_T003: started at 3485000ps failed at 4145000ps
@@ -468,16 +428,16 @@ UVM_INFO /home/synopsys/vcs/W-2024.09-SP2/etc/uvm-ieee-2020-2.0/base/uvm_report_
 --- UVM Report Summary ---
 
 ** Report counts by severity
-UVM_INFO :  265
+UVM_INFO :  245
 UVM_WARNING :    0
-UVM_ERROR :   40
+UVM_ERROR :   20
 UVM_FATAL :    0
 ** Report counts by id
 [COVERAGE]    13
 [MON0]    20
 [MON1]    20
 [RNTST]     1
-[SCB]   120
+[SCB]    80
 [SLV]    80
 [SLV-RLD]    10
 [TEST]     1
@@ -520,5 +480,5 @@ VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitor
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 4465000 ps
-CPU Time:      0.350 seconds;       Data structure size:   0.7Mb
-Wed Aug 13 14:40:27 2025
+CPU Time:      0.360 seconds;       Data structure size:   0.7Mb
+Wed Aug 13 14:47:33 2025

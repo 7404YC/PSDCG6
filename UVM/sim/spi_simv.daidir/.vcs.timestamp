@@ -865,7 +865,7 @@
 -assert
 -cm
 -debug_access+all
--debug_report=.debug_acc_report.2044375
+-debug_report=.debug_acc_report.2059628
 -fsdb
 -full64
 -gen_obj
@@ -1039,7 +1039,7 @@ ASSERT=1
 1755058705 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_test.sv
 1755059332 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_env.sv
 1755059332 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_cov.sv
-1755067197 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv
+1755067620 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_scb.sv
 1754977364 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_agt1.sv
 1754977364 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_agt0.sv
 1755066706 /home/user06/Downloads/PSDCG6/UVM/design/tb/spi_mon1.sv
@@ -1250,5 +1250,5 @@ ASSERT=1
 1740889567 /home/synopsys/vcs/W-2024.09-SP2/linux64/lib/liberrorinf.so
 1740889560 /home/synopsys/vcs/W-2024.09-SP2/linux64/lib/libsnpsmalloc.so
 1740889556 /home/synopsys/vcs/W-2024.09-SP2/linux64/lib/libvfs.so
-1755067227 spi_simv.daidir
+1755067653 spi_simv.daidir
 -1 partitionlib

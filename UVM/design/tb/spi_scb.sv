@@ -46,7 +46,7 @@ class spi_scb extends uvm_scoreboard;
         ENTIRE_tran.tran_id = tr.tran_id; 
         ENTIRE_tran.tran_time_end = 0;
         ENTIRE_tran.rx_data = 8'b0;
-        print_entire(ENTIRE_tran);
+        // print_entire(ENTIRE_tran);
       end else if  (idx.size() > 0) begin // not first time
         ENTIRE_tran.tran_time_end = tr.tran_time_end;
         ENTIRE_tran.rx_data = tr.rx_data;
@@ -93,7 +93,7 @@ class spi_scb extends uvm_scoreboard;
     `uvm_info("SCB", hdr, UVM_NONE);
     `uvm_info("SCB", line, UVM_NONE);
     $fdisplay(log_fd, hdr);
-    $fdisplay(log_fd, line); 
+    $fdisplay(log_fd, line);        
     $fclose(log_fd); 
   endfunction
 
@@ -104,9 +104,9 @@ class spi_scb extends uvm_scoreboard;
     if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
     // T024: Check mosi/miso value match
     if ((mosimiso == 0) && (t.tx_data === t.MS_data)) begin 
-      `uvm_info("SCB", $sformatf("T015 satisfied"), UVM_LOW);
-    end else begin 
-      `uvm_error("SCB", $sformatf("T015 violated"));
+      `uvm_info("SCB", $sformatf("T024 satisfied"), UVM_LOW);
+    end else if (mosimiso == 0) begin 
+      `uvm_error("SCB", $sformatf("T024 violated"));
     end
     $sformat(hdr,  "%-12s %-12s %-8s %-8s",
                     "start time", "end time", "ID", (mosimiso) ? "miso" : "mosi");
