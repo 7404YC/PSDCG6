@@ -68,10 +68,17 @@ class spi_scb extends uvm_scoreboard;
     end 
   endfunction
 
+  // T015: Check entire transaction correctness by reporting uvm_error 
   function void print_entire(spi_tran t);
     string hdr, line;
     log_fd   = $fopen("scoreboard_log.txt", "a");
     if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
+    // T015: Check TX and RX value match
+    if (t.tx_data === rx_data) begin 
+      `uvm_info("SCB", $sformatf("T015 satisfied"), UVM_LOW);
+    end else begin 
+      `uvm_error("SCB", $sformatf("T015 violated"), UVM_LOW);
+    end
     $sformat(hdr,  "%-12s %-12s %-8s %-8s %-8s",
                     "start time", "end time", "ID", "TX", "RX");
     $sformat(line, "%-12.2f %-12.2f %-8d 0x%02h    0x%02h",
