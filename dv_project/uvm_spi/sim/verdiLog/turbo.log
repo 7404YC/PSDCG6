@@ -1,0 +1,2 @@
+Command Line: /home/synopsys/verdi/W-2024.09-SP2/platform/LINUXAMD64/bin/Novas -ssf spi_sim.fsdb.bak
+uname(Linux psdc-eda02.psdc.org.my 4.18.0-553.60.1.el8_10.x86_64 #1 SMP Thu Jul 10 04:01:16 EDT 2025 x86_64)
