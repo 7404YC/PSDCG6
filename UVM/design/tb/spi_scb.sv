@@ -59,7 +59,7 @@ class spi_scb extends uvm_scoreboard;
 
   function void print_entire(spi_tran t);
     string hdr, line;
-    log_fd   = $fopen("scoreboard_log.txt", "w");
+    log_fd   = $fopen("scoreboard_log.txt", "a");
     if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
     $sformat(hdr,  "%-12s %-12s %-8s %-8s %-8s",
                     "start time", "end time", "ID", "TX", "RX");
@@ -74,7 +74,7 @@ class spi_scb extends uvm_scoreboard;
 
   function void print_bit(spi_tran t, int mosimiso = 0);
     string hdr, line;
-    log_fd   = $fopen("scoreboard_log.txt", "w");
+    log_fd   = $fopen("scoreboard_log.txt", "a");
     if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
     $sformat(hdr,  "%-12s %-12s %-8s %-8s",
                     "start time", "end time", "ID", (mosimiso) ? "miso" : "mosi");
