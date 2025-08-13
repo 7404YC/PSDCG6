@@ -46,11 +46,12 @@ class spi_mon0 extends uvm_monitor;
       end
       begin // MOSI collection 
         spi_tran item; 
+        int curr_index; 
         forever begin 
           item = spi_tran::type_id::create("in_item_t2");
           item.tran_id = mon0_tran_id;
           item.mt = BIT; 
-          int curr_index = 0;
+          curr_index = 0;
           repeat(8) begin 
             @(posedge vif.mon_cb.sclk) // TODO: using the mon_cb here is really ticking me off
             item.MS_data[(curr_index++) % 8] = vif.mon_cb.mosi;
