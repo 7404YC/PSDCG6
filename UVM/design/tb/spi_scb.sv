@@ -18,6 +18,8 @@ class spi_scb extends uvm_scoreboard;
     super.new(name, parent);
     scb_imp0 = new ("scb_imp0", this);
     scb_imp1 = new ("scb_imp1", this);
+    ENTIRE_tran = spi_tran::type_id::create("entire");
+    BIT_tran = spi_tran::type_id::create("bit");
   endfunction
 
   function void write(spi_tran tr);
