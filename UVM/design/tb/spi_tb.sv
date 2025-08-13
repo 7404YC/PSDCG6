@@ -20,7 +20,7 @@ module spi_tb;
     `include "spi_agt0.sv"       // Agent0 class
     `include "spi_agt1.sv"       // Agent1 class
     `include "spi_scb.sv"       // Scoreboard class
-    //`include "spi_cov.sv"		// Coverage class
+    `include "spi_cov.sv"		// Coverage class
     `include "spi_env.sv"       // Env class
     `include "spi_test.sv"      // Test class
     `include "spi_test_sanity.sv"      // Test class
