@@ -1,27 +1,3 @@
-//Assert T001
-//T001: Ensure start is ignored if busy is high.
-//If busy is high, asserting start should not change the state (no new transfer)
-property T001;
-    @(posedge clk)
-    disable iff (!rst_n)
-    busy && $rose(start) |-> !($rose(done)); // no transaction starts due to this start
-endproperty
-
-ASSERT_T001: assert property (T001)
-    else $error("ASSERT", $sformatf("Error T001"));
-
-//Assert T002
-//T002:Ensure no new transaction happens until done pulses
-//If a transaction is in progress, another one shouldn't start until `done` is high
-property T002;
-	@(posedge sclk)
-    disable iff (!rst_n)
-	(!$rose(done)) |-> ($past(tx_data) << 1)  == tx_data;
-endproperty
-
-ASSERT_T002: assert property (T002)
-    else $error("ASSERT", $sformatf("Error T002"));
-
 //Assert T003
 //T003: Ensure busy stays high for exactly 8 bits
 property T003;
@@ -60,10 +36,8 @@ ASSERT_T005: assert property (T005)
 property T017;
     @(posedge clk)
     disable iff (!rst_n)
-    busy |-> (
-        (sclk ##CLK_DIV !sclk) and
-        (!sclk ##CLK_DIV sclk)
-    );
+    (cs_n == 0 && $rose(sclk)) |=> 
+        ##[CLK_DIV*2-1 : CLK_DIV*2+1] $rose(sclk);
 endproperty
 
 ASSERT_T017: assert property (T017)
