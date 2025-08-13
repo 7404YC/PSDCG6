@@ -77,7 +77,7 @@ class spi_scb extends uvm_scoreboard;
     if (t.tx_data === rx_data) begin 
       `uvm_info("SCB", $sformatf("T015 satisfied"), UVM_LOW);
     end else begin 
-      `uvm_error("SCB", $sformatf("T015 violated"), UVM_LOW);
+      `uvm_error("SCB", $sformatf("T015 violated"));
     end
     $sformat(hdr,  "%-12s %-12s %-8s %-8s %-8s",
                     "start time", "end time", "ID", "TX", "RX");
