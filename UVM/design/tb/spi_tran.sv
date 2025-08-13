@@ -13,6 +13,7 @@ class spi_tran extends uvm_sequence_item;
     logic       done;
     logic       mosi;
     logic       cs_n;
+    logic       sclk;
 
 
     int seq_count;

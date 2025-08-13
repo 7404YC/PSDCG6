@@ -10,6 +10,7 @@ class spi_scb extends uvm_scoreboard;
   spi_tran BIT_tran;
   // Control array
   int encountered_ENTIRE[$];
+  int encountered_BIT[$];
   // file ops
   int log_fd; 
 
@@ -23,9 +24,6 @@ class spi_scb extends uvm_scoreboard;
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    if (!uvm_config_db # (bit)::get(this, "", "scb_abort", scoreboard_abort)) begin
-			`uvm_error("MON0", "Aborter variable not found in config db")
-		end
     log_fd   = $fopen("scoreboard_log_entire.txt", "w");
     if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
     $fdisplay(log_fd, "Scoreboard for ENTIRE transaction, generated: %p", $time);
@@ -36,15 +34,8 @@ class spi_scb extends uvm_scoreboard;
     $fclose(log_fd); 
   endfunction
 
-  task run_phase (uvm_phase phase);
-    forever begin 
-      wait (scoreboard_abort == 1); 
-      encountered_ENTIRE.pop_back();
-      scoreboard_abort = 1'b0;
-    end
-  endtask
-
   function void write(spi_tran tr);
+      check_T021(tr);
     // will need to handle based on mt and tran_id
     if (tr.mt == ENTIRE) begin 
       int idx[$] = encountered_ENTIRE.find_index() with (item == tr.tran_id); 
@@ -57,7 +48,7 @@ class spi_scb extends uvm_scoreboard;
         ENTIRE_tran.tran_time_end = 0;
         ENTIRE_tran.rx_data = 8'b0;
         // print_entire(ENTIRE_tran);
-      end else if  (idx.size() > 0) begin // not first time     
+      end else if  (idx.size() > 0) begin // not first time
         ENTIRE_tran.tran_time_end = tr.tran_time_end;
         ENTIRE_tran.rx_data = tr.rx_data;
         encountered_ENTIRE.delete(idx[0]);
@@ -135,6 +126,21 @@ class spi_scb extends uvm_scoreboard;
     $fdisplay(log_fd, hdr);
     $fdisplay(log_fd, line);
     $fclose(log_fd);
+  endfunction
+
+  function void check_T021(spi_tran tr);
+  // If reset is asserted (reset == 0), check that SPI signals immediately go to idle
+    if (tr.rst_n === 0) begin
+      if ((tr.busy !== 0) || (tr.cs_n !== 1) || (tr.sclk !== 0) || (tr.mosi !== 0)) begin
+        `uvm_error("SCB", $sformatf("T021 violated during reset: busy=%0b, cs_n=%0b, sclk=%0b, mosi=%0b",
+                                    tr.busy, tr.cs_n, tr.sclk, tr.mosi));
+      end else begin
+        `uvm_info("SCB", $sformatf("T021 satisfied during reset: busy=%0b, cs_n=%0b, sclk=%0b, mosi=%0b",
+                                  tr.busy, tr.cs_n, tr.sclk, tr.mosi), UVM_LOW);
+      end
+    end else begin
+       `uvm_info("SCB", "T021 not applicable: reset is not asserted, no check performed.", UVM_LOW);
+    end
   endfunction
 
   function void report_phase (uvm_phase phase);
