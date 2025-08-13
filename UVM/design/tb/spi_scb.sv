@@ -32,6 +32,9 @@ class spi_scb extends uvm_scoreboard;
         ENTIRE_tran.mt = tr.mt;
         ENTIRE_tran.tx_data = tr.tx_data;
         ENTIRE_tran.tran_id = tr.tran_id; 
+        ENTIRE_tran.tran_time_end = 0;
+        ENTIRE_tran.rx_data = 8'b0;
+        print_entire(ENTIRE_tran);
       end else if  (idx.size() > 0) begin // not first time
         ENTIRE_tran.tran_time_end = tr.tran_time_end;
         ENTIRE_tran.rx_data = tr.rx_data;
@@ -46,6 +49,8 @@ class spi_scb extends uvm_scoreboard;
         BIT_tran.tran_time_start = tr.tran_time_start;
         BIT_tran.mt = tr.mt;
         BIT_tran.tran_id = tr.tran_id; 
+        BIT_tran.tran_time_end = 0;
+        BIT_tran.MS_data = 8'b0;
         print_bit(BIT_tran, 0);
       end else if  (idx.size() > 0) begin // not first time
         BIT_tran.tran_time_end = tr.tran_time_end;
