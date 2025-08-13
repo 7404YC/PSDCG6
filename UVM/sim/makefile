@@ -37,3 +37,15 @@ b2b_test_reset:
 	make run_dv; \
 	sed -i '$$ s/$$/ +RST_RANDOM_EN +B2B_TEST/' qrun; \
 	qrun
+
+sanity_test_reset_during_trans:
+	export NR=1; \
+	make run_dv; \
+	sed -i '$$ s/$$/ +SANITY_TEST_RESET_DURING_TRANS/' qrun; \
+	qrun
+
+b2b_test_reset_during_trans:
+	export NR=1; \
+	make run_dv; \
+	sed -i '$$ s/$$/ +B2B_TEST_RESET_DURING_TRANS/' qrun; \
+	qrun
