@@ -3,7 +3,8 @@ class spi_mon0 extends uvm_monitor;
   uvm_analysis_port#(spi_tran) mon0_ap;
   virtual spi_if.mon_mp vif;
 
-  int mon0_tran_id = 0; 
+  int mon0_tran_id_entire = 0; 
+  int mon0_tran_id_bit = 0; 
 
   function new(string name, uvm_component parent);
     super.new(name, parent);
@@ -32,7 +33,7 @@ class spi_mon0 extends uvm_monitor;
           // create item 
           item = spi_tran::type_id::create("in_item_t1");
           // assign value
-          item.tran_id = mon0_tran_id++;
+          item.tran_id = mon0_tran_id_entire++;
           item.mt = ENTIRE;
           item.tran_time_start = $time; 
           item.rst_n =		vif.rst_n;
@@ -41,7 +42,7 @@ class spi_mon0 extends uvm_monitor;
           // write to analysis port for scb
           mon0_ap.write(item);
           // uvm_info
-          `uvm_info("MON0", $sformatf("ENTIRE: Observed input transaction: \nTX | RX\n0x%2h 0x%2h", item.tx_data, item.rx_data), UVM_LOW);
+          `uvm_info("MON0", $sformatf("ENTIRE: Observed input transaction: \nTX | RX\n0x%2h 0x%2h ", item.tx_data, item.rx_data), UVM_LOW);
         end
       end
       begin // MOSI collection 
@@ -49,7 +50,7 @@ class spi_mon0 extends uvm_monitor;
         int curr_index; 
         forever begin 
           item = spi_tran::type_id::create("in_item_t2");
-          item.tran_id = mon0_tran_id;
+          item.tran_id = mon0_tran_id_bit++;
           item.mt = BIT; 
           curr_index = 0;
           repeat(8) begin 

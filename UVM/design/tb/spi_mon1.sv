@@ -6,7 +6,8 @@ class spi_mon1 extends uvm_monitor;
     uvm_event spi_done_event;
 
     logic [7:0] slave_tx_data; 
-    int mon1_tran_id = 0; 
+    int mon1_tran_id_entire = 0; 
+    int mon1_tran_id_bit = 0; 
 
     function new(string name, uvm_component parent);
         super.new(name, parent);
@@ -41,7 +42,7 @@ class spi_mon1 extends uvm_monitor;
             @(vif.mon_cb);
             if (prev_done == 0 && vif.mon_cb.done == 1) begin
                 tx = spi_tran::type_id::create("tx",this);
-                tx.tran_id = mon1_tran_id++;
+                tx.tran_id = mon1_tran_id_entire++;
                 tx.mt = ENTIRE;
                 tx.tran_time_end = $time; 
                 tx.rx_data = vif.mon_cb.rx_data;
@@ -58,7 +59,7 @@ class spi_mon1 extends uvm_monitor;
           int curr_index;
           forever begin 
             item = spi_tran::type_id::create("in_item_t2");
-            item.tran_id = mon1_tran_id;
+            item.tran_id = mon1_tran_id_bit++;
             item.mt = BIT;
             curr_index = 0;
             repeat(8) begin 

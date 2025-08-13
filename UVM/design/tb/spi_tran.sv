@@ -7,12 +7,12 @@ class spi_tran extends uvm_sequence_item;
     rand    logic [7:0] tx_data;
 
     // transaction output 
-            logic       miso;
-            logic [7:0] rx_data;
-            logic       busy;
-            logic       done;
-            logic       mosi;
-            logic       cs_n;
+    logic       miso;
+    logic [7:0] rx_data;
+    logic       busy;
+    logic       done;
+    logic       mosi;
+    logic       cs_n;
 
 
     int seq_count;
