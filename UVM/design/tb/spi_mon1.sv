@@ -1,19 +1,19 @@
-  class spi_mon1 extends uvm_monitor;
-    `uvm_component_utils(spi_mon1)
+class spi_mon1 extends uvm_monitor;
+  `uvm_component_utils(spi_mon1)
 
-    virtual spi_if.mon_mp vif;
-    uvm_analysis_port #(spi_tran) mon1_ap;
-    uvm_event spi_done_event;
+  virtual spi_if.mon_mp vif;
+  uvm_analysis_port #(spi_tran) mon1_ap;
+  uvm_event spi_done_event;
 
-    logic [7:0] slave_tx_data; 
-    int mon1_tran_id_entire = 0; 
-    int mon1_tran_id_bit = 0; 
+  logic [7:0] slave_tx_data; 
+  int mon1_tran_id_entire = 0; 
+  int mon1_tran_id_bit = 0;
 
-    function new(string name, uvm_component parent);
-        super.new(name, parent);
-        mon1_ap = new("mon1_ap", this);
-		spi_done_event = new();
-    endfunction
+  function new(string name, uvm_component parent);
+      super.new(name, parent);
+      mon1_ap = new("mon1_ap", this);
+  spi_done_event = new();
+  endfunction
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
@@ -23,7 +23,11 @@
     if(!uvm_config_db#(logic [7:0])::get(this, "", "slave_tx_data", slave_tx_data)) begin 
       `uvm_error("MON1", "Expected slave response not found in config db.")
     end 
-	uvm_config_db#(uvm_event)::set(this, "*", "spi_done_event", spi_done_event);
+    if (!uvm_config_db # (bit)::get(this, "", "mon1_abort", monitor1_abort)) begin
+			`uvm_error("MON0", "Aborter variable not found in config db")
+		end
+	  uvm_config_db#(uvm_event)::set(this, "*", "spi_done_event", spi_done_event);
+
   endfunction
 
 
@@ -67,6 +71,10 @@
             repeat(8) begin 
               @(negedge vif.sclk) // TODO: using the mon_cb here is really ticking me off
               item.MS_data[7 - ((curr_index++) % 8)] = vif.miso;
+              if (monitor1_abort) begin 
+                monitor1_abort = 0;
+                break;
+              end 
             end 
             item.tran_time_end = $time; 
             `uvm_info("MON1", $sformatf("BIT: Observed miso details: %8b on transaction ID: %d", item.MS_data, item.tran_id), UVM_LOW);
@@ -74,7 +82,12 @@
           end 
         end
       end
+      begin 
+        forever begin 
+          @(negedge vif.rst_n)
+          monitor1_abort = 1'b1;
+        end
+      end
     join
   endtask
-
 endclass

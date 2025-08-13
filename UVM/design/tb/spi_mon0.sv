@@ -16,6 +16,12 @@ class spi_mon0 extends uvm_monitor;
     if(!uvm_config_db#(virtual spi_if.mon_mp)::get(this, "", "vif", vif)) begin
       `uvm_error("MON0", "Virtual interspice not found in config db")
     end
+    if (!uvm_config_db # (bit)::get(this, "", "mon0_abort", monitor0_abort)) begin
+			`uvm_error("MON0", "Aborter variable not found in config db")
+		end
+    if (!uvm_config_db # (bit)::get(this, "", "scb_abort", scoreboard_abort)) begin
+			`uvm_error("MON0", "Aborter variable not found in config db")
+		end
   endfunction
 
   /*
@@ -66,6 +72,10 @@ class spi_mon0 extends uvm_monitor;
             @(posedge vif.sclk) //  TODO: using the mon_cb here is really ticking me off
             #1;
             item.MS_data[7- ((curr_index++) % 8)] = vif.mosi;
+            if (monitor0_abort) begin 
+              monitor0_abort = 0;
+              break;
+            end 
           end 
           @(posedge vif.mon_cb.done) // Part of T024
           #1; 
@@ -74,6 +84,13 @@ class spi_mon0 extends uvm_monitor;
           `uvm_info("MON0", $sformatf("BIT: Observed mosi details: %8b on transaction ID: %d %h %h", item.MS_data, item.tran_id, item.tx_data, item.tx_data_t024), UVM_LOW);
           mon0_ap.write(item);
         end 
+      end
+      begin 
+        forever begin 
+          @(negedge vif.rst_n)
+          monitor0_abort = 1'b1;
+          scoreboard_abort = 1'b1;
+        end
       end
     join
   endtask

@@ -71,10 +71,18 @@ module spi_tb;
     logic [7:0] slave_rx_data;
     logic [7:0] slave_tx_data;
 
+    // For aborting driver and scoreboard
+    bit monitor0_abort = 0;
+    bit monitor1_abort = 0;
+    bit scoreboard_abort = 0;
+
     // uvm config db 
     initial begin 
         uvm_config_db#(logic [7:0])::set(null, "*", "slave_rx_data", slave_rx_data);
 		uvm_config_db#(logic [7:0])::set(null, "*", "slave_tx_data", slave_tx_data);
+        uvm_config_db#(bit)::set(null, "*", "mon0_abort", monitor0_abort);
+        uvm_config_db#(bit)::set(null, "*", "mon1_abort", monitor1_abort);
+        uvm_config_db#(bit)::set(null, "*", "scb_abort", scoreboard_abort);
     end
 
 	logic [31:0] int_counter = 1;

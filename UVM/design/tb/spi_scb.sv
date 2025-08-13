@@ -10,7 +10,6 @@ class spi_scb extends uvm_scoreboard;
   spi_tran BIT_tran;
   // Control array
   int encountered_ENTIRE[$];
-  int encountered_BIT[$];
   // file ops
   int log_fd; 
 
@@ -24,6 +23,9 @@ class spi_scb extends uvm_scoreboard;
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
+    if (!uvm_config_db # (bit)::get(this, "", "scb_abort", scoreboard_abort)) begin
+			`uvm_error("MON0", "Aborter variable not found in config db")
+		end
     log_fd   = $fopen("scoreboard_log_entire.txt", "w");
     if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
     $fdisplay(log_fd, "Scoreboard for ENTIRE transaction, generated: %p", $time);
@@ -33,6 +35,14 @@ class spi_scb extends uvm_scoreboard;
     $fdisplay(log_fd, "Scoreboard for BIT transaction, generated: %p", $time);
     $fclose(log_fd); 
   endfunction
+
+  task run_phase (uvm_phase phase);
+    forever begin 
+      wait (scoreboard_abort == 1); 
+      encountered_ENTIRE.pop_back();
+      scoreboard_abort = 1'b0;
+    end
+  endtask
 
   function void write(spi_tran tr);
     // will need to handle based on mt and tran_id
