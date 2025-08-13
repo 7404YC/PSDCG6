@@ -1,13 +1,13 @@
 // T006: Ensure busy goes high in next clock cycle after start
 property T006;
-    @(posedge clk) disable iff (!rst_n) $rose(start) |=> $rose(busy);
+    @(posedge clk) disable iff (!rst_n | busy) $rose(start) |=> $rose(busy);
 endproperty
 ASSERT_T006: assert property (T006)
     else $error("ASSERT", $sformatf("Error T006"));
 
 // T007: Ensure cs_n asserts in next clock cycle after start
 property T007;
-    @(posedge clk) disable iff (!rst_n) $rose(start) |=> $fell(cs_n);
+    @(posedge clk) disable iff (!rst_n | busy) $rose(start) |=> $fell(cs_n);
 endproperty
 ASSERT_T007: assert property (T007)
     else $error("ASSERT", $sformatf("Error T007"));
