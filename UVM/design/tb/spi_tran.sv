@@ -2,7 +2,7 @@
 typedef enum {ENTIRE, BIT} mon_type;
 class spi_tran extends uvm_sequence_item;
     // transaction input 
-    randc   logic       rst_n;
+    logic       rst_n;
     rand    logic       start;
     rand    logic [7:0] tx_data;
 

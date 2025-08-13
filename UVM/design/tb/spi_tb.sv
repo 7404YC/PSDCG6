@@ -12,6 +12,7 @@ module spi_tb;
     // Include all required files
     `include "spi_tran.sv"
     `include "spi_seq.sv"       // Sequence class
+    `include "spi_seq_sanity.sv"       // Sequence class
     `include "spi_sqr.sv"       // Sequencer class
     `include "spi_drv.sv"       // Driver class
     `include "spi_mon0.sv"       // Monitor class
@@ -22,22 +23,23 @@ module spi_tb;
     //`include "spi_cov.sv"		// Coverage class
     `include "spi_env.sv"       // Env class
     `include "spi_test.sv"      // Test class
+    `include "spi_test_sanity.sv"      // Test class
 
     spi_if spi_if();
 
 	integer ctt;
 
-    // Clock driving 
+    // Initialization 
     initial begin
         spi_if.clk = 0;
-        forever #5 spi_if.clk = ~spi_if.clk;
+		spi_if.rst_n = 0;
+		spi_if.start = 0;
+		spi_if.tx_data = '0;
     end
 
-	// Reset driving
-	initial begin
-		spi_if.rst_n = 0;
-		#3;
-		spi_if.rst_n = 1;
+	// Clock driving
+	always begin
+        #5 spi_if.clk <= ~spi_if.clk;
 	end
 
     // Instantiate the DUT
@@ -60,7 +62,7 @@ module spi_tb;
 	assign spi_if.state = dut.state;
 
     // Constants
-    bit [7:0] SLAVE_RESET_RESPONSE;
+    bit [7:0] SLAVE_RESET_RESPONSE = 'hB9;
     int slave_reset_response = SLAVE_RESET_RESPONSE;
 
     // Simple SPI slave model for testing
@@ -109,20 +111,20 @@ module spi_tb;
         uvm_config_db#(virtual spi_if.drv_mp)::set(null, "*drv*", "vif", spi_if);
         uvm_config_db#(virtual spi_if.mon_mp)::set(null, "*mon*", "vif", spi_if);
         uvm_config_db#(virtual spi_if)::set(null, "*", "vif", spi_if);
-        run_test("spi_test");
+        run_test("spi_test_sanity");
     end
 
     // Simulation timeout 
-    initial begin 
-		ctt = 0;
-        if($value$plusargs("CUSTOM_TEST_TIMEOUT=%0d", ctt)) begin
-            #ctt;
-            $finish;
-        end else begin 
-            #5000; // TODO: adjust arbitrary value to suitable
-            $finish;
-        end
-    end 
+    //initial begin 
+	//	ctt = 0;
+    //    if($value$plusargs("CUSTOM_TEST_TIMEOUT=%0d", ctt)) begin
+    //        #ctt;
+    //        $finish;
+    //    end else begin 
+    //        #5000; // TODO: adjust arbitrary value to suitable
+    //        $finish;
+    //    end
+    //end 
 
     // Waveform generation 
     initial begin
