@@ -1,4 +1,6 @@
-export NR=1
+export NR ?= 1
+export GEN_QRUN ?= 1
+
 dv: clean run_dv 
 
 clean:
@@ -11,68 +13,87 @@ clean:
 	\rm -frd seed* sysBusyP* vc_hdrs.h
 	\rm -frd bus_cov ${MODULE}_simv.vdb cm.log .fsm.sch.verilog.xml
 	\rm -frd qrun sysProgressP.conf sysProgressPLog vdCov.conf vdCovLog
+	\rm -frd *.vdb builddir* 
 
 run_dv:
-	${ROOT}/sim/run_sim.csh dv ${MODULE}
+	@if [ ! -f qrun ]; then \
+		${ROOT}/sim/run_sim.csh dv ${MODULE}; \
+	fi
 
 sanity_test: 
-	mkdir -p builddir_sanity_test; \
-	make run_dv; \
-	sed -i '$$ s/$$/ +SANITY_TEST/'  qrun; \
-	cp qrun builddir_sanity_test; \
-        cd builddir_sanity_test && qrun
+	mkdir -p builddir/$@
+ifeq ($(GEN_QRUN), 1)
+	make run_dv
+endif
+	cp qrun builddir/$@
+	sed -i '$$ s/$$/ +SANITY_TEST/' builddir/$@/qrun
+	cd builddir/$@ && qrun
 
 sanity_test_reset:
-	mkdir -p builddir_sanity_test_reset; \
-	make run_dv; \
-	sed -i '$$ s/$$/ +RST_RANDOM_EN +SANITY_TEST/' qrun; \
-	cp qrun builddir_sanity_test_reset; \
-	cd builddir_sanity_test_reset && qrun
+	mkdir -p builddir/$@
+ifeq ($(GEN_QRUN), 1)
+	make run_dv
+endif
+	cp qrun builddir/$@
+	sed -i '$$ s/$$/ +RST_RANDOM_EN +SANITY_TEST/' builddir/$@/qrun
+	cd builddir/$@ && qrun
 	
 b2b_test:
-	mkdir -p builddir_b2b_reset; \
-	make run_dv; \
-	sed -i '$$ s/$$/ +B2B_TEST/' qrun; \
-	cp qrun builddir_b2b_reset; \
-	cd builddir_b2b_reset && qrun
+	mkdir -p builddir/$@
+ifeq ($(GEN_QRUN), 1)
+	make run_dv
+endif
+	cp qrun builddir/$@
+	sed -i '$$ s/$$/ +B2B_TEST/' builddir/$@/qrun
+	cd builddir/$@ && qrun
 	
 b2b_test_reset:
-	mkdir -p builddir_b2b_test_reset; \
-	make run_dv; \
-	sed -i '$$ s/$$/ +RST_RANDOM_EN +B2B_TEST/' qrun; \
-	cp qrun builddir_b2b_test_reset; \
-	cd builddir_b2b_test_reset && qrun
+	mkdir -p builddir/$@
+ifeq ($(GEN_QRUN), 1)
+	make run_dv
+endif
+	cp qrun builddir/$@
+	sed -i '$$ s/$$/ +RST_RANDOM_EN +B2B_TEST/' builddir/$@/qrun
+	cd builddir/$@ && qrun
 
 sanity_test_reset_during_trans:
-	mkdir -p builddir_sanity_test_reset_during_trans; \
-	make run_dv; \
-	sed -i '$$ s/$$/ +SANITY_TEST_RESET_DURING_TRANS/' qrun; \
-	cp qrun builddir_sanity_test_reset_during_trans; \
-	cd builddir_sanity_test_reset_during_trans && qrun
+	mkdir -p builddir/$@
+ifeq ($(GEN_QRUN), 1)
+	make run_dv
+endif
+	cp qrun builddir/$@
+	sed -i '$$ s/$$/ +SANITY_TEST_RESET_DURING_TRANS/' builddir/$@/qrun
+	cd builddir/$@ && qrun
 
 b2b_test_reset_during_trans:
-	mkdir -p builddir_b2b_test_reset_during_trans; \
-	make run_dv; \
-	sed -i '$$ s/$$/ +B2B_TEST_RESET_DURING_TRANS/' qrun; \
-	cp qrun builddir_b2b_test_reset_during_trans; \
-	cd builddir_b2b_test_reset_during_trans && qrun
+	mkdir -p builddir/$@
+ifeq ($(GEN_QRUN), 1)
+	make run_dv
+endif
+	cp qrun builddir/$@
+	sed -i '$$ s/$$/ +B2B_TEST_RESET_DURING_TRANS/' builddir/$@/qrun
+	cd builddir/$@ && qrun
 
 cov:
 	verdi -cov -covdir spi_simv.vdb
 
 merge:
-	urg -full64 -metric line+tgl+cond+fsm+assert+branch+group -warn none -dbname merge_coverage_name.vdb -dir ./builddir_*/spi_simv.vdb/
+	urg -full64 -metric line+tgl+cond+fsm+assert+branch+group -warn none -dbname merge_coverage_name.vdb -dir ./builddir/*/spi_simv.vdb/
 
 cov_merged:
 	verdi -cov -covdir merge_coverage_name.vdb
 
 all:
-	make clean; \
-	make sanity_test; \
-	make sanity_test_reset; \
-	make b2b_test; \
-	make b2b_test_reset; \
-	make sanity_test_reset_during_trans; \
-	make b2b_test_reset_during_trans; \
+	make clean
+	make dv
+	export GEN_QRUN=0; \
+	make -j \
+		sanity_test \
+		sanity_test_reset \
+		sanity_test_reset_during_trans \
+		b2b_test \
+		b2b_test_reset \
+		b2b_test_reset_during_trans
 	make merge
+
 
