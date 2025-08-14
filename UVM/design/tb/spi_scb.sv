@@ -8,6 +8,12 @@ class spi_scb extends uvm_scoreboard;
   // Data structure to hold item across monitor reports
   spi_tran ENTIRE_tran; 
   spi_tran BIT_tran;
+  spi_tran OL0HA0_if;
+  spi_tran OL0HA1_L_if;
+  spi_tran OL0HA1_T_if;
+  spi_tran OL1HA0_if;
+  spi_tran OL1HA1_L_if;
+  spi_tran OL1HA1_T_if;
   // Control array
   int encountered_ENTIRE[$];
   int encountered_BIT[$];
@@ -20,6 +26,12 @@ class spi_scb extends uvm_scoreboard;
     scb_imp1 = new ("scb_imp1", this);
     ENTIRE_tran = spi_tran::type_id::create("entire");
     BIT_tran = spi_tran::type_id::create("bit");
+    OL0HA0_if = spi_tran::type_id::create("OL0HA0_if");
+    OL0HA1_L_if = spi_tran::type_id::create("OL0HA1_L_if");
+    OL0HA1_T_if = spi_tran::type_id::create("OL0HA1_T_if");
+    OL1HA0_if = spi_tran::type_id::create("OL1HA0_if");
+    OL1HA1_L_if = spi_tran::type_id::create("OL1HA1_L_if");
+    OL1HA1_T_if = spi_tran::type_id::create("OL1HA1_T_if");
 	if (!uvm_config_db#(logic [7:0])::get(this, "", "slave_reset_resp", slave_reset_response))
       `uvm_fatal("SCB", "Unable to obtain slave reset resp");
   endfunction
@@ -33,6 +45,30 @@ class spi_scb extends uvm_scoreboard;
     log_fd   = $fopen("scoreboard_log_bit.txt", "w");
     if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
     $fdisplay(log_fd, "Scoreboard for BIT transaction");
+    $fclose(log_fd); 
+    log_fd   = $fopen("scoreboard_log_OL0HA0.txt", "w");
+    if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
+    $fdisplay(log_fd, "Scoreboard for OL0HA0 transaction");
+    $fclose(log_fd); 
+    log_fd   = $fopen("scoreboard_log_OL0HA1_L.txt", "w");
+    if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
+    $fdisplay(log_fd, "Scoreboard for OL0HA1_L transaction");
+    $fclose(log_fd); 
+    log_fd   = $fopen("scoreboard_log_OL0HA1_T.txt", "w");
+    if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
+    $fdisplay(log_fd, "Scoreboard for OL0HA1_T transaction");
+    $fclose(log_fd); 
+    log_fd   = $fopen("scoreboard_log_OL1HA0.txt", "w");
+    if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
+    $fdisplay(log_fd, "Scoreboard for OL1HA0 transaction");
+    $fclose(log_fd); 
+    log_fd   = $fopen("scoreboard_log_OL1HA1_L.txt", "w");
+    if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
+    $fdisplay(log_fd, "Scoreboard for OL1HA1_L transaction");
+    $fclose(log_fd); 
+    log_fd   = $fopen("scoreboard_log_OL1HA1_T.txt", "w");
+    if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
+    $fdisplay(log_fd, "Scoreboard for OL1HA1_T transaction");
     $fclose(log_fd); 
   endfunction
 
@@ -73,6 +109,50 @@ class spi_scb extends uvm_scoreboard;
         BIT_tran.tran_time_end = tr.tran_time_end;
         BIT_tran.MS_data = tr.MS_data;
         print_bit(BIT_tran, 1);
+    end 
+    else if (tr.mt == OL0HA0) begin 
+      OL0HA0_if.mt = tr.mt;
+      OL0HA0_if.tran_time_start = tr.tran_time_start;
+      OL0HA0_if.mosi = tr.mosi;
+      OL0HA0_if.miso = tr.miso;
+      OL0HA0_if.curr_lead = tr.curr_lead;
+      print_OLHA(OL0HA0_if, 0);
+    end
+    else if (tr.mt == OL0HA1_L) begin 
+      OL0HA1_L_if.mt = tr.mt;
+      OL0HA1_L_if.tran_time_start = tr.tran_time_start;
+      OL0HA1_L_if.mosi = tr.mosi;
+      OL0HA1_L_if.curr_lead = tr.curr_lead;
+      print_OLHA(OL0HA1_L_if, 1);
+    end
+    else if (tr.mt == OL0HA1_T) begin 
+      OL0HA1_T_if.mt = tr.mt;
+      OL0HA1_T_if.tran_time_start = tr.tran_time_start;
+      OL0HA1_T_if.miso = tr.miso;
+      OL0HA1_T_if.curr_fall = tr.curr_fall;
+      print_OLHA(OL0HA1_T_if, 2);
+    end
+    else if (tr.mt == OL1HA0) begin 
+      OL1HA0_if.mt = tr.mt;
+      OL1HA0_if.tran_time_start = tr.tran_time_start;
+      OL1HA0_if.mosi = tr.mosi;
+      OL1HA0_if.miso = tr.miso;
+      OL1HA0_if.curr_lead = tr.curr_lead;
+      print_OLHA(OL1HA0_if, 3);
+    end
+    else if (tr.mt == OL1HA1_L) begin 
+      OL1HA1_L_if.mt = tr.mt;
+      OL1HA1_L_if.tran_time_start = tr.tran_time_start;
+      OL1HA1_L_if.miso = tr.miso;
+      OL1HA1_L_if.curr_lead = tr.curr_lead;
+      print_OLHA(OL1HA1_L_if, 4);
+    end
+    else if (tr.mt == OL1HA1_T) begin 
+      OL1HA1_T_if.mt = tr.mt;
+      OL1HA1_T_if.tran_time_start = tr.tran_time_start;
+      OL1HA1_T_if.mosi = tr.mosi;
+      OL1HA1_T_if.curr_lead = tr.curr_lead;
+      print_OLHA(OL1HA1_T_if, 5);
     end
     else begin 
       `uvm_warning("SCB", "Invalid transaction type from monitor detected, discarding.");
@@ -80,11 +160,103 @@ class spi_scb extends uvm_scoreboard;
     if (tr.mt == BIT_RESET) begin
       check_T021(tr);
     end
- 
     if (tr.mt == ENTIRE) begin
       check_T022(tr);
     end 
+
+
+
   endfunction
+
+  function void print_OLHA(spi_tran t, int mode);
+    string hdr, line;
+
+    if (mode == 0) begin 
+      log_fd   = $fopen("scoreboard_log_OL0HA0.txt", "a");
+      if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
+      $sformat(hdr,  "%-14s | %-12s | %-8s | %-8s | %-8s",
+                    "type", "start time", "mosi", "miso", "cnt (lead)");
+      $sformat(line, "%-14s | %-12.2f | 0x%02h | 0x%02h | %d\n",
+                    t.mt, t.tran_time_start, t.mosi, t.miso, t.curr_lead);
+      `uvm_info("SCB", hdr, UVM_NONE);
+      `uvm_info("SCB", line, UVM_NONE);
+      $fdisplay(log_fd, hdr);
+      $fdisplay(log_fd, line);        
+      $fclose(log_fd); 
+    end 
+    else if (mode == 1) begin 
+      log_fd   = $fopen("scoreboard_log_OL0HA1_L.txt", "a");
+      if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
+      $sformat(hdr,  "%-14s | %-12s | %-8s | %-8s",
+                    "type", "start time", "mosi", "cnt (lead)");
+      $sformat(line, "%-14s | %-12.2f | 0x%02h | %d\n",
+                    t.mt, t.tran_time_start, t.mosi, t.curr_lead);
+      `uvm_info("SCB", hdr, UVM_NONE);
+      `uvm_info("SCB", line, UVM_NONE);
+      $fdisplay(log_fd, hdr);
+      $fdisplay(log_fd, line);        
+      $fclose(log_fd); 
+    end 
+    else if (mode == 2) begin   
+      log_fd   = $fopen("scoreboard_log_OL0HA1_T.txt", "a");
+      if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
+      $sformat(hdr,  "%-14s | %-12s | %-8s | %-8s",
+                    "type", "start time", "miso", "cnt (lead)");
+      $sformat(line, "%-14s | %-12.2f | 0x%02h | %d\n",
+                    t.mt, t.tran_time_start, t.miso, t.curr_fall);
+      `uvm_info("SCB", hdr, UVM_NONE);
+      `uvm_info("SCB", line, UVM_NONE);
+      $fdisplay(log_fd, hdr);
+      $fdisplay(log_fd, line);        
+      $fclose(log_fd); 
+    end 
+    else if (mode == 3) begin 
+      log_fd   = $fopen("scoreboard_log_OL1HA0.txt", "a");
+      if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
+
+      $sformat(hdr,  "%-14s | %-12s | %-8s | %-8s | %-8s",
+                    "type", "start time", "mosi", "miso", "cnt (lead)");
+      $sformat(line, "%-14s | %-12.2f | 0x%02h | 0x%02h | %d\n",
+                    t.mt, t.tran_time_start, t.mosi, t.miso, t.curr_lead);
+      `uvm_info("SCB", hdr, UVM_NONE);
+      `uvm_info("SCB", line, UVM_NONE);
+      $fdisplay(log_fd, hdr);
+      $fdisplay(log_fd, line);        
+      $fclose(log_fd); 
+    end 
+    else if (mode == 4) begin 
+      log_fd   = $fopen("scoreboard_log_OL1HA1_L.txt", "a");
+      if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
+      $sformat(hdr,  "%-14s | %-12s | %-8s | %-8s",
+                    "type", "start time", "miso", "cnt (lead)");
+      $sformat(line, "%-14s | %-12.2f | 0x%02h | %d\n",
+                    t.mt, t.tran_time_start, t.miso, t.curr_lead);
+      `uvm_info("SCB", hdr, UVM_NONE);
+      `uvm_info("SCB", line, UVM_NONE);
+      $fdisplay(log_fd, hdr);
+      $fdisplay(log_fd, line);        
+      $fclose(log_fd); 
+    end 
+    else if (mode == 5) begin 
+      log_fd   = $fopen("scoreboard_log_OL1HA1_T.txt", "a");
+      if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
+      $sformat(hdr,  "%-14s | %-12s | %-8s | %-8s",
+                    "type", "start time", "mosi", "cnt (lead)");
+      $sformat(line, "%-14s | %-12.2f | 0x%02h | %d\n",
+                    t.mt, t.tran_time_start, t.mosi, t.curr_fall);
+      `uvm_info("SCB", hdr, UVM_NONE);
+      `uvm_info("SCB", line, UVM_NONE);
+      $fdisplay(log_fd, hdr);
+      $fdisplay(log_fd, line);        
+      $fclose(log_fd); 
+    end
+    else begin 
+      `uvm_error("SCB", $sformatf("Wrong usage of print_OLHA function"));
+    end
+
+  endfunction
+
+
 
   // T015: Check entire transaction correctness by reporting uvm_error 
   function void print_entire(spi_tran t);

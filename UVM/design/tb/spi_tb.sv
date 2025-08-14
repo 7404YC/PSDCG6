@@ -19,6 +19,7 @@ module spi_tb;
     `include "spi_drv.sv"       // Driver class
     `include "spi_mon0.sv"       // Monitor class
     `include "spi_mon1.sv"       // Monitor class
+    `include "spi_mon2.sv"       // Monitor class
     `include "spi_agt0.sv"       // Agent0 class
     `include "spi_agt1.sv"       // Agent1 class
     `include "spi_scb.sv"       // Scoreboard class
@@ -151,7 +152,7 @@ module spi_tb;
     // Waveform generation 
     initial begin
         $fsdbDumpfile("spi_sim.fsdb");
-        //$fsdbDumpSVA(0, spi_tb);
+        $fsdbDumpSVA(0, spi_tb);
         $fsdbDumpvars(0, spi_tb);
     end
 endmodule
