@@ -33,6 +33,18 @@ endproperty
 ASSERT_T010: assert property (T010)
     else $error("ASSERT ", $sformatf("Error T010"));
 
+// T014: Ensure MISO only sampled on falling sclk edges 
+property T014A; 
+    @(posedge sclk) disable iff (!rst_n) (busy) |-> (rx_reg === $past(rx_reg));
+endproperty
+property T014B; 
+    @(negedge sclk) disable iff (!rst_n) (busy) |-> (rx_reg !== $past(rx_reg));
+endproperty
+ASSERT_T014A: assert property (T014A)
+    else $error("ASSERT ", $sformatf("Error T014A"));
+ASSERT_T014B: assert property (T014B)
+    else $error("ASSERT ", $sformatf("Error T014B"));
+
 // TODO: since rx is fixed to B9, will not change wor
 // T016: Ensure both RX and done udpate at same clock cycle 
 property T016;

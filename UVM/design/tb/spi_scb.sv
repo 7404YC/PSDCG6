@@ -20,6 +20,8 @@ class spi_scb extends uvm_scoreboard;
     scb_imp1 = new ("scb_imp1", this);
     ENTIRE_tran = spi_tran::type_id::create("entire");
     BIT_tran = spi_tran::type_id::create("bit");
+		if (!uvm_config_db#(logic [7:0])::get(this, "", "slave_reset_resp", slave_reset_response))
+      `uvm_fatal("SCB", "Unable to obtain slave reset resp");
   endfunction
 
   function void build_phase(uvm_phase phase);
@@ -85,7 +87,7 @@ class spi_scb extends uvm_scoreboard;
     log_fd   = $fopen("scoreboard_log_entire.txt", "a");
     if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
     // T015: Check TX and RX value match
-    if (t.tx_data === t.rx_data) begin 
+    if (slave_reset_response === t.rx_data) begin 
       `uvm_info("SCB", $sformatf("T015 satisfied: RX data match expected slave response (SLAVE RESET RESP)"), UVM_LOW);
     end else begin 
       `uvm_error("SCB", $sformatf("T015 violated: RX data mismatch expected slave response (SLAVE RESET RESP)"));

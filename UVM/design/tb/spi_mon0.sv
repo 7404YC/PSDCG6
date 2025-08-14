@@ -70,12 +70,12 @@ class spi_mon0 extends uvm_monitor;
           item.tx_data = vif.mon_cb.tx_data;
           curr_index = 0;
           repeat(8) begin 
-            @(posedge vif.sclk) //  TODO: using the mon_cb here is really ticking me off
-            #1;
-            item.MS_data[7- ((curr_index++) % 8)] = vif.mosi;
             if (monitor0_abort) begin 
               break;
             end 
+            @(posedge vif.sclk) //  TODO: using the mon_cb here is really ticking me off
+            #1;
+            item.MS_data[7- ((curr_index++) % 8)] = vif.mosi;
           end 
           if (monitor0_abort) begin 
             monitor0_abort = 0; 

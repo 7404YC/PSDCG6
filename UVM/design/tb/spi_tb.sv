@@ -1,6 +1,7 @@
 `include "spi_if.sv"
 `include "spi.sv"
 
+    `include "spi_accessor.sv" // Accessor module
 module spi_tb;
     import uvm_pkg::*;
     `include "uvm_macros.svh"
@@ -60,6 +61,9 @@ module spi_tb;
 		.cs_n (spi_if.cs_n)
     );
 
+    // Instantiate accessor module
+    bind spi peek_dut peek_inst(.vif(spi_if), .rx_reg_pd(dut.rx_reg));
+
 	// Probe Internal Signal
 	assign spi_if.state = dut.state;
 
@@ -79,6 +83,7 @@ module spi_tb;
     initial begin 
         uvm_config_db#(logic [7:0])::set(null, "*", "slave_rx_data", slave_rx_data);
 		uvm_config_db#(logic [7:0])::set(null, "*", "slave_tx_data", slave_tx_data);
+		uvm_config_db#(logic [7:0])::set(null, "*", "slave_reset_resp", slave_reset_response);
         uvm_config_db#(bit)::set(null, "*", "mon0_abort", monitor0_abort);
         uvm_config_db#(bit)::set(null, "*", "mon1_abort", monitor1_abort);
     end

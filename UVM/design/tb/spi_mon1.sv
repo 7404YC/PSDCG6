@@ -71,11 +71,11 @@ class spi_mon1 extends uvm_monitor;
             item.mt = BIT_MISO;
             curr_index = 0;
             repeat(8) begin 
-              @(negedge vif.sclk) // TODO: using the mon_cb here is really ticking me off
-              item.MS_data[7 - ((curr_index++) % 8)] = vif.miso;
               if (monitor1_abort) begin 
                 break;
               end 
+              @(negedge vif.sclk) // TODO: using the mon_cb here is really ticking me off
+              item.MS_data[7 - ((curr_index++) % 8)] = vif.miso;
             end 
             if (monitor1_abort) begin 
               monitor1_abort = 0;

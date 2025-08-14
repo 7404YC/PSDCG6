@@ -18,6 +18,7 @@ interface spi_if #(parameter CLK_DIV = 4)(
 
 	// Probe Internal Signal
 	logic		state;
+    logic [7:0] rx_reg;
 
     // Clocking block for driver
     clocking drv_cb @(posedge clk);
