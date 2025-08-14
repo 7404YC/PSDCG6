@@ -8,7 +8,7 @@ property T013;
 		);
 endproperty
 ASSERT_T013: assert property (T013)
-	else $error("ASSERT", $sformatf("Error T013"));
+	else $error("ASSERT ", $sformatf("Error T013"));
 
 // T014: Ensure MISO only sampled in failing sclk edges
 // YK: Drop this, cover in scoreboard
@@ -26,7 +26,7 @@ property T018;
 		);
 endproperty
 ASSERT_T018: assert property (T018)
-	else $error("ASSERT", $sformatf("Error T018"));
+	else $error("ASSERT ", $sformatf("Error T018"));
 
 // T020: All outputs are set to default/reset values when rst_n = 0, except mosi
 // Reason to use always_comb is because the reset is asynchronous to the clock, so we cannot use property which is sensitive to the clock
@@ -41,7 +41,7 @@ always_comb begin
 					(sclk == 1'b0) &&
 					(cs_n == 1'b1)
 				)
-		else $error("ASSERT", $sformatf("Error T020"));
+		else $error("ASSERT ", $sformatf("Error T020"));
 	end
 end
 
