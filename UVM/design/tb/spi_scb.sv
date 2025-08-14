@@ -71,7 +71,7 @@ class spi_scb extends uvm_scoreboard;
   // T015: Check entire transaction correctness by reporting uvm_error 
   function void print_entire(spi_tran t);
     string hdr, line;
-    log_fd   = $fopen("scoreboard_log.txt", "a");
+    log_fd   = $fopen("scoreboard_log_entire.txt", "a");
     if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
     // T015: Check TX and RX value match
     if (t.tx_data === t.rx_data) begin 
@@ -92,7 +92,7 @@ class spi_scb extends uvm_scoreboard;
 
   function void print_bit(spi_tran t, int mosimiso = 0);
     string hdr, line;
-    log_fd   = $fopen("scoreboard_log.txt", "a");
+    log_fd   = $fopen("scoreboard_log_bit.txt", "a");
     if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
     $sformat(hdr,  "%-12s %-12s %-8s %-8s",
                     "start time", "end time", "ID", (mosimiso) ? "miso" : "mosi");

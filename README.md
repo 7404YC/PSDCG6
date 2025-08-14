@@ -1,5 +1,50 @@
 This is private repo for PSDC Group 6 DV. 
 Project : SPI by using UVM
+
 Link to Testplan: https://docs.google.com/spreadsheets/d/1wzdwL3TySKKEf40x2AU660TOML75hTKt4kzr6SQvyo0/edit?usp=sharing
+Testplan contains structure diagram; functional, coverage, assertion requirements and test cases for each of the requirements. 
 
+ROOT
+├── DV1
+├── DV2
+├── dv_project
+├── README.md
+└── UVM
+**dv_project** is the given example which we reference on. Currently we are working on UVM, so the main working directory is **UVM**.
 
+UVM
+├── design
+├── sim
+└── spi.setup
+We follow the lab's structure here and have a setup file for environment variables. **sim** is simulation directory including runtime generated files and makefile for quick commands. 
+
+design
+├── rtl
+│   ├── spi.f
+│   └── spi.sv
+└── tb
+    ├── include
+    │   ├── spi_ass_xy.svh
+    │   ├── spi_ass_yc.svh
+    │   └── spi_ass_yk.svh
+    ├── spi_agt0.sv
+    ├── spi_agt1.sv
+    ├── spi_cov.sv
+    ├── spi_drv.sv
+    ├── spi_env.sv
+    ├── spi_if.sv
+    ├── spi_mon0.sv
+    ├── spi_mon1.sv
+    ├── spi_scb.sv
+    ├── spi_seq_b2b.sv
+    ├── spi_seq_sanity.sv
+    ├── spi_seq.sv
+    ├── spi_sqr.sv
+    ├── spi_tb.sv
+    ├── spi_test_b2b.sv
+    ├── spi_test_sanity.sv
+    ├── spi_test.sv
+    └── spi_tran.sv
+**rtl** contains the module and filelist. 
+**tb** contains all other components. 
+**tb/include** contains sub-files to assertion codes. 
