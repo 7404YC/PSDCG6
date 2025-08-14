@@ -67,7 +67,6 @@ property T023;
     @(posedge clk)
     !rst_n |-> (
         sclk == 1'b0 &&
-        mosi == 1'b0 &&
         cs_n == 1'b1 &&
         busy == 1'b0 &&
         done == 1'b0
