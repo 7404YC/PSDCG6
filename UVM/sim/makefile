@@ -1,4 +1,5 @@
-dv: clean run_dv
+export NR=1
+dv: clean run_dv 
 
 clean:
 	\rm -frd novas* mkdir csrc
@@ -15,37 +16,63 @@ run_dv:
 	${ROOT}/sim/run_sim.csh dv ${MODULE}
 
 sanity_test: 
-	export NR=1; \
+	mkdir -p builddir_sanity_test; \
 	make run_dv; \
-	sed -i '$$ s/$$/ +SANITY_TEST/' qrun; \
-	qrun
+	sed -i '$$ s/$$/ +SANITY_TEST/'  qrun; \
+	cp qrun builddir_sanity_test; \
+        cd builddir_sanity_test && qrun
 
 sanity_test_reset:
-	export NR=1; \
+	mkdir -p builddir_sanity_test_reset; \
 	make run_dv; \
 	sed -i '$$ s/$$/ +RST_RANDOM_EN +SANITY_TEST/' qrun; \
-	qrun
+	cp qrun builddir_sanity_test_reset; \
+	cd builddir_sanity_test_reset && qrun
 	
 b2b_test:
-	export NR=1; \
+	mkdir -p builddir_b2b_reset; \
 	make run_dv; \
 	sed -i '$$ s/$$/ +B2B_TEST/' qrun; \
-	qrun
+	cp qrun builddir_b2b_reset; \
+	cd builddir_b2b_reset && qrun
 	
 b2b_test_reset:
-	export NR=1; \
+	mkdir -p builddir_b2b_test_reset; \
 	make run_dv; \
 	sed -i '$$ s/$$/ +RST_RANDOM_EN +B2B_TEST/' qrun; \
-	qrun
+	cp qrun builddir_b2b_test_reset; \
+	cd builddir_b2b_test_reset && qrun
 
 sanity_test_reset_during_trans:
-	export NR=1; \
+	mkdir -p builddir_sanity_test_reset_during_trans; \
 	make run_dv; \
 	sed -i '$$ s/$$/ +SANITY_TEST_RESET_DURING_TRANS/' qrun; \
-	qrun
+	cp qrun builddir_sanity_test_reset_during_trans; \
+	cd builddir_sanity_test_reset_during_trans && qrun
 
 b2b_test_reset_during_trans:
-	export NR=1; \
+	mkdir -p builddir_b2b_test_reset_during_trans; \
 	make run_dv; \
 	sed -i '$$ s/$$/ +B2B_TEST_RESET_DURING_TRANS/' qrun; \
-	qrun
+	cp qrun builddir_b2b_test_reset_during_trans; \
+	cd builddir_b2b_test_reset_during_trans && qrun
+
+cov:
+	verdi -cov -covdir spi_simv.vdb
+
+merge:
+	urg -full64 -metric line+tgl+cond+fsm+assert+branch+group -warn none -dbname merge_coverage_name.vdb -dir ./builddir_*/spi_simv.vdb/
+
+cov_merged:
+	verdi -cov -covdir merge_coverage_name.vdb
+
+all:
+	make clean; \
+	make sanity_test; \
+	make sanity_test_reset; \
+	make b2b_test; \
+	make b2b_test_reset; \
+	make sanity_test_reset_during_trans; \
+	make b2b_test_reset_during_trans; \
+	make merge
+
