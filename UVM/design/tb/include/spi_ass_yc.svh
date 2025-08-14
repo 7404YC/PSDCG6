@@ -37,7 +37,6 @@ ASSERT_T010: assert property (T010)
 // Shadow registers to hold value at last posedge and negedge
 logic [7:0] rx_reg_at_posedge = 0;
 logic [7:0] rx_reg_at_negedge = 0;
-
 // Capture rx_reg at each posedge
 always @(posedge sclk or negedge rst_n) begin
     #1;
@@ -46,7 +45,6 @@ always @(posedge sclk or negedge rst_n) begin
     else
         rx_reg_at_posedge <= rx_reg;
 end
-
 // Capture rx_reg at each negedge
 always @(negedge sclk or negedge rst_n) begin
     #1;
@@ -55,28 +53,24 @@ always @(negedge sclk or negedge rst_n) begin
     else
         rx_reg_at_negedge <= rx_reg;
 end
-
 // T014A: On posedge, value should match last negedge's value
 property T014A;
     @(posedge sclk) disable iff (!rst_n)
       (busy) && (rx_reg_at_negedge !== 0) |-> (rx_reg === rx_reg_at_negedge);
 endproperty
-
 // T014B: On negedge, value should differ from last posedge's value
 logic sclk_dly;
 always @(edge sclk) #1ps sclk_dly = sclk; // pulse delayed slightly
-
 property T014B;
     @(negedge sclk_dly) disable iff (!rst_n)
       (busy) && (rx_reg_at_posedge !== 0) |-> (rx_reg !== rx_reg_at_posedge);
 endproperty
-
 // Assertions
 ASSERT_T014A: assert property (T014A)
-    else $error("ASSERT", "Error T014A: rx_reg changed on posedge");
+    else $error("ASSERT", "Error T014A");
 
 ASSERT_T014B: assert property (T014B)
-    else $error("ASSERT", "Error T014B: rx_reg did not change from last posedge");
+    else $error("ASSERT", "Error T014B");
 
 // TODO: since rx is fixed to B9, will not change wor
 // T016: Ensure both RX and done udpate at same clock cycle 
