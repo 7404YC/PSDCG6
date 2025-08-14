@@ -25,7 +25,7 @@ ASSERT_T004: assert property (T004)
 property T005;
     @(posedge clk)
     disable iff (!rst_n)
-    $rose(done) |=> ##1 !busy;
+    $rose(done) |-> ##1 !busy;
 endproperty
 
 ASSERT_T005: assert property (T005)

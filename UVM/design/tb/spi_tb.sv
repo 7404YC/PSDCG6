@@ -151,7 +151,7 @@ module spi_tb;
     // Waveform generation 
     initial begin
         $fsdbDumpfile("spi_sim.fsdb");
-        $fsdbDumpSVA(0, spi_tb);
+        //$fsdbDumpSVA(0, spi_tb);
         $fsdbDumpvars(0, spi_tb);
     end
 endmodule
