@@ -27,8 +27,8 @@ interface spi_if #(parameter CLK_DIV = 4)(
         input  busy, done, rx_data;
     endclocking
 
-    // Clocking block for monitor
-
+    // simulated CPOL and CPHA clock signal 
+    
 
     // Modports for separation of roles
     modport drv_mp  (clocking drv_cb, output sclk, mosi, cs_n, input miso, rst_n);

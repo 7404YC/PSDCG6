@@ -1,8 +1,8 @@
 
-typedef enum {ENTIRE, BIT_MOSI, BIT_MISO, BIT_RESET} mon_type;
+typedef enum {ENTIRE, BIT_MOSI, BIT_MISO, BIT_RESET, OL0HA0, OL0HA1, OL1HA0, OL1HA1} mon_type;
 class spi_tran extends uvm_sequence_item;
     // transaction input 
-    logic       rst_n;
+    logic               rst_n;
     rand    logic       start;
     rand    logic [7:0] tx_data;
 
@@ -34,6 +34,10 @@ class spi_tran extends uvm_sequence_item;
     int tran_id; 
     logic [7:0] MS_data;
     logic [7:0] tx_data_t024;
+
+    // negative monitor
+    int curr_lead = 0;
+    int curr_fall = 0;
 
     `uvm_object_utils(spi_tran)
 

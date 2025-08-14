@@ -77,7 +77,6 @@ class spi_scb extends uvm_scoreboard;
     else begin 
       `uvm_warning("SCB", "Invalid transaction type from monitor detected, discarding.");
     end 
-
     if (tr.mt == BIT_RESET) begin
       check_T021(tr);
     end
@@ -85,7 +84,6 @@ class spi_scb extends uvm_scoreboard;
     if (tr.mt == ENTIRE) begin
       check_T022(tr);
     end 
-
   endfunction
 
   // T015: Check entire transaction correctness by reporting uvm_error 

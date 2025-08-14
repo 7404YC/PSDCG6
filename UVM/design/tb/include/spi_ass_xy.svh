@@ -33,14 +33,6 @@ ASSERT_T005: assert property (T005)
 
 //Assert T017
 //T017: Verify sclk frequency matches to the clock divider configuration.
-//property T017;
-//    @(posedge clk)
-//    disable iff (!rst_n)
-//    (cs_n == 0 && $rose(sclk)) |=> 
-//        ##[CLK_DIV*2-1 : CLK_DIV*2+1] $rose(sclk);
-//endproperty
-//ASSERT_T017: assert property (T017)
-//    else $error("ASSERT ", $sformatf("Error T017"));
 property T017 (int clk_period);
 		realtime current_time;
 		disable iff(!rst_n || state == 0)
