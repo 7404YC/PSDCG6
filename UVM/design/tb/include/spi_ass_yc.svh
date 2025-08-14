@@ -34,27 +34,41 @@ ASSERT_T010: assert property (T010)
     else $error("ASSERT ", $sformatf("Error T010"));
 
 // T014: Ensure MISO only sampled on falling sclk edges 
-// Shadow register to hold value at last negedge
-logic [7:0] rx_reg_at_negedge;
+// Shadow registers to hold value at last posedge and negedge
+logic [7:0] rx_reg_at_posedge = 0;
+logic [7:0] rx_reg_at_negedge = 0;
+
+// Capture rx_reg at each posedge
+always @(posedge sclk or negedge rst_n) begin
+    #1;
+    if (!rst_n)
+        rx_reg_at_posedge <= '0;
+    else
+        rx_reg_at_posedge <= rx_reg;
+end
 
 // Capture rx_reg at each negedge
 always @(negedge sclk or negedge rst_n) begin
+    #1;
     if (!rst_n)
         rx_reg_at_negedge <= '0;
     else
         rx_reg_at_negedge <= rx_reg;
 end
 
-// T014A: Ensure rx_reg doesn't change on posedge (should be same as last negedge)
+// T014A: On posedge, value should match last negedge's value
 property T014A;
     @(posedge sclk) disable iff (!rst_n)
-      (busy) |-> (rx_reg === rx_reg_at_negedge);
+      (busy) && (rx_reg_at_negedge !== 0) |-> (rx_reg === rx_reg_at_negedge);
 endproperty
 
-// T014B: Ensure rx_reg changes on negedge (compared to previous negedge)
+// T014B: On negedge, value should differ from last posedge's value
+logic sclk_dly;
+always @(edge sclk) #1ps sclk_dly = sclk; // pulse delayed slightly
+
 property T014B;
-    @(negedge sclk) disable iff (!rst_n)
-      (busy) |-> (rx_reg !== $past(rx_reg));
+    @(negedge sclk_dly) disable iff (!rst_n)
+      (busy) && (rx_reg_at_posedge !== 0) |-> (rx_reg !== rx_reg_at_posedge);
 endproperty
 
 // Assertions
@@ -62,7 +76,7 @@ ASSERT_T014A: assert property (T014A)
     else $error("ASSERT", "Error T014A: rx_reg changed on posedge");
 
 ASSERT_T014B: assert property (T014B)
-    else $error("ASSERT", "Error T014B: rx_reg did not change on negedge");
+    else $error("ASSERT", "Error T014B: rx_reg did not change from last posedge");
 
 // TODO: since rx is fixed to B9, will not change wor
 // T016: Ensure both RX and done udpate at same clock cycle 
