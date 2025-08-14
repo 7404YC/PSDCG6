@@ -3,7 +3,7 @@
 property T003;
     @(posedge clk)
     disable iff (!rst_n)
-    $rose(busy) |-> ##(CLK_DIV*16+2) $fell(busy);
+    $rose(busy) |-> ##(CLK_DIV*8+1) $fell(busy);
 endproperty
 
 ASSERT_T003: assert property (T003)
