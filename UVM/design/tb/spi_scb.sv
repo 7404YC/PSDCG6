@@ -20,7 +20,7 @@ class spi_scb extends uvm_scoreboard;
     scb_imp1 = new ("scb_imp1", this);
     ENTIRE_tran = spi_tran::type_id::create("entire");
     BIT_tran = spi_tran::type_id::create("bit");
-		if (!uvm_config_db#(logic [7:0])::get(this, "", "slave_reset_resp", slave_reset_response))
+	if (!uvm_config_db#(logic [7:0])::get(this, "", "slave_reset_resp", slave_reset_response))
       `uvm_fatal("SCB", "Unable to obtain slave reset resp");
   endfunction
 

@@ -18,7 +18,10 @@ class spi_mon0 extends uvm_monitor;
     end
     if (!uvm_config_db # (bit)::get(this, "", "mon0_abort", monitor0_abort)) begin
 			`uvm_error("MON0", "Aborter variable not found in config db")
-		end
+	end
+	if (!uvm_config_db # (logic [7:0])::get(this, "", "slave_rx_data", slave_rx_data)) begin
+		`uvm_error("MON0", "Unable to obtain slave_rx_data")
+	end
   endfunction
 
   /*
@@ -83,7 +86,7 @@ class spi_mon0 extends uvm_monitor;
           end
           @(posedge vif.done) // Part of T024
           #1; 
-          item.tx_data_t024 = vif.tx_data;
+          item.tx_data_t024 = slave_rx_data;
           item.tran_time_end = $time;
           `uvm_info("MON0", $sformatf("BIT: Observed mosi details: %8b on transaction ID: %d %h %h", item.MS_data, item.tran_id, item.tx_data, item.tx_data_t024), UVM_LOW);
           mon0_ap.write(item);
