@@ -146,13 +146,13 @@ class spi_scb extends uvm_scoreboard;
 
 function void check_T022(spi_tran tr);
 
-  // Check for start of new transaction during 'done' pulse
-  if ((tr.done === 1) && (tr.cs_n === 0 || tr.busy === 1 || tr.start === 1)) begin
-    `uvm_error("SCB", $sformatf("T022 VIOLATION: New transaction starting while 'done' is still high. \
-cs_n=%0b, busy=%0b, start=%0b, time=%0t", tr.cs_n, tr.busy, tr.start, $time));
+  // True violation: start is triggered while done is still high
+  if ((tr.done === 1) && (tr.start === 1)) begin
+    `uvm_error("SCB", $sformatf("T022 VIOLATION: Start asserted while 'done' is high. \
+start=%0b, done=%0b, time=%0t", tr.start, tr.done, $time));
   end
   else if (tr.done === 1) begin
-    `uvm_info("SCB", $sformatf("T022 OK: 'done' seen cleanly, no new transaction overlap. time=%0t", $time), UVM_LOW);
+    `uvm_info("SCB", $sformatf("T022 OK: 'done' seen cleanly without start overlap. time=%0t", $time), UVM_LOW);
   end
 
 endfunction

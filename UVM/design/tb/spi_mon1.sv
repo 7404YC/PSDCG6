@@ -51,6 +51,7 @@ class spi_mon1 extends uvm_monitor;
                 tx.tran_time_end = $time; 
                 tx.rx_data = vif.mon_cb.rx_data;
                 tx.start = vif.mon_cb.start;
+                tx.done = vif.mon_cb.done;
                 mon1_ap.write(tx);
                 spi_done_event.trigger();
                 `uvm_info("MON1", $sformatf("ENTIRE: Observed output transaction: 0x%02X on transaction ID: %d", tx.rx_data, tx.tran_id), UVM_LOW);
