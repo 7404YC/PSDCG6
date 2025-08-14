@@ -26,11 +26,11 @@ class spi_scb extends uvm_scoreboard;
     super.build_phase(phase);
     log_fd   = $fopen("scoreboard_log_entire.txt", "w");
     if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
-    $fdisplay(log_fd, "Scoreboard for ENTIRE transaction, generated: %p", $time);
+    $fdisplay(log_fd, "Scoreboard for ENTIRE transaction");
     $fclose(log_fd); 
     log_fd   = $fopen("scoreboard_log_bit.txt", "w");
     if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
-    $fdisplay(log_fd, "Scoreboard for BIT transaction, generated: %p", $time);
+    $fdisplay(log_fd, "Scoreboard for BIT transaction");
     $fclose(log_fd); 
   endfunction
 
@@ -92,7 +92,7 @@ class spi_scb extends uvm_scoreboard;
     end
     $sformat(hdr,  "%-12s | %-12s | %-8s | %-8s | %-8s",
                     "start time", "end time", "ID", "TX", "RX");
-    $sformat(line, "%-12.2f | %-12.2f | %-8d | 0x%02h | 0x%02h",
+    $sformat(line, "%-12.2f | %-12.2f | %-8d | 0x%02h | 0x%02h\n",
                     t.tran_time_start, t.tran_time_end, t.tran_id, t.tx_data, t.rx_data);
     `uvm_info("SCB", hdr, UVM_NONE);
     `uvm_info("SCB", line, UVM_NONE);
@@ -120,7 +120,7 @@ class spi_scb extends uvm_scoreboard;
     end
     $sformat(hdr,  "%-12s | %-12s | %-8s | %-8s",
                     "start time", "end time", "ID", (mosimiso) ? "miso" : "mosi");
-    $sformat(line, "%-12.2f | %-12.2f | %-8d | 0x%02h",
+    $sformat(line, "%-12.2f | %-12.2f | %-8d | 0x%02h\n",
                     t.tran_time_start, t.tran_time_end, t.tran_id, t.MS_data);
     `uvm_info("SCB", hdr, UVM_NONE);
     `uvm_info("SCB", line, UVM_NONE);
