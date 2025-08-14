@@ -19,6 +19,56 @@ class spi_scb extends uvm_scoreboard;
   int encountered_BIT[$];
   // file ops
   int log_fd; 
+  // Check array - checkeray
+  bit checkeray[$][8];
+  task ensure_index(int id);
+    // Grow the queue if needed 
+    while (checkeray.size() <= id)
+      checkeray.push_back('{default:0});
+  endtask
+function void check_checkeray();
+    int idx_list_a[] = '{2,4,6};
+    int idx_list_b[] = '{3,5,7};
+
+    // =====================
+    // Check for mismatches
+    // =====================
+    foreach (checkeray[row_id]) begin
+        bit ref0 = checkeray[row_id][0]; // value for indices 2,4,6
+        bit ref1 = checkeray[row_id][1]; // value for indices 3,5,7
+
+        // Check group A
+        foreach (idx_list_a[ii]) begin
+            if (checkeray[row_id][idx_list_a[ii]] !== ref0)
+                $error("Row %0d, index %0d: expected %b (from idx 0), got %b",
+                       row_id, idx_list_a[ii], ref0, checkeray[row_id][idx_list_a[ii]]);
+        end
+
+        // Check group B
+        foreach (idx_list_b[ii]) begin
+            if (checkeray[row_id][idx_list_b[ii]] !== ref1)
+                $error("Row %0d, index %0d: expected %b (from idx 1), got %b",
+                       row_id, idx_list_b[ii], ref1, checkeray[row_id][idx_list_b[ii]]);
+        end
+    end
+
+    // =====================
+    // Dump full array
+    // =====================
+    $display("\n================ CHECKER ARRAY DUMP ================");
+    $display(" Row | b0 b1 b2 b3 b4 b5 b6 b7 ");
+    $display("-----+-------------------------");
+    foreach (checkeray[row_id]) begin
+        $write(" %3d |", row_id);
+        for (int col = 0; col < 8; col++) begin
+            $write(" %b ", checkeray[row_id][col]);
+        end
+        $display(""); // newline
+    end
+    $display("=====================================================\n");
+endfunction
+
+
 
   function new(string name, uvm_component parent);
     super.new(name, parent);
@@ -36,7 +86,7 @@ class spi_scb extends uvm_scoreboard;
       `uvm_fatal("SCB", "Unable to obtain slave reset resp");
   endfunction
 
-  function void build_phase(uvm_phase phase);
+  function void build_phase(uvm_phase phase); 
     super.build_phase(phase);
     log_fd   = $fopen("scoreboard_log_entire.txt", "w");
     if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
@@ -117,6 +167,9 @@ class spi_scb extends uvm_scoreboard;
       OL0HA0_if.miso = tr.miso;
       OL0HA0_if.curr_lead = tr.curr_lead;
       print_OLHA(OL0HA0_if, 0);
+      ensure_index(tr.curr_lead);
+      checkeray[tr.curr_lead][0] = tr.mosi;
+      checkeray[tr.curr_lead][1] = tr.miso;
     end
     else if (tr.mt == OL0HA1_L) begin 
       OL0HA1_L_if.mt = tr.mt;
@@ -124,6 +177,8 @@ class spi_scb extends uvm_scoreboard;
       OL0HA1_L_if.mosi = tr.mosi;
       OL0HA1_L_if.curr_lead = tr.curr_lead;
       print_OLHA(OL0HA1_L_if, 1);
+      ensure_index(tr.curr_lead);
+      checkeray[tr.curr_lead][2] = tr.mosi;
     end
     else if (tr.mt == OL0HA1_T) begin 
       OL0HA1_T_if.mt = tr.mt;
@@ -131,6 +186,8 @@ class spi_scb extends uvm_scoreboard;
       OL0HA1_T_if.miso = tr.miso;
       OL0HA1_T_if.curr_fall = tr.curr_fall;
       print_OLHA(OL0HA1_T_if, 2);
+      ensure_index(tr.curr_fall);
+      checkeray[tr.curr_fall][3] = tr.miso;
     end
     else if (tr.mt == OL1HA0) begin 
       OL1HA0_if.mt = tr.mt;
@@ -139,6 +196,9 @@ class spi_scb extends uvm_scoreboard;
       OL1HA0_if.miso = tr.miso;
       OL1HA0_if.curr_lead = tr.curr_lead;
       print_OLHA(OL1HA0_if, 3);
+      ensure_index(tr.curr_lead);
+      checkeray[tr.curr_lead][4] = tr.mosi;
+      checkeray[tr.curr_lead][5] = tr.miso;
     end
     else if (tr.mt == OL1HA1_L) begin 
       OL1HA1_L_if.mt = tr.mt;
@@ -146,13 +206,17 @@ class spi_scb extends uvm_scoreboard;
       OL1HA1_L_if.miso = tr.miso;
       OL1HA1_L_if.curr_lead = tr.curr_lead;
       print_OLHA(OL1HA1_L_if, 4);
+      ensure_index(tr.curr_lead);
+      checkeray[tr.curr_lead][7] = tr.miso;
     end
     else if (tr.mt == OL1HA1_T) begin 
       OL1HA1_T_if.mt = tr.mt;
       OL1HA1_T_if.tran_time_start = tr.tran_time_start;
       OL1HA1_T_if.mosi = tr.mosi;
-      OL1HA1_T_if.curr_lead = tr.curr_lead;
+      OL1HA1_T_if.curr_fall = tr.curr_fall;
       print_OLHA(OL1HA1_T_if, 5);
+      ensure_index(tr.curr_fall);
+      checkeray[tr.curr_fall][6] = tr.mosi;
     end
     else begin 
       `uvm_warning("SCB", "Invalid transaction type from monitor detected, discarding.");
@@ -162,10 +226,7 @@ class spi_scb extends uvm_scoreboard;
     end
     if (tr.mt == ENTIRE) begin
       check_T022(tr);
-    end 
-
-
-
+    end
   endfunction
 
   function void print_OLHA(spi_tran t, int mode);
@@ -337,7 +398,7 @@ start=%0b, done=%0b, time=%0t", tr.start, tr.done, $time));
   endfunction
 
   function void report_phase (uvm_phase phase);
-
+    check_checkeray();
   endfunction
 endclass
 
