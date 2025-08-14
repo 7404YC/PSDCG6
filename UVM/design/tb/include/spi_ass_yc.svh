@@ -34,16 +34,35 @@ ASSERT_T010: assert property (T010)
     else $error("ASSERT ", $sformatf("Error T010"));
 
 // T014: Ensure MISO only sampled on falling sclk edges 
-property T014A; 
-    @(posedge sclk) disable iff (!rst_n) (busy) |-> (rx_reg === $past(rx_reg));
+// Shadow register to hold value at last negedge
+logic [7:0] rx_reg_at_negedge;
+
+// Capture rx_reg at each negedge
+always @(negedge sclk or negedge rst_n) begin
+    if (!rst_n)
+        rx_reg_at_negedge <= '0;
+    else
+        rx_reg_at_negedge <= rx_reg;
+end
+
+// T014A: Ensure rx_reg doesn't change on posedge (should be same as last negedge)
+property T014A;
+    @(posedge sclk) disable iff (!rst_n)
+      (busy) |-> (rx_reg === rx_reg_at_negedge);
 endproperty
-property T014B; 
-    @(negedge sclk) disable iff (!rst_n) (busy) |-> (rx_reg !== $past(rx_reg));
+
+// T014B: Ensure rx_reg changes on negedge (compared to previous negedge)
+property T014B;
+    @(negedge sclk) disable iff (!rst_n)
+      (busy) |-> (rx_reg !== $past(rx_reg));
 endproperty
+
+// Assertions
 ASSERT_T014A: assert property (T014A)
-    else $error("ASSERT ", $sformatf("Error T014A"));
+    else $error("ASSERT", "Error T014A: rx_reg changed on posedge");
+
 ASSERT_T014B: assert property (T014B)
-    else $error("ASSERT ", $sformatf("Error T014B"));
+    else $error("ASSERT", "Error T014B: rx_reg did not change on negedge");
 
 // TODO: since rx is fixed to B9, will not change wor
 // T016: Ensure both RX and done udpate at same clock cycle 
