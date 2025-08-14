@@ -32,7 +32,7 @@ class spi_mon0 extends uvm_monitor;
         spi_tran item;
         forever begin
           // Trigger on vif.start
-          @(posedge vif.mon_cb.start iff !vif.mon_cb.busy)
+          @(posedge vif.start iff !vif.busy)
           #1;
           // create item 
           item = spi_tran::type_id::create("in_item_t1");
@@ -44,14 +44,14 @@ class spi_mon0 extends uvm_monitor;
           item.mosi =		vif.mosi;
           item.cs_n =		vif.cs_n;
           item.miso =		vif.miso;
-          item.busy =		vif.mon_cb.busy;
-          item.done =		vif.mon_cb.done;
-          item.tx_data =	vif.mon_cb.tx_data;
+          item.busy =		vif.busy;
+          item.done =		vif.done;
+          item.tx_data =	vif.tx_data;
           item.mosi =		vif.mosi;
           item.cs_n =		vif.cs_n;
           item.miso =		vif.miso;
-          item.busy =		vif.mon_cb.busy;
-          item.done =		vif.mon_cb.done;
+          item.busy =		vif.busy;
+          item.done =		vif.done;
           // write to analysis port for scb
           mon0_ap.write(item);
           // uvm_info
@@ -66,8 +66,8 @@ class spi_mon0 extends uvm_monitor;
           item.tran_id = mon0_tran_id_bit++;
           item.mt = BIT_MOSI; 
           item.tran_time_start = $time;
-          @(posedge vif.mon_cb.busy)
-          item.tx_data = vif.mon_cb.tx_data;
+          @(posedge vif.busy)
+          item.tx_data = vif.tx_data;
           curr_index = 0;
           repeat(8) begin 
             if (monitor0_abort) begin 
@@ -81,9 +81,9 @@ class spi_mon0 extends uvm_monitor;
             monitor0_abort = 0; 
             continue;
           end
-          @(posedge vif.mon_cb.done) // Part of T024
+          @(posedge vif.done) // Part of T024
           #1; 
-          item.tx_data_t024 = vif.mon_cb.tx_data;
+          item.tx_data_t024 = vif.tx_data;
           item.tran_time_end = $time;
           `uvm_info("MON0", $sformatf("BIT: Observed mosi details: %8b on transaction ID: %d %h %h", item.MS_data, item.tran_id, item.tx_data, item.tx_data_t024), UVM_LOW);
           mon0_ap.write(item);

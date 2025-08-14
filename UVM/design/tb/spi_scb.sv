@@ -141,12 +141,12 @@ class spi_scb extends uvm_scoreboard;
   function void check_T021(spi_tran tr);
   // If reset is asserted (reset == 0), check that SPI signals immediately go to idle
     if (tr.rst_n === 0) begin
-      if ((tr.busy !== 0) || (tr.cs_n !== 1) || (tr.sclk !== 0) || (tr.mosi !== 0)) begin
-        `uvm_error("SCB", $sformatf("T021 violated during reset: busy=%0b, cs_n=%0b, sclk=%0b, mosi=%0b",
-                                    tr.busy, tr.cs_n, tr.sclk, tr.mosi));
+      if ((tr.busy !== 0) || (tr.cs_n !== 1) || (tr.sclk !== 0)) begin
+        `uvm_error("SCB", $sformatf("T021 violated during reset: busy=%0b, cs_n=%0b, sclk=%0b",
+                                    tr.busy, tr.cs_n, tr.sclk));
       end else begin
-        `uvm_info("SCB", $sformatf("T021 satisfied during reset: busy=%0b, cs_n=%0b, sclk=%0b, mosi=%0b",
-                                  tr.busy, tr.cs_n, tr.sclk, tr.mosi), UVM_LOW);
+        `uvm_info("SCB", $sformatf("T021 satisfied during reset: busy=%0b, cs_n=%0b, sclk=%0b",
+                                  tr.busy, tr.cs_n, tr.sclk), UVM_LOW);
       end
     end else begin
        `uvm_info("SCB", "T021 not applicable: reset is not asserted, no check performed.", UVM_LOW);

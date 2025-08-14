@@ -40,19 +40,19 @@ class spi_mon1 extends uvm_monitor;
         // Wait for busy to drop and done to go high
         bit prev_done = 0;
         forever begin
-            @(vif.mon_cb);
-            if (prev_done == 0 && vif.mon_cb.done == 1) begin
+            @(vif.clk);
+            if (prev_done == 0 && vif.done == 1) begin
                 tx = spi_tran::type_id::create("tx",this);
                 tx.tran_id = mon1_tran_id_entire++;
                 tx.mt = ENTIRE;
                 tx.tran_time_end = $time; 
-                tx.rx_data = vif.mon_cb.rx_data;
-                tx.start = vif.mon_cb.start;
-                tx.done = vif.mon_cb.done;
+                tx.rx_data = vif.rx_data;
+                tx.start = vif.start;
+                tx.done = vif.done;
                 mon1_ap.write(tx);
                 `uvm_info("MON1", $sformatf("ENTIRE: Observed output transaction: 0x%02X on transaction ID: %d", tx.rx_data, tx.tran_id), UVM_LOW);
             end
-            prev_done = vif.mon_cb.done;
+            prev_done = vif.done;
         end
       end
       begin   
@@ -87,11 +87,13 @@ class spi_mon1 extends uvm_monitor;
         forever begin 
           spi_tran tr;
           @(negedge vif.rst_n)
+          monitor1_abort = 1'b1;
+          #1;
 	  tr = spi_tran::type_id::create("reset_tran");
 	  tr.mt = BIT_RESET;
 	  tr.tran_time_start = $time;
 	  tr.rst_n = vif.rst_n;
-	  tr.busy = vif.mon_cb.busy;
+	  tr.busy = vif.busy;
 	  tr.cs_n = vif.cs_n;
 	  tr.sclk = vif.sclk;
 	  tr.mosi = vif.mosi;
@@ -99,7 +101,6 @@ class spi_mon1 extends uvm_monitor;
   	`uvm_info("MON1", $sformatf("RESET: rst_n=%0b, busy=%0b, cs_n=%0b, sclk=%0b, mosi=%0b", 
   	                              tr.rst_n, tr.busy, tr.cs_n, tr.sclk, tr.mosi), UVM_LOW);
 	  mon1_ap.write(tr);
-          monitor1_abort = 1'b1;
         end
       end
     join
