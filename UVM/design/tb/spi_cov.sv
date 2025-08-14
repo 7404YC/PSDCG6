@@ -4,6 +4,9 @@ class spi_cov extends uvm_component;
   // Use implementation port to receive transactions
   uvm_analysis_imp #(spi_tran, spi_cov) cov_imp;
 
+  // Virtual interface
+  virtual spi_if vif;
+
   function new(string name, uvm_component parent);
     super.new(name, parent);
     cov_imp = new("cov_imp", this);
@@ -13,22 +16,35 @@ class spi_cov extends uvm_component;
 
   // This will be called when transactions arrive
   function void write(spi_tran tr);
-    spi_cg.sample(tr);
+  //  spi_cg.sample(tr);
   endfunction
 
-  covergroup spi_cg with function sample(spi_tran tr);
+  function void build_phase(uvm_phase phase);
+    if (!uvm_config_db#(virtual spi_if)::get(this, "", "vif", vif)) begin
+      `uvm_error("COV", "vif not found in config db")
+    end
+  endfunction
+
+  task run_phase(uvm_phase phase);
+	forever begin
+        	@(vif.clk);
+		spi_cg.sample();
+	end	
+  endtask
+
+  covergroup spi_cg;
   option.per_instance = 1;
   option.comment = "THIS IS MY SPI_CG COVERAGE";
 
-  rst_n_cp:    coverpoint tr.rst_n;
-  start_cp:    coverpoint tr.start;
-  busy_cp:     coverpoint tr.busy;
-  done_cp:     coverpoint tr.done;
-  cs_n_cp:     coverpoint tr.cs_n;
-  tx_data_cp:  coverpoint tr.tx_data;
-  rx_data_cp:  coverpoint tr.rx_data { bins specific_value = {8'hB9}; }
-  miso_cp:     coverpoint tr.miso;
-  mosi_cp:     coverpoint tr.mosi;
+  rst_n_cp:    coverpoint vif.rst_n;
+  start_cp:    coverpoint vif.start;
+  busy_cp:     coverpoint vif.busy;
+  done_cp:     coverpoint vif.done;
+  cs_n_cp:     coverpoint vif.cs_n;
+  tx_data_cp:  coverpoint vif.tx_data;
+  rx_data_cp:  coverpoint vif.rx_data { bins specific_value = {8'hB9}; }
+  miso_cp:     coverpoint vif.miso;
+  mosi_cp:     coverpoint vif.mosi;
   ms_cp:   cross miso_cp, mosi_cp;
 
   endgroup
