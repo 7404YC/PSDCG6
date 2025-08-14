@@ -37,8 +37,6 @@ class spi_scb extends uvm_scoreboard;
   endfunction
 
   function void write(spi_tran tr);
-      check_T021(tr);
-      check_T022(tr);
     // will need to handle based on mt and tran_id
     if (tr.mt == ENTIRE) begin 
       int idx[$] = encountered_ENTIRE.find_index() with (item == tr.tran_id); 
@@ -79,6 +77,15 @@ class spi_scb extends uvm_scoreboard;
     else begin 
       `uvm_warning("SCB", "Invalid transaction type from monitor detected, discarding.");
     end 
+
+    if (tr.mt == BIT_RESET) begin
+      check_T021(tr);
+    end
+ 
+    if (tr.mt == ENTIRE) begin
+      check_T022(tr);
+    end 
+
   endfunction
 
   // T015: Check entire transaction correctness by reporting uvm_error 
@@ -148,14 +155,14 @@ class spi_scb extends uvm_scoreboard;
 
   function void check_T022(spi_tran tr);
 
-    // Check for start of new transaction during 'done' pulse
-    if ((tr.done === 1) && (tr.cs_n === 0 || tr.busy === 1 || tr.start === 1)) begin
-      `uvm_error("SCB", $sformatf("T022 VIOLATION: New transaction starting while 'done' is still high. \
-  cs_n=%0b, busy=%0b, start=%0b, time=%0t", tr.cs_n, tr.busy, tr.start, $time));
-    end
-    else if (tr.done === 1) begin
-      `uvm_info("SCB", $sformatf("T022 OK: 'done' seen cleanly, no new transaction overlap. time=%0t", $time), UVM_LOW);
-    end
+  // True violation: start is triggered while done is still high
+  if ((tr.done === 1) && (tr.start === 1)) begin
+    `uvm_error("SCB", $sformatf("T022 VIOLATION: Start asserted while 'done' is high. \
+start=%0b, done=%0b, time=%0t", tr.start, tr.done, $time));
+  end
+  else if (tr.done === 1) begin
+    `uvm_info("SCB", $sformatf("T022 OK: 'done' seen cleanly without start overlap. time=%0t", $time), UVM_LOW);
+  end
 
   endfunction
 

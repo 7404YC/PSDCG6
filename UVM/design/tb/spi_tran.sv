@@ -1,5 +1,5 @@
 
-typedef enum {ENTIRE, BIT_MOSI, BIT_MISO} mon_type;
+typedef enum {ENTIRE, BIT_MOSI, BIT_MISO, BIT_RESET} mon_type;
 class spi_tran extends uvm_sequence_item;
     // transaction input 
     logic       rst_n;

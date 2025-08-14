@@ -3,7 +3,6 @@ class spi_mon1 extends uvm_monitor;
 
   virtual spi_if.mon_mp vif;
   uvm_analysis_port #(spi_tran) mon1_ap;
-  uvm_event spi_done_event;
 
   logic [7:0] slave_tx_data; 
   int mon1_tran_id_entire = 0; 
@@ -12,7 +11,6 @@ class spi_mon1 extends uvm_monitor;
   function new(string name, uvm_component parent);
       super.new(name, parent);
       mon1_ap = new("mon1_ap", this);
-  spi_done_event = new();
   endfunction
 
   function void build_phase(uvm_phase phase);
@@ -26,7 +24,6 @@ class spi_mon1 extends uvm_monitor;
     if (!uvm_config_db # (bit)::get(this, "", "mon1_abort", monitor1_abort)) begin
 			`uvm_error("MON0", "Aborter variable not found in config db")
 		end
-	  uvm_config_db#(uvm_event)::set(this, "*", "spi_done_event", spi_done_event);
 
   endfunction
 
@@ -53,7 +50,6 @@ class spi_mon1 extends uvm_monitor;
                 tx.start = vif.mon_cb.start;
                 tx.done = vif.mon_cb.done;
                 mon1_ap.write(tx);
-                spi_done_event.trigger();
                 `uvm_info("MON1", $sformatf("ENTIRE: Observed output transaction: 0x%02X on transaction ID: %d", tx.rx_data, tx.tran_id), UVM_LOW);
             end
             prev_done = vif.mon_cb.done;
@@ -89,7 +85,20 @@ class spi_mon1 extends uvm_monitor;
       end
       begin 
         forever begin 
+          spi_tran tr;
           @(negedge vif.rst_n)
+	  tr = spi_tran::type_id::create("reset_tran");
+	  tr.mt = BIT_RESET;
+	  tr.tran_time_start = $time;
+	  tr.rst_n = vif.rst_n;
+	  tr.busy = vif.mon_cb.busy;
+	  tr.cs_n = vif.cs_n;
+	  tr.sclk = vif.sclk;
+	  tr.mosi = vif.mosi;
+ 	  tr.tran_time_end = $time;
+  	`uvm_info("MON1", $sformatf("RESET: rst_n=%0b, busy=%0b, cs_n=%0b, sclk=%0b, mosi=%0b", 
+  	                              tr.rst_n, tr.busy, tr.cs_n, tr.sclk, tr.mosi), UVM_LOW);
+	  mon1_ap.write(tr);
           monitor1_abort = 1'b1;
         end
       end
