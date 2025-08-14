@@ -19,9 +19,6 @@ class spi_mon0 extends uvm_monitor;
     if (!uvm_config_db # (bit)::get(this, "", "mon0_abort", monitor0_abort)) begin
 			`uvm_error("MON0", "Aborter variable not found in config db")
 		end
-    if (!uvm_config_db # (bit)::get(this, "", "scb_abort", scoreboard_abort)) begin
-			`uvm_error("MON0", "Aborter variable not found in config db")
-		end
   endfunction
 
   /*
@@ -96,7 +93,6 @@ class spi_mon0 extends uvm_monitor;
         forever begin 
           @(negedge vif.rst_n)
           monitor0_abort = 1'b1;
-          scoreboard_abort = 1'b1;
         end
       end
     join
