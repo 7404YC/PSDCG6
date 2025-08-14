@@ -77,10 +77,13 @@ class spi_mon0 extends uvm_monitor;
             #1;
             item.MS_data[7- ((curr_index++) % 8)] = vif.mosi;
             if (monitor0_abort) begin 
-              monitor0_abort = 0;
               break;
             end 
           end 
+          if (monitor0_abort) begin 
+            monitor0_abort = 0; 
+            continue;
+          end
           @(posedge vif.mon_cb.done) // Part of T024
           #1; 
           item.tx_data_t024 = vif.mon_cb.tx_data;
