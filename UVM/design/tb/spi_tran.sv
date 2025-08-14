@@ -1,5 +1,5 @@
 
-typedef enum {ENTIRE, BIT} mon_type;
+typedef enum {ENTIRE, BIT_MOSI, BIT_MISO} mon_type;
 class spi_tran extends uvm_sequence_item;
     // transaction input 
     logic       rst_n;
@@ -13,11 +13,13 @@ class spi_tran extends uvm_sequence_item;
     logic       done;
     logic       mosi;
     logic       cs_n;
+    logic       sclk;
 
 
     int seq_count;
     int seq_index;
 	string seq_type;
+	int b2b_interval_delay;
 
     int tran_count;
     int tran_index;
@@ -31,6 +33,7 @@ class spi_tran extends uvm_sequence_item;
     mon_type mt;
     int tran_id; 
     logic [7:0] MS_data;
+    logic [7:0] tx_data_t024;
 
     `uvm_object_utils(spi_tran)
 

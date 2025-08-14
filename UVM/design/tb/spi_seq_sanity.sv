@@ -17,18 +17,23 @@ class spi_seq_sanity extends spi_seq;
 			start_item(tr);
 
 			assert(tr.randomize() with {start == 1;});
-			tr.rst_n = 1;
 
-			delay = get_random_delay();
+			if ($test$plusargs("RST_RANDOM_EN")) begin
+				tr.rst_n = $urandom;
+			end else begin
+				tr.rst_n = 1'b1;
+			end
+
+			tr.b2b_interval_delay = get_random_delay();
+
 			seq_index++;
 			update_seq_info(tr);
 
 			`uvm_info(get_type_name(),
-				$sformatf("Sent %0d/%0d %s sequence: rst_n=%0b, start=%0b, tx_data=0x%0h",
-					this.seq_index, this.seq_count, this.seq_type, tr.rst_n, tr.start, tr.tx_data),
+				$sformatf("Sent %0d/%0d %s sequence after delay %0d: rst_n=%0b, start=%0b, tx_data=0x%0h",
+					this.seq_index, this.seq_count, this.seq_type, tr.b2b_interval_delay, tr.rst_n, tr.start, tr.tx_data),
 				UVM_MEDIUM)
 
-			#(delay);
 			finish_item(tr);
 
 		end

@@ -17,6 +17,8 @@ class spi_test_sanity extends spi_test;
   	task run_phase(uvm_phase phase);
 
   	  	seq.seq_count = this.seq_count;
+		seq.min_delay = 1;
+		seq.max_delay = 5;
 
   	  	`uvm_info("TEST", $sformatf("Starting sequences with config: count=%0d", seq.seq_count), UVM_MEDIUM)
 

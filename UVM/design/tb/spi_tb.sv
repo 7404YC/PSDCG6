@@ -13,6 +13,7 @@ module spi_tb;
     `include "spi_tran.sv"
     `include "spi_seq.sv"       // Sequence class
     `include "spi_seq_sanity.sv"       // Sequence class
+    `include "spi_seq_b2b.sv"       // Sequence class
     `include "spi_sqr.sv"       // Sequencer class
     `include "spi_drv.sv"       // Driver class
     `include "spi_mon0.sv"       // Monitor class
@@ -24,6 +25,7 @@ module spi_tb;
     `include "spi_env.sv"       // Env class
     `include "spi_test.sv"      // Test class
     `include "spi_test_sanity.sv"      // Test class
+    `include "spi_test_b2b.sv"      // Test class
 
     spi_if spi_if();
 
@@ -69,10 +71,18 @@ module spi_tb;
     logic [7:0] slave_rx_data;
     logic [7:0] slave_tx_data;
 
+    // For aborting driver and scoreboard
+    bit monitor0_abort = 0;
+    bit monitor1_abort = 0;
+    bit scoreboard_abort = 0;
+
     // uvm config db 
     initial begin 
         uvm_config_db#(logic [7:0])::set(null, "*", "slave_rx_data", slave_rx_data);
 		uvm_config_db#(logic [7:0])::set(null, "*", "slave_tx_data", slave_tx_data);
+        uvm_config_db#(bit)::set(null, "*", "mon0_abort", monitor0_abort);
+        uvm_config_db#(bit)::set(null, "*", "mon1_abort", monitor1_abort);
+        uvm_config_db#(bit)::set(null, "*", "scb_abort", scoreboard_abort);
     end
 
 	logic [31:0] int_counter = 1;
@@ -111,7 +121,16 @@ module spi_tb;
         uvm_config_db#(virtual spi_if.drv_mp)::set(null, "*drv*", "vif", spi_if);
         uvm_config_db#(virtual spi_if.mon_mp)::set(null, "*mon*", "vif", spi_if);
         uvm_config_db#(virtual spi_if)::set(null, "*", "vif", spi_if);
-        run_test("spi_test_sanity");
+
+		if ($test$plusargs("SANITY_TEST") || $test$plusargs("SANITY_TEST_RESET_DURING_TRANS")) begin
+	        run_test("spi_test_sanity");
+		end
+		else if ($test$plusargs("B2B_TEST") || $test$plusargs("B2B_TEST_RESET_DURING_TRANS")) begin
+	        run_test("spi_test_b2b");
+		end	
+		else begin
+			run_test();
+		end
     end
 
     // Simulation timeout 

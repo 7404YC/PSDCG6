@@ -22,12 +22,24 @@ class spi_scb extends uvm_scoreboard;
     BIT_tran = spi_tran::type_id::create("bit");
   endfunction
 
+  function void build_phase(uvm_phase phase);
+    super.build_phase(phase);
+    log_fd   = $fopen("scoreboard_log_entire.txt", "w");
+    if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
+    $fdisplay(log_fd, "Scoreboard for ENTIRE transaction, generated: %p", $time);
+    $fclose(log_fd); 
+    log_fd   = $fopen("scoreboard_log_bit.txt", "w");
+    if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
+    $fdisplay(log_fd, "Scoreboard for BIT transaction, generated: %p", $time);
+    $fclose(log_fd); 
+  endfunction
+
   function void write(spi_tran tr);
+      check_T021(tr);
     // will need to handle based on mt and tran_id
     if (tr.mt == ENTIRE) begin 
       int idx[$] = encountered_ENTIRE.find_index() with (item == tr.tran_id); 
       if (!idx.size()) begin  // first time encounter
-        `uvm_info(get_type_name(), "DEBUGGGGGGGGGGGGG entire type, first encounter for this ID. ", UVM_LOW);
         encountered_ENTIRE.push_back(tr.tran_id);
         ENTIRE_tran.tran_time_start = tr.tran_time_start;
         ENTIRE_tran.mt = tr.mt;
@@ -35,34 +47,32 @@ class spi_scb extends uvm_scoreboard;
         ENTIRE_tran.tran_id = tr.tran_id; 
         ENTIRE_tran.tran_time_end = 0;
         ENTIRE_tran.rx_data = 8'b0;
-        print_entire(ENTIRE_tran);
+        // print_entire(ENTIRE_tran);
       end else if  (idx.size() > 0) begin // not first time
-        `uvm_info(get_type_name(), "DEBUGGGGGGGGGGGGG entire type, not first encounter for this ID. ", UVM_LOW);
         ENTIRE_tran.tran_time_end = tr.tran_time_end;
         ENTIRE_tran.rx_data = tr.rx_data;
         encountered_ENTIRE.delete(idx[0]);
         print_entire(ENTIRE_tran);
       end
     end 
-    else if (tr.mt == BIT) begin 
-      int idx[$] = encountered_BIT.find_index() with (item == tr.tran_id);
-      if (!idx.size()) begin  // first time encounter
-        `uvm_info(get_type_name(), "DEBUGGGGGGGGGGGGG bit type, first encounter for this ID. ", UVM_LOW);
-        encountered_BIT.push_back(tr.tran_id);
-        BIT_tran.tran_time_start = tr.tran_time_start;
+    else if (tr.mt == BIT_MOSI) begin 
         BIT_tran.mt = tr.mt;
         BIT_tran.tran_id = tr.tran_id; 
-        BIT_tran.tran_time_end = 0;
-        BIT_tran.MS_data = 8'b0;
-        print_bit(BIT_tran, 0);
-      end else if  (idx.size() > 0) begin // not first time
-        `uvm_info(get_type_name(), "DEBUGGGGGGGGGGGGG bit type, not first encounter for this ID. ", UVM_LOW);
+        BIT_tran.tran_time_start = tr.tran_time_start;
         BIT_tran.tran_time_end = tr.tran_time_end;
         BIT_tran.MS_data = tr.MS_data;
-        encountered_BIT.delete(idx[0]);
-        print_bit(BIT_tran, 1);
-      end
+        BIT_tran.tx_data = tr.tx_data;
+        BIT_tran.tx_data_t024 = tr.tx_data_t024;
+        print_bit(BIT_tran, 0);
     end 
+    else if (tr.mt == BIT_MISO) begin
+        BIT_tran.mt = tr.mt;
+        BIT_tran.tran_id = tr.tran_id; 
+        BIT_tran.tran_time_start = tr.tran_time_start;
+        BIT_tran.tran_time_end = tr.tran_time_end;
+        BIT_tran.MS_data = tr.MS_data;
+        print_bit(BIT_tran, 1);
+    end
     else begin 
       `uvm_warning("SCB", "Invalid transaction type from monitor detected, discarding.");
     end 
@@ -86,14 +96,27 @@ class spi_scb extends uvm_scoreboard;
     `uvm_info("SCB", hdr, UVM_NONE);
     `uvm_info("SCB", line, UVM_NONE);
     $fdisplay(log_fd, hdr);
-    $fdisplay(log_fd, line); 
+    $fdisplay(log_fd, line);        
     $fclose(log_fd); 
   endfunction
 
+  // T024: Check MOSI/MISO correctness by reporting uvm_error
   function void print_bit(spi_tran t, int mosimiso = 0);
     string hdr, line;
     log_fd   = $fopen("scoreboard_log_bit.txt", "a");
     if (!log_fd) `uvm_fatal("SCB", "Cannot open scoreboard_log.txt");
+    // T001: Check mosi/miso value match
+    if ((mosimiso == 0) && (t.tx_data === t.MS_data)) begin 
+      `uvm_info("SCB", $sformatf("T001 and T002 satisfied"), UVM_LOW);
+    end else if (mosimiso == 0) begin 
+      `uvm_error("SCB", $sformatf("T001 and T002 violated, %h %h",t.tx_data, t.MS_data));
+    end
+    // T024: Check mosi/miso value match
+    if ((mosimiso == 0) && (t.tx_data_t024 === t.MS_data)) begin 
+      `uvm_info("SCB", $sformatf("T024 satisfied"), UVM_LOW);
+    end else if (mosimiso == 0) begin 
+      `uvm_error("SCB", $sformatf("T024 violated, %h %h",t.tx_data_t024, t.MS_data));
+    end
     $sformat(hdr,  "%-12s %-12s %-8s %-8s",
                     "start time", "end time", "ID", (mosimiso) ? "miso" : "mosi");
     $sformat(line, "%-12.2f %-12.2f %-8d 0x%02h",
@@ -103,6 +126,25 @@ class spi_scb extends uvm_scoreboard;
     $fdisplay(log_fd, hdr);
     $fdisplay(log_fd, line);
     $fclose(log_fd);
+  endfunction
+
+  function void check_T021(spi_tran tr);
+  // If reset is asserted (reset == 0), check that SPI signals immediately go to idle
+    if (tr.rst_n === 0) begin
+      if ((tr.busy !== 0) || (tr.cs_n !== 1) || (tr.sclk !== 0) || (tr.mosi !== 0)) begin
+        `uvm_error("SCB", $sformatf("T021 violated during reset: busy=%0b, cs_n=%0b, sclk=%0b, mosi=%0b",
+                                    tr.busy, tr.cs_n, tr.sclk, tr.mosi));
+      end else begin
+        `uvm_info("SCB", $sformatf("T021 satisfied during reset: busy=%0b, cs_n=%0b, sclk=%0b, mosi=%0b",
+                                  tr.busy, tr.cs_n, tr.sclk, tr.mosi), UVM_LOW);
+      end
+    end else begin
+       `uvm_info("SCB", "T021 not applicable: reset is not asserted, no check performed.", UVM_LOW);
+    end
+  endfunction
+
+  function void report_phase (uvm_phase phase);
+
   endfunction
 endclass
 

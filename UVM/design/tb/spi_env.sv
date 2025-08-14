@@ -31,5 +31,6 @@ class spi_env extends uvm_env;
     agt0.agt0_ap.connect(scb.scb_imp0);
     agt1.agt1_ap.connect(scb.scb_imp1);
     agt0.agt0_ap.connect(cov.cov_imp);
+    agt1.agt1_ap.connect(cov.cov_imp);
   endfunction
 endclass

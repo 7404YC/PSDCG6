@@ -16,6 +16,12 @@ class spi_mon0 extends uvm_monitor;
     if(!uvm_config_db#(virtual spi_if.mon_mp)::get(this, "", "vif", vif)) begin
       `uvm_error("MON0", "Virtual interspice not found in config db")
     end
+    if (!uvm_config_db # (bit)::get(this, "", "mon0_abort", monitor0_abort)) begin
+			`uvm_error("MON0", "Aborter variable not found in config db")
+		end
+    if (!uvm_config_db # (bit)::get(this, "", "scb_abort", scoreboard_abort)) begin
+			`uvm_error("MON0", "Aborter variable not found in config db")
+		end
   endfunction
 
   /*
@@ -29,7 +35,7 @@ class spi_mon0 extends uvm_monitor;
         spi_tran item;
         forever begin
           // Trigger on vif.start
-          @(posedge vif.mon_cb.start)
+          @(posedge vif.mon_cb.start iff !vif.mon_cb.busy)
           #1;
           // create item 
           item = spi_tran::type_id::create("in_item_t1");
@@ -40,6 +46,11 @@ class spi_mon0 extends uvm_monitor;
           item.rst_n =		vif.rst_n;
           item.start =		vif.mon_cb.start;
           item.tx_data =	vif.mon_cb.tx_data;
+          item.mosi =		vif.mosi;
+          item.cs_n =		vif.cs_n;
+          item.miso =		vif.miso;
+          item.busy =		vif.mon_cb.busy;
+          item.done =		vif.mon_cb.done;
           // write to analysis port for scb
           mon0_ap.write(item);
           // uvm_info
@@ -52,16 +63,34 @@ class spi_mon0 extends uvm_monitor;
         forever begin 
           item = spi_tran::type_id::create("in_item_t2");
           item.tran_id = mon0_tran_id_bit++;
-          item.mt = BIT; 
+          item.mt = BIT_MOSI; 
+          item.tran_time_start = $time;
+          @(posedge vif.mon_cb.busy)
+          item.tx_data = vif.mon_cb.tx_data;
           curr_index = 0;
           repeat(8) begin 
-            @(posedge vif.sclk) // TODO: using the mon_cb here is really ticking me off
+            @(posedge vif.sclk) //  TODO: using the mon_cb here is really ticking me off
             #1;
-            item.MS_data[(curr_index++) % 8] = vif.mosi;
+            item.MS_data[7- ((curr_index++) % 8)] = vif.mosi;
+            if (monitor0_abort) begin 
+              monitor0_abort = 0;
+              break;
+            end 
           end 
+          @(posedge vif.mon_cb.done) // Part of T024
+          #1; 
+          item.tx_data_t024 = vif.mon_cb.tx_data;
+          item.tran_time_end = $time;
+          `uvm_info("MON0", $sformatf("BIT: Observed mosi details: %8b on transaction ID: %d %h %h", item.MS_data, item.tran_id, item.tx_data, item.tx_data_t024), UVM_LOW);
           mon0_ap.write(item);
-          `uvm_info("MON0", $sformatf("BIT: Observed mosi details: %8b on transaction ID: %d", item.MS_data, item.tran_id), UVM_LOW);
         end 
+      end
+      begin 
+        forever begin 
+          @(negedge vif.rst_n)
+          monitor0_abort = 1'b1;
+          scoreboard_abort = 1'b1;
+        end
       end
     join
   endtask
