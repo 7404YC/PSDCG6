@@ -66,7 +66,30 @@ function void check_checkeray();
         $display(""); // newline
     end
     $display("=====================================================\n");
+
+// Check 0,4,6 vs 2
+foreach (checkeray[row_id]) begin
+    if ((checkeray[row_id][0] !== checkeray[row_id][2]) ||
+        (checkeray[row_id][4] !== checkeray[row_id][2]) ||
+        (checkeray[row_id][6] !== checkeray[row_id][2])) begin
+        $error("Mismatch found in group A at row %0d", row_id);
+        break;
+    end
+end
+
+// Check 1,5,7 vs 3
+foreach (checkeray[row_id]) begin
+    if ((checkeray[row_id][1] !== checkeray[row_id][3]) ||
+        (checkeray[row_id][5] !== checkeray[row_id][3]) ||
+        (checkeray[row_id][7] !== checkeray[row_id][3])) begin
+        $error("Mismatch found in group B at row %0d", row_id);
+        break;
+    end
+end
+
+
 endfunction
+
 
 
 
