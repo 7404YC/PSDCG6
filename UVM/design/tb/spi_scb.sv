@@ -29,6 +29,8 @@ class spi_scb extends uvm_scoreboard;
 function void check_checkeray();
     int idx_list_a[] = '{2,4,6};
     int idx_list_b[] = '{3,5,7};
+    bit mismatch_046 [2:0];  // indexes: {col0, col4, col6}
+    bit mismatch_157  [2:0];  // indexes: {col1, col5, col7}
 
     // =====================
     // Check for mismatches
@@ -67,27 +69,30 @@ function void check_checkeray();
     end
     $display("=====================================================\n");
 
-// Check 0,4,6 vs 2
-foreach (checkeray[row_id]) begin
-    if ((checkeray[row_id][0] !== checkeray[row_id][2]) ||
-        (checkeray[row_id][4] !== checkeray[row_id][2]) ||
-        (checkeray[row_id][6] !== checkeray[row_id][2])) begin
-        $error("Mismatch found in group A at row %0d", row_id);
-        break;
+    // Track mismatch flags
+
+    // Iterate rows
+    foreach (checkeray[row_id]) begin
+        // Check group A (0,4,6 vs 2)
+        if (checkeray[row_id][0] !== checkeray[row_id][2]) mismatch_046[0] = 1;
+        if (checkeray[row_id][4] !== checkeray[row_id][2]) mismatch_046[1] = 1;
+        if (checkeray[row_id][6] !== checkeray[row_id][2]) mismatch_046[2] = 1;
+
+        if (mismatch_046[0] && mismatch_046[1] && mismatch_046[2]) begin
+            $error("Cols (0,4,6) all had mismatches vs col 2 by row %0d", row_id);
+            break;
+        end
+
+        // Check group B (1,5,7 vs 3)
+        if (checkeray[row_id][1] !== checkeray[row_id][3]) mismatch_157[0] = 1;
+        if (checkeray[row_id][5] !== checkeray[row_id][3]) mismatch_157[1] = 1;
+        if (checkeray[row_id][7] !== checkeray[row_id][3]) mismatch_157[2] = 1;
+
+        if (mismatch_157[0] && mismatch_157[1] && mismatch_157[2]) begin
+            $error("Cols (1,5,7) all had mismatches vs col 3 by row %0d", row_id);
+            break;
+        end
     end
-end
-
-// Check 1,5,7 vs 3
-foreach (checkeray[row_id]) begin
-    if ((checkeray[row_id][1] !== checkeray[row_id][3]) ||
-        (checkeray[row_id][5] !== checkeray[row_id][3]) ||
-        (checkeray[row_id][7] !== checkeray[row_id][3])) begin
-        $error("Mismatch found in group B at row %0d", row_id);
-        break;
-    end
-end
-
-
 endfunction
 
 
