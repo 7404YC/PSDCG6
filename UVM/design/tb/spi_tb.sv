@@ -75,17 +75,11 @@ module spi_tb;
     bit monitor0_abort = 0;
     bit monitor1_abort = 0;
 
-    // For SPI Mode assertion 
-    bit [2:0] mismatch_046 ;
-    bit [2:0] mismatch_157  ;
-
     // uvm config db 
     initial begin 
         uvm_config_db#(logic [7:0])::set(null, "*", "slave_rx_data", slave_rx_data);
 		uvm_config_db#(logic [7:0])::set(null, "*", "slave_tx_data", slave_tx_data);
 		uvm_config_db#(logic [7:0])::set(null, "*", "slave_reset_resp", slave_reset_response);
-        uvm_config_db#(bit [2:0])::set(null, "*", "mm046", mismatch_046);
-        uvm_config_db#(bit [2:0])::set(null, "*", "mm157", mismatch_157);
         uvm_config_db#(bit)::set(null, "*", "mon0_abort", monitor0_abort);
         uvm_config_db#(bit)::set(null, "*", "mon1_abort", monitor1_abort);
     end

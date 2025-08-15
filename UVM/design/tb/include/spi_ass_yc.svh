@@ -68,7 +68,6 @@ endproperty
 // Assertions
 ASSERT_T014A: assert property (T014A)
     else $error("ASSERT", "Error T014A");
-
 ASSERT_T014B: assert property (T014B)
     else $error("ASSERT", "Error T014B");
 

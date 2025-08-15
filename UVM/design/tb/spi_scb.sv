@@ -21,6 +21,9 @@ class spi_scb extends uvm_scoreboard;
   int log_fd; 
   // Check array - checkeray
   bit checkeray[$][8];
+  // For SPI Mode assertion 
+  bit [2:0] mismatch_046;
+  bit [2:0] mismatch_157;
   task ensure_index(int id);
     // Grow the queue if needed 
     while (checkeray.size() <= id)
@@ -65,9 +68,6 @@ class spi_scb extends uvm_scoreboard;
     end
   endfunction
 
-
-
-
   function new(string name, uvm_component parent);
     super.new(name, parent);
     scb_imp0 = new ("scb_imp0", this);
@@ -81,11 +81,7 @@ class spi_scb extends uvm_scoreboard;
     OL1HA1_L_if = spi_tran::type_id::create("OL1HA1_L_if");
     OL1HA1_T_if = spi_tran::type_id::create("OL1HA1_T_if");
     if (!uvm_config_db#(logic [7:0])::get(this, "", "slave_reset_resp", slave_reset_response))
-      `uvm_fatal("SCB", "Unable to obtain slave reset resp");    
-    if (!uvm_config_db#(bit [2:0])::get(this, "", "mm046", mismatch_046))
-      `uvm_fatal("SCB", "Unable to obtain mm046");    
-    if (!uvm_config_db#(bit [2:0])::get(this, "", "mm157", mismatch_157))
-      `uvm_fatal("SCB", "Unable to obtain mm157");
+      `uvm_fatal("SCB", "Unable to obtain slave reset resp");  
   endfunction
 
   function void build_phase(uvm_phase phase); 
@@ -316,7 +312,6 @@ class spi_scb extends uvm_scoreboard;
     else begin 
       `uvm_error("SCB", $sformatf("Wrong usage of print_OLHA function"));
     end
-
   endfunction
 
 
@@ -387,16 +382,14 @@ class spi_scb extends uvm_scoreboard;
   endfunction
 
   function void check_T022(spi_tran tr);
-
-  // True violation: start is triggered while done is still high
-  if ((tr.done === 1) && (tr.start === 1)) begin
-    `uvm_error("SCB", $sformatf("T022 VIOLATION: Start asserted while 'done' is high. \
-start=%0b, done=%0b, time=%0t", tr.start, tr.done, $time));
-  end
-  else if (tr.done === 1) begin
-    `uvm_info("SCB", $sformatf("T022 OK: 'done' seen cleanly without start overlap. time=%0t", $time), UVM_LOW);
-  end
-
+    // True violation: start is triggered while done is still high
+    if ((tr.done === 1) && (tr.start === 1)) begin
+      `uvm_error("SCB", $sformatf("T022 VIOLATION: Start asserted while 'done' is high. \
+        start=%0b, done=%0b, time=%0t", tr.start, tr.done, $time));
+    end
+    else if (tr.done === 1) begin
+      `uvm_info("SCB", $sformatf("T022 OK: 'done' seen cleanly without start overlap. time=%0t", $time), UVM_LOW);
+    end
   endfunction
 
   function void report_phase (uvm_phase phase);
