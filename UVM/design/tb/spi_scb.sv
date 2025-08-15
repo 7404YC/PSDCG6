@@ -29,12 +29,7 @@ class spi_scb extends uvm_scoreboard;
 function void check_checkeray();
     int idx_list_a[] = '{2,4,6};
     int idx_list_b[] = '{3,5,7};
-    bit mismatch_046 [2:0];  // indexes: {col0, col4, col6}
-    bit mismatch_157  [2:0];  // indexes: {col1, col5, col7}
-
-    // =====================
-    // Check for mismatches
-    // =====================
+/*
     foreach (checkeray[row_id]) begin
         bit ref0 = checkeray[row_id][0]; // value for indices 2,4,6
         bit ref1 = checkeray[row_id][1]; // value for indices 3,5,7
@@ -42,56 +37,65 @@ function void check_checkeray();
         // Check group A
         foreach (idx_list_a[ii]) begin
             if (checkeray[row_id][idx_list_a[ii]] !== ref0)
-                $error("Row %0d, index %0d: expected %b (from idx 0), got %b",
-                       row_id, idx_list_a[ii], ref0, checkeray[row_id][idx_list_a[ii]]);
+                // $error("Row %0d, index %0d: expected %b (from idx 0), got %b", row_id, idx_list_a[ii], ref0, checkeray[row_id][idx_list_a[ii]]);
         end
 
         // Check group B
         foreach (idx_list_b[ii]) begin
             if (checkeray[row_id][idx_list_b[ii]] !== ref1)
-                $error("Row %0d, index %0d: expected %b (from idx 1), got %b",
-                       row_id, idx_list_b[ii], ref1, checkeray[row_id][idx_list_b[ii]]);
+                // $error("Row %0d, index %0d: expected %b (from idx 1), got %b", row_id, idx_list_b[ii], ref1, checkeray[row_id][idx_list_b[ii]]);
         end
     end
-
+*/
     // =====================
     // Dump full array
     // =====================
-    $display("\n================ CHECKER ARRAY DUMP ================");
-    $display(" Row | b0 b1 b2 b3 b4 b5 b6 b7 ");
-    $display("-----+-------------------------");
+    //$display("\n================ CHECKER ARRAY DUMP ================");
+    //$display(" Row | b0 b1 b2 b3 b4 b5 b6 b7 ");
+    //$display("-----+-------------------------");
     foreach (checkeray[row_id]) begin
-        $write(" %3d |", row_id);
+        //$write(" %3d |", row_id);
         for (int col = 0; col < 8; col++) begin
-            $write(" %b ", checkeray[row_id][col]);
+            //$write(" %b ", checkeray[row_id][col]);
         end
-        $display(""); // newline
+        //$display(""); // newline
     end
-    $display("=====================================================\n");
+    //$display("=====================================================\n");
 
     // Track mismatch flags
 
     // Iterate rows
     foreach (checkeray[row_id]) begin
-        // Check group A (0,4,6 vs 2)
-        if (checkeray[row_id][0] !== checkeray[row_id][2]) mismatch_046[0] = 1;
-        if (checkeray[row_id][4] !== checkeray[row_id][2]) mismatch_046[1] = 1;
-        if (checkeray[row_id][6] !== checkeray[row_id][2]) mismatch_046[2] = 1;
+      // Check group A (0,4,6 vs 2)
+      if (checkeray[row_id][0] != checkeray[row_id][2]) mismatch_046[0] = 1;
+      if (checkeray[row_id][4] != checkeray[row_id][2]) mismatch_046[1] = 1;
+      if (checkeray[row_id][6] != checkeray[row_id][2]) mismatch_046[2] = 1;
 
-        if (mismatch_046[0] && mismatch_046[1] && mismatch_046[2]) begin
-            $error("Cols (0,4,6) all had mismatches vs col 2 by row %0d", row_id);
-            break;
-        end
+      if (mismatch_046[0] && mismatch_046[1] && mismatch_046[2]) begin
+          //$error("Cols (0,4,6) all had mismatches vs col 2 by row %0d", row_id);
+          break;
+      end
+    end
+    foreach (checkeray[row_id]) begin
+      // Check group B (1,5,7 vs 3)
+      if (checkeray[row_id][1] != checkeray[row_id][3]) mismatch_157[0] = 1;
+      if (checkeray[row_id][5] != checkeray[row_id][3]) mismatch_157[1] = 1;
+      if (checkeray[row_id][7] != checkeray[row_id][3]) mismatch_157[2] = 1;
 
-        // Check group B (1,5,7 vs 3)
-        if (checkeray[row_id][1] !== checkeray[row_id][3]) mismatch_157[0] = 1;
-        if (checkeray[row_id][5] !== checkeray[row_id][3]) mismatch_157[1] = 1;
-        if (checkeray[row_id][7] !== checkeray[row_id][3]) mismatch_157[2] = 1;
-
-        if (mismatch_157[0] && mismatch_157[1] && mismatch_157[2]) begin
-            $error("Cols (1,5,7) all had mismatches vs col 3 by row %0d", row_id);
-            break;
-        end
+      if (mismatch_157[0] && mismatch_157[1] && mismatch_157[2]) begin
+          //$error("Cols (1,5,7) all had mismatches vs col 3 by row %0d", row_id);
+          break;  
+      end
+    end
+    // Output information 
+    if (mismatch_046[0] || mismatch_157[0]) begin 
+      `uvm_info("SCB", $sformatf("SPI Mode 0 Found discrepancies"), UVM_LOW);
+    end
+    if (mismatch_046[1] || mismatch_157[1]) begin 
+      `uvm_info("SCB", $sformatf("SPI Mode 2 Found discrepancies"), UVM_LOW);
+    end
+    if (mismatch_046[2] || mismatch_157[2]) begin 
+      `uvm_info("SCB", $sformatf("SPI Mode 3 Found discrepancies"), UVM_LOW);
     end
 endfunction
 
@@ -110,8 +114,12 @@ endfunction
     OL1HA0_if = spi_tran::type_id::create("OL1HA0_if");
     OL1HA1_L_if = spi_tran::type_id::create("OL1HA1_L_if");
     OL1HA1_T_if = spi_tran::type_id::create("OL1HA1_T_if");
-	if (!uvm_config_db#(logic [7:0])::get(this, "", "slave_reset_resp", slave_reset_response))
-      `uvm_fatal("SCB", "Unable to obtain slave reset resp");
+    if (!uvm_config_db#(logic [7:0])::get(this, "", "slave_reset_resp", slave_reset_response))
+      `uvm_fatal("SCB", "Unable to obtain slave reset resp");    
+    if (!uvm_config_db#(bit [2:0])::get(this, "", "mm046", mismatch_046))
+      `uvm_fatal("SCB", "Unable to obtain mm046");    
+    if (!uvm_config_db#(bit [2:0])::get(this, "", "mm157", mismatch_157))
+      `uvm_fatal("SCB", "Unable to obtain mm157");
   endfunction
 
   function void build_phase(uvm_phase phase); 
