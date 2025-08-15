@@ -56,7 +56,7 @@ class spi_mon2 extends uvm_monitor;
             `uvm_info("MON2", $sformatf("OL0HA1: leading posedge sample."), UVM_LOW);
           end          
           forever begin
-            @(negedge vif.sclk);
+            @(negedge vif.sclk iff ($time > 0));
             item = spi_tran::type_id::create("item",this);
             item.mt = OL0HA1_T;
             item.tran_time_start = $time; 
@@ -86,7 +86,7 @@ class spi_mon2 extends uvm_monitor;
       begin 
         spi_tran item;
         forever begin
-          @(negedge vif.sclk);
+          @(negedge vif.isclk iff ($time > 0));
           item = spi_tran::type_id::create("item",this);
           item.mt = OL1HA0;
           item.tran_time_start = $time; 
@@ -102,21 +102,23 @@ class spi_mon2 extends uvm_monitor;
         spi_tran item;
         fork 
           forever begin
-            @(negedge vif.sclk);
+            @(negedge vif.isclk iff ($time > 0));
             item = spi_tran::type_id::create("item",this);
             item.mt = OL1HA1_L;
             item.tran_time_start = $time; 
-            item.miso = vif.miso;
+            item.mosi = vif.mosi;
+            //item.miso = vif.miso;
             item.curr_lead = lead_11++; 
             mon2_ap.write(item);
             `uvm_info("MON2", $sformatf("OL1HA1: leading negedge sample."), UVM_LOW);
           end          
           forever begin
-            @(posedge vif.sclk);
+            @(posedge vif.isclk);
             item = spi_tran::type_id::create("item",this);
             item.mt = OL1HA1_T;
             item.tran_time_start = $time; 
-            item.mosi = vif.mosi;
+            //item.mosi = vif.mosi;
+            item.miso = vif.miso;
             item.curr_fall = fall_11++; 
             mon2_ap.write(item);
             `uvm_info("MON2", $sformatf("OL1HA1: trailing posedge sample."), UVM_LOW);

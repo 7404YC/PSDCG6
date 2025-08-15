@@ -76,8 +76,8 @@ module spi_tb;
     bit monitor1_abort = 0;
 
     // For SPI Mode assertion 
-    bit mismatch_046 [2:0];
-    bit mismatch_157  [2:0];
+    bit [2:0] mismatch_046 ;
+    bit [2:0] mismatch_157  ;
 
     // uvm config db 
     initial begin 

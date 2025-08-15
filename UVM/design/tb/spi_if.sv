@@ -28,11 +28,14 @@ interface spi_if #(parameter CLK_DIV = 4)(
     endclocking
 
     // simulated CPOL and CPHA clock signal 
-    
+    logic       isclk; 
+    always @(edge sclk) begin 
+        isclk = ~sclk;
+    end
 
     // Modports for separation of roles
     modport drv_mp  (clocking drv_cb, output sclk, mosi, cs_n, input miso, rst_n);
-    modport mon_mp (input clk, start, tx_data, busy, done, rx_data, mosi, cs_n, sclk, miso, rst_n);
+    modport mon_mp (input clk, start, tx_data, busy, done, rx_data, mosi, cs_n, sclk, miso, rst_n, isclk);
 
 	`include "spi_ass_xy.svh"
 	`include "spi_ass_yc.svh"

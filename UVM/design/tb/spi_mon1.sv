@@ -70,7 +70,7 @@ class spi_mon1 extends uvm_monitor;
               if (monitor1_abort) begin 
                 break;
               end 
-              @(negedge vif.sclk) // TODO: using the mon_cb here is really ticking me off
+              @(negedge vif.sclk)
               item.MS_data[7 - ((curr_index++) % 8)] = vif.miso;
             end 
             if (monitor1_abort) begin 
