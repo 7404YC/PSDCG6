@@ -30,6 +30,7 @@ class spi_mon2 extends uvm_monitor;
   int lead_01 = 0; 
   int fall_01 = 0;
   int lead_00 = 0; 
+  int fall_00 = 0; 
   int lead_10 = 0; 
   int lead_11 = 0; 
   int fall_11 = 0;
@@ -70,17 +71,35 @@ class spi_mon2 extends uvm_monitor;
       // SPI0: NOT CHANGING THE CLOCK, mosi and miso both sampled on leading-posedge.
       begin 
         spi_tran item;
-        forever begin
-            @(posedge vif.sclk);
-            item = spi_tran::type_id::create("item",this);
-            item.mt = OL0HA0;
-            item.tran_time_start = $time; 
-            item.mosi = vif.mosi;
-            item.miso = vif.miso;
-            item.curr_lead = lead_00++; 
-            mon2_ap.write(item);
-            `uvm_info("MON2", $sformatf("OL0HA0: leading posedge sample."), UVM_LOW);
+        fork 
+          // mosi: start posedge, sclk negedge, when start asserted
+          forever begin
+            @(negedge vif.sclk or posedge vif.start);
+            #1;
+            if (vif.start) begin  
+              item = spi_tran::type_id::create("item",this);
+              item.mt = OL0HA0_L;
+              item.tran_time_start = $time; 
+              item.mosi = vif.mosi;
+              item.curr_lead = lead_00++; 
+              mon2_ap.write(item);  
+              `uvm_info("MON2", $sformatf("OL0HA0_L: leading posedge sample."), UVM_LOW);
+            end
           end
+          // miso: sclk posedge, when busy asserted
+          forever begin
+            @(posedge vif.sclk);
+            if (vif.busy) begin 
+              item = spi_tran::type_id::create("item",this);
+              item.mt = OL0HA0_T;
+              item.tran_time_start = $time; 
+              item.miso = vif.miso;
+              item.curr_fall = fall_00++; 
+              mon2_ap.write(item);
+              `uvm_info("MON2", $sformatf("OL0HA0_T: leading posedge sample."), UVM_LOW);
+            end
+          end
+        join
       end
       // SPI2: NOT CHANGING THE CLOCK, mosi sampled on falling edge, in this case moved to trailing edge and miso on rising edge, the leading edge. [will cause data mismatch]
       begin 
