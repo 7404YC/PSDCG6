@@ -26,44 +26,7 @@ class spi_scb extends uvm_scoreboard;
     while (checkeray.size() <= id)
       checkeray.push_back('{default:0});
   endtask
-function void check_checkeray();
-    int idx_list_a[] = '{2,4,6};
-    int idx_list_b[] = '{3,5,7};
-/*
-    foreach (checkeray[row_id]) begin
-        bit ref0 = checkeray[row_id][0]; // value for indices 2,4,6
-        bit ref1 = checkeray[row_id][1]; // value for indices 3,5,7
-
-        // Check group A
-        foreach (idx_list_a[ii]) begin
-            if (checkeray[row_id][idx_list_a[ii]] !== ref0)
-                // $error("Row %0d, index %0d: expected %b (from idx 0), got %b", row_id, idx_list_a[ii], ref0, checkeray[row_id][idx_list_a[ii]]);
-        end
-
-        // Check group B
-        foreach (idx_list_b[ii]) begin
-            if (checkeray[row_id][idx_list_b[ii]] !== ref1)
-                // $error("Row %0d, index %0d: expected %b (from idx 1), got %b", row_id, idx_list_b[ii], ref1, checkeray[row_id][idx_list_b[ii]]);
-        end
-    end
-*/
-    // =====================
-    // Dump full array
-    // =====================
-    //$display("\n================ CHECKER ARRAY DUMP ================");
-    //$display(" Row | b0 b1 b2 b3 b4 b5 b6 b7 ");
-    //$display("-----+-------------------------");
-    foreach (checkeray[row_id]) begin
-        //$write(" %3d |", row_id);
-        for (int col = 0; col < 8; col++) begin
-            //$write(" %b ", checkeray[row_id][col]);
-        end
-        //$display(""); // newline
-    end
-    //$display("=====================================================\n");
-
-    // Track mismatch flags
-
+  function void check_checkeray();
     // Iterate rows
     foreach (checkeray[row_id]) begin
       // Check group A (0,4,6 vs 2)
@@ -72,7 +35,6 @@ function void check_checkeray();
       if (checkeray[row_id][6] != checkeray[row_id][2]) mismatch_046[2] = 1;
 
       if (mismatch_046[0] && mismatch_046[1] && mismatch_046[2]) begin
-          //$error("Cols (0,4,6) all had mismatches vs col 2 by row %0d", row_id);
           break;
       end
     end
@@ -83,7 +45,6 @@ function void check_checkeray();
       if (checkeray[row_id][7] != checkeray[row_id][3]) mismatch_157[2] = 1;
 
       if (mismatch_157[0] && mismatch_157[1] && mismatch_157[2]) begin
-          //$error("Cols (1,5,7) all had mismatches vs col 3 by row %0d", row_id);
           break;  
       end
     end
@@ -102,7 +63,7 @@ function void check_checkeray();
     end else begin 
       `uvm_error("ASSERT", "Different SPI mode recorded same value. ");
     end
-endfunction
+  endfunction
 
 
 
