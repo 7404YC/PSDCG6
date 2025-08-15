@@ -19,7 +19,7 @@ module spi #(
     logic [7:0] tx_reg;    // Transmit shift register
     logic [7:0] rx_reg;    // Receive shift register
     logic [2:0] bit_cnt;   // Bit counter (0-7)
-    logic [CLK_DIV-1:0] clk_cnt;  // Clock divider counter
+    logic [CLK_DIV/2-1:0] clk_cnt;  // Clock divider counter
     
     typedef enum {IDLE, TRANSFER} state_t;
     state_t state;
