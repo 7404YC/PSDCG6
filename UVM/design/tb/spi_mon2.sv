@@ -45,119 +45,269 @@ class spi_mon2 extends uvm_monitor;
     fork 
       // SPI1: no need for adjustments on clock, mosi sampled on leading-posedge, miso on trailing-negedge
       begin 
-        spi_tran item;
+        spi_tran item_l [$], item_t [$];
+        int il = 0, it = 0;
+        spi_tran tis;
         fork 
           forever begin
-            @(posedge vif.sclk);
-            item = spi_tran::type_id::create("item",this);
-            item.mt = OL0HA1_L;
-            item.tran_time_start = $time; 
-            item.mosi = vif.mosi;
-            item.curr_lead = lead_01++; 
-            mon2_ap.write(item);
+            @(posedge vif.sclk);  
+            tis = spi_tran::type_id::create("tis",this);
+            tis.mt = OL0HA1_L;
+            tis.tran_time_start = $time; 
+            tis.mosi = vif.mosi;
+            tis.curr_lead = lead_01++; 
+            item_l.push_back(tis);
+            il++;
             `uvm_info("MON2", $sformatf("OL0HA1: leading posedge sample."), UVM_LOW);
-          end          
+          end        
           forever begin
             @(negedge vif.sclk iff ($time > 0));
-            item = spi_tran::type_id::create("item",this);
-            item.mt = OL0HA1_T;
-            item.tran_time_start = $time; 
-            item.miso = vif.miso;
-            item.curr_fall = fall_01++; 
-            mon2_ap.write(item);
+            tis = spi_tran::type_id::create("tis",this);
+            tis.mt = OL0HA1_T;
+            tis.tran_time_start = $time; 
+            tis.miso = vif.miso;
+            tis.curr_fall = fall_01++; 
+            item_t.push_back(tis);
+            it++;
             `uvm_info("MON2", $sformatf("OL0HA1: trailing negedge sample."), UVM_LOW);
           end
+          forever begin 
+            @(posedge vif.done) begin 
+              if (il == 8) begin 
+                il = 0;
+                foreach (item_l[il]) begin
+                  mon2_ap.write(item_l[il]); 
+                end
+              end 
+              else begin 
+                il = 0;
+              end
+              item_l.delete();
+              if (it == 8) begin 
+                it = 0;
+                foreach (item_t[it]) begin
+                  mon2_ap.write(item_t[it]); 
+                end
+              end 
+              else begin 
+                it = 0;
+              end
+              item_t.delete();
+            end 
+          end  
         join 
       end
       // SPI0: NOT CHANGING THE CLOCK, mosi and miso both sampled on leading-posedge.
       begin 
-        spi_tran item;
+        spi_tran item_l [$], item_t [$];
+        int il = 0, it = 0; 
+        spi_tran tis, tise, tisa;
         fork 
           // mosi: start posedge, sclk negedge, when start asserted
           forever begin
-            @(negedge vif.sclk or posedge vif.start);
-            #1;
-            if (vif.start) begin  
-              item = spi_tran::type_id::create("item",this);
-              item.mt = OL0HA0_L;
-              item.tran_time_start = $time; 
-              item.mosi = vif.mosi;
-              item.curr_lead = lead_00++; 
-              mon2_ap.write(item);  
-              `uvm_info("MON2", $sformatf("OL0HA0_L: leading posedge sample."), UVM_LOW);
-            end
+            fork
+              forever begin 
+                //if (il == 0) begin
+                  @(posedge vif.start);
+                  if (!vif.busy) begin 
+                    tisa = spi_tran::type_id::create("tisa",this);
+                    tisa.mt = OL0HA0_L;
+                    tisa.tran_time_start = $time; 
+                    tisa.mosi = vif.mosi;
+                    tisa.curr_lead = lead_00++; 
+                    item_l.push_back(tisa);
+                    il++;
+                    `uvm_info("MON2", $sformatf("OL0HA0_L: leading posedge sample. %d  AAA", il), UVM_LOW);
+                  //end 
+                end
+              end
+              forever begin 
+                @(negedge vif.sclk);
+                #1;
+                if (vif.rst_n) begin  
+                  tise = spi_tran::type_id::create("tis",this);
+                  tise.mt = OL0HA0_L;
+                  tise.tran_time_start = $time; 
+                  tise.mosi = vif.mosi;
+                  tise.curr_lead = lead_00++; 
+                  item_l.push_back(tise);
+                  il++;
+                  `uvm_info("MON2", $sformatf("OL0HA0_L: leading posedge sample. %d BBB", il), UVM_LOW);
+                end
+              end
+            join
           end
           // miso: sclk posedge, when busy asserted
           forever begin
             @(posedge vif.sclk);
-            if (vif.busy) begin 
-              item = spi_tran::type_id::create("item",this);
-              item.mt = OL0HA0_T;
-              item.tran_time_start = $time; 
-              item.miso = vif.miso;
-              item.curr_fall = fall_00++; 
-              mon2_ap.write(item);
-              `uvm_info("MON2", $sformatf("OL0HA0_T: leading posedge sample."), UVM_LOW);
+            if (vif.rst_n) begin 
+              tis = spi_tran::type_id::create("tis",this);
+              tis.mt = OL0HA0_T;
+              tis.tran_time_start = $time; 
+              tis.miso = vif.miso;
+              tis.curr_fall = fall_00++; 
+              item_t.push_back(tis);
+              it++;
+              `uvm_info("MON2", $sformatf("OL0HA0_T: leading posedge sample. %d", it), UVM_LOW);
             end
           end
+          forever begin 
+            @(posedge vif.done) begin 
+              if (il == 8) begin 
+                il = 0;
+                foreach (item_l[il]) begin
+                  mon2_ap.write(item_l[il]); 
+                end
+              end 
+              else begin 
+                il = 0;
+              end
+              item_l.delete();
+              if (it == 8) begin 
+                it = 0;
+                foreach (item_t[it]) begin
+                  mon2_ap.write(item_t[it]); 
+                end
+              end 
+              else begin 
+                it = 0;
+              end
+              item_t.delete();
+            end 
+          end 
         join
       end
       // SPI2: NOT CHANGING THE CLOCK, mosi sampled on falling edge, in this case moved to trailing edge and miso on rising edge, the leading edge. [will cause data mismatch]
       begin 
-        spi_tran item;
+        spi_tran item_l [$], item_t [$];
+        int il = 0, it = 0; 
+        spi_tran tis;
         fork 
           forever begin
-            @(posedge vif.sclk or posedge vif.start);
-            #1;
-            if (vif.start) begin  
-              item = spi_tran::type_id::create("item",this);
-              item.mt = OL1HA0_L;
-              item.tran_time_start = $time; 
-              item.mosi = vif.mosi;
-              item.curr_lead = lead_10++; 
-              mon2_ap.write(item);
-              `uvm_info("MON2", $sformatf("OL1HA0_L: leading posedge sample."), UVM_LOW);
+            fork
+            forever begin
+              @(posedge vif.start);
+              #1;
+              if (!vif.busy) begin 
+                tis = spi_tran::type_id::create("tis",this);
+                tis.mt = OL1HA0_L;
+                tis.tran_time_start = $time; 
+                tis.mosi = vif.mosi;
+                tis.curr_lead = lead_10++; 
+                item_l.push_back(tis);
+                il++;
+                `uvm_info("MON2", $sformatf("OL1HA0_L: leading posedge sample."), UVM_LOW);
+              end 
             end
+            forever begin 
+              @(posedge vif.sclk);
+              #1;
+              if (vif.rst_n) begin  
+                tis = spi_tran::type_id::create("tis",this);
+                tis.mt = OL1HA0_L;
+                tis.tran_time_start = $time; 
+                tis.mosi = vif.mosi;
+                tis.curr_lead = lead_10++; 
+                item_l.push_back(tis);
+                il++;
+                `uvm_info("MON2", $sformatf("OL1HA0_L: leading posedge sample."), UVM_LOW);
+              end
+            end
+            join
           end
           forever begin
             @(negedge vif.sclk);            
             #1;
-            item = spi_tran::type_id::create("item",this);
-            item.mt = OL1HA0_T;
-            item.tran_time_start = $time; 
-            item.miso = vif.miso;
-            item.curr_fall = fall_10++; 
-            mon2_ap.write(item);
-            `uvm_info("MON2", $sformatf("OL1HA0_T: leading negedge sample."), UVM_LOW);
+            if (vif.rst_n) begin  
+              tis = spi_tran::type_id::create("tis",this);
+              tis.mt = OL1HA0_T;
+              tis.tran_time_start = $time; 
+              tis.miso = vif.miso;
+              tis.curr_fall = fall_10++; 
+              item_t.push_back(tis);
+              it++;
+              `uvm_info("MON2", $sformatf("OL1HA0_T: leading negedge sample."), UVM_LOW);
+            end
           end
+          forever begin 
+            @(posedge vif.done) begin 
+              if (il == 8) begin 
+                il = 0;
+                foreach (item_l[il]) begin
+                  mon2_ap.write(item_l[il]); 
+                end
+              end 
+              else begin 
+                il = 0;
+              end
+              item_l.delete();
+              if (it == 8) begin 
+                it = 0;
+                foreach (item_t[it]) begin
+                  mon2_ap.write(item_t[it]); 
+                end
+              end 
+              else begin 
+                it = 0;
+              end
+              item_t.delete();
+            end 
+          end 
         join
       end
       // SPI3: NOT CHANGING THE CLOCK, mosi and miso sampled both on the leading-negedge [will cause data mismatch]
       begin 
-        spi_tran item;
+        spi_tran item_l [$], item_t [$];
+        int il = 0, it = 0; 
+        spi_tran tis;
+
         fork 
           forever begin
             @(negedge vif.isclk iff ($time > 0));
-            item = spi_tran::type_id::create("item",this);
-            item.mt = OL1HA1_L;
-            item.tran_time_start = $time; 
-            item.mosi = vif.mosi;
-            //item.miso = vif.miso;
-            item.curr_lead = lead_11++; 
-            mon2_ap.write(item);
+            tis = spi_tran::type_id::create("tis",this);
+            tis.mt = OL1HA1_L;
+            tis.tran_time_start = $time; 
+            tis.mosi = vif.mosi;
+            tis.curr_lead = lead_11++; 
+            item_l.push_back(tis);
+            il++; 
             `uvm_info("MON2", $sformatf("OL1HA1: leading negedge sample."), UVM_LOW);
           end          
           forever begin
             @(posedge vif.isclk);
-            item = spi_tran::type_id::create("item",this);
-            item.mt = OL1HA1_T;
-            item.tran_time_start = $time; 
-            //item.mosi = vif.mosi;
-            item.miso = vif.miso;
-            item.curr_fall = fall_11++; 
-            mon2_ap.write(item);
+            tis = spi_tran::type_id::create("tis",this);
+            tis.mt = OL1HA1_T;
+            tis.tran_time_start = $time; 
+            tis.miso = vif.miso;
+            tis.curr_fall = fall_11++; 
+            item_t.push_back(tis);
+            it++;
             `uvm_info("MON2", $sformatf("OL1HA1: trailing posedge sample."), UVM_LOW);
           end
+          forever begin 
+            @(posedge vif.done) begin 
+              if (il == 8) begin 
+                il = 0;
+                foreach (item_l[il]) begin
+                  mon2_ap.write(item_l[il]); 
+                end
+              end 
+              else begin 
+                il = 0;
+              end
+              item_l.delete();
+              if (it == 8) begin 
+                it = 0;
+                foreach (item_t[it]) begin
+                  mon2_ap.write(item_t[it]); 
+                end
+              end 
+              else begin 
+                it = 0;
+              end
+              item_t.delete();
+            end 
+          end 
         join 
       end
     join
