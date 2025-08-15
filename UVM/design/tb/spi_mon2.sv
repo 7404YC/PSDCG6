@@ -32,6 +32,7 @@ class spi_mon2 extends uvm_monitor;
   int lead_00 = 0; 
   int fall_00 = 0; 
   int lead_10 = 0; 
+  int fall_10 = 0; 
   int lead_11 = 0; 
   int fall_11 = 0;
 
@@ -104,17 +105,32 @@ class spi_mon2 extends uvm_monitor;
       // SPI2: NOT CHANGING THE CLOCK, mosi sampled on falling edge, in this case moved to trailing edge and miso on rising edge, the leading edge. [will cause data mismatch]
       begin 
         spi_tran item;
-        forever begin
-          @(negedge vif.isclk iff ($time > 0));
-          item = spi_tran::type_id::create("item",this);
-          item.mt = OL1HA0;
-          item.tran_time_start = $time; 
-          item.mosi = vif.mosi;
-          item.miso = vif.miso;
-          item.curr_lead = lead_10++; 
-          mon2_ap.write(item);
-          `uvm_info("MON2", $sformatf("OL1HA0: leading negedge sample."), UVM_LOW);
-        end
+        fork 
+          forever begin
+            @(posedge vif.sclk or posedge vif.start);
+            #1;
+            if (vif.start) begin  
+              item = spi_tran::type_id::create("item",this);
+              item.mt = OL1HA0_L;
+              item.tran_time_start = $time; 
+              item.mosi = vif.mosi;
+              item.curr_lead = lead_10++; 
+              mon2_ap.write(item);
+              `uvm_info("MON2", $sformatf("OL1HA0_L: leading posedge sample."), UVM_LOW);
+            end
+          end
+          forever begin
+            @(negedge vif.sclk);            
+            #1;
+            item = spi_tran::type_id::create("item",this);
+            item.mt = OL1HA0_T;
+            item.tran_time_start = $time; 
+            item.miso = vif.miso;
+            item.curr_fall = fall_10++; 
+            mon2_ap.write(item);
+            `uvm_info("MON2", $sformatf("OL1HA0_T: leading negedge sample."), UVM_LOW);
+          end
+        join
       end
       // SPI3: NOT CHANGING THE CLOCK, mosi and miso sampled both on the leading-negedge [will cause data mismatch]
       begin 
