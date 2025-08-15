@@ -1,13 +1,14 @@
 // T006: Ensure busy goes high in next clock cycle after start
 property T006;
-    @(posedge clk) disable iff (!rst_n | busy) $rose(start) |=> $rose(busy);
+    // @(posedge clk) (rst_n && !busy && $rose(start)) |=> $rose(busy) || !rst_n;
+    @(posedge clk) disable iff (!rst_n) (!busy && $rose(start)) |=> $rose(busy);
 endproperty
 ASSERT_T006: assert property (T006)
     else $error("ASSERT ", $sformatf("Error T006"));
 
 // T007: Ensure cs_n asserts in next clock cycle after start
 property T007;
-    @(posedge clk) disable iff (!rst_n | busy) $rose(start) |=> $fell(cs_n);
+    @(posedge clk) disable iff (!rst_n ) (!busy && $rose(start)) |=> $fell(cs_n);
 endproperty
 ASSERT_T007: assert property (T007)
     else $error("ASSERT ", $sformatf("Error T007"));
@@ -26,9 +27,9 @@ endproperty
 ASSERT_T009: assert property (T009)
     else $error("ASSERT ", $sformatf("Error T009"));
 
-// T010: Ensure Ensure cs_n not deassert early
+// T010: Ensure Ensure cs_n not deassert early      
 property T010;
-    @(posedge sclk) disable iff (!rst_n) ($past(cs_n) && !cs_n) |-> (!cs_n) [*8];
+    @(edge sclk) /*disable iff (!rst_n)*/ $fell(cs_n) |-> (!cs_n)[*15];
 endproperty
 ASSERT_T010: assert property (T010)
     else $error("ASSERT ", $sformatf("Error T010"));
