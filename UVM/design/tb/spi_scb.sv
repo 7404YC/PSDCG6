@@ -97,6 +97,11 @@ function void check_checkeray();
     if (mismatch_046[2] || mismatch_157[2]) begin 
       `uvm_info("SCB", $sformatf("SPI Mode 3 Found discrepancies"), UVM_LOW);
     end
+    // T011: Immediate assertion 
+    ASSERT_T011: assert ((mismatch_046[0] || mismatch_157[0]) && (mismatch_046[1] || mismatch_157[1]) && (mismatch_046[2] || mismatch_157[2])) begin 
+    end else begin 
+      `uvm_error("ASSERT", "Different SPI mode recorded same value. ");
+    end
 endfunction
 
 
