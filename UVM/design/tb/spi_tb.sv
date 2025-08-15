@@ -31,8 +31,6 @@ module spi_tb;
 
     spi_if spi_if();
 
-	integer ctt;
-
     // Initialization 
     initial begin
         spi_if.clk = 0;
@@ -63,10 +61,7 @@ module spi_tb;
     );
 
     // Instantiate accessor module
-    bind spi peek_dut peek_inst(.vif(spi_if), .rx_reg_pd(dut.rx_reg));
-
-	// Probe Internal Signal
-	assign spi_if.state = dut.state;
+    bind spi peek_dut peek_inst(.vif(spi_if), .rx_reg_pd(dut.rx_reg), .state_pd(dut.state[0]));
 
     // Constants
     bit [7:0] SLAVE_RESET_RESPONSE = 'hB9;
@@ -89,13 +84,10 @@ module spi_tb;
         uvm_config_db#(bit)::set(null, "*", "mon1_abort", monitor1_abort);
     end
 
-	logic [31:0] int_counter = 1;
-
     always @(posedge spi_if.sclk or negedge spi_if.rst_n or posedge spi_if.cs_n) begin
         if (!spi_if.rst_n) begin
             slave_rx_data <= 8'h00;
             spi_if.miso <= 1'b0;
-			int_counter <= '0;
             slave_tx_data <= SLAVE_RESET_RESPONSE;
         end
         else if (spi_if.cs_n) begin
@@ -136,18 +128,6 @@ module spi_tb;
 			run_test();
 		end
     end
-
-    // Simulation timeout 
-    //initial begin 
-	//	ctt = 0;
-    //    if($value$plusargs("CUSTOM_TEST_TIMEOUT=%0d", ctt)) begin
-    //        #ctt;
-    //        $finish;
-    //    end else begin 
-    //        #5000; // TODO: adjust arbitrary value to suitable
-    //        $finish;
-    //    end
-    //end 
 
     // Waveform generation 
     initial begin

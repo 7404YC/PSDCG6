@@ -45,3 +45,26 @@ always_comb begin
 	end
 end
 
+// T025: Ensure no glitch on sclk rising edge
+property T025;
+	@(posedge clk)
+	disable iff (!rst_n || !busy)
+	$rose(sclk) |-> ##1 (sclk == 1) ##(CLK_DIV/2-1) $fell(sclk);
+endproperty
+
+ASSERT_T025:
+	assert property (T025)
+	else $error ("ASSERT ", $sformatf("Error T025"));
+
+// T026: Ensure no glitch on sclk falling edge
+property T026;
+	@(posedge clk)
+	disable iff (!rst_n || !busy)
+	$fell(sclk) |-> ##1 (sclk == 0) ##(CLK_DIV/2-1) $rose(sclk);
+endproperty
+
+ASESRT_T026:
+	assert property (T026)
+	else $error ("ASSERT ", $sformatf("Error T026"));
+
+
