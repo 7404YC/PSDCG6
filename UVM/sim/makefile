@@ -85,7 +85,7 @@ cov:
 	verdi -cov -covdir spi_simv.vdb
 
 merge:
-	urg -full64 -metric line+tgl+cond+fsm+assert+branch+group -warn none -dbname merge_coverage_name.vdb -dir ./builddir/*/*/spi_simv.vdb/
+	urg -full64 -metric line+tgl+cond+fsm+assert+branch+group -warn none -dbname merge_coverage_name.vdb -dir ./builddir*/*/*/spi_simv.vdb/
 
 cov_merged:
 	verdi -cov -covdir merge_coverage_name.vdb
