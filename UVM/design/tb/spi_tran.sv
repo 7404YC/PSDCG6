@@ -15,7 +15,6 @@ class spi_tran extends uvm_sequence_item;
     logic       cs_n;
     logic       sclk;
 
-
     int seq_count;
     int seq_index;
 	string seq_type;
@@ -32,6 +31,8 @@ class spi_tran extends uvm_sequence_item;
 
     mon_type mt;
     int tran_id; 
+
+    // specific test case requirement: T011 & T024
     logic [7:0] MS_data;
     logic [7:0] tx_data_t024;
 

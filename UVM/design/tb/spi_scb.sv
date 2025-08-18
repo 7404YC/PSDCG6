@@ -26,11 +26,14 @@ class spi_scb extends uvm_scoreboard;
   // For SPI Mode assertion 
   bit [2:0] mismatch_046;
   bit [2:0] mismatch_157;
+
+  // Ensure dynamic queue is long enough such that ID matches index (expectation)
   function ensure_index(int id);
     // Grow the queue if needed 
     while (checkeray.size() <= id)
       checkeray.push_back('{default:0});
   endfunction
+  // Perform mode 1 vs other mode value checking 
   function void check_checkeray();
     // Iterate rows
     `uvm_info("SCB", $sformatf("mosi              | miso"), UVM_LOW);
@@ -150,6 +153,7 @@ class spi_scb extends uvm_scoreboard;
     $fclose(log_fd); 
   endfunction
 
+  // Handle different operation when called by different monitors 
   function void write(spi_tran tr);
     // will need to handle based on mt and tran_id
     if (tr.mt == ENTIRE) begin 
@@ -270,7 +274,8 @@ class spi_scb extends uvm_scoreboard;
       check_T022(tr);
     end
   endfunction
-
+  
+  // Handle printing formatting for different SPI modes 
   function void print_OLHA(spi_tran t, int mode);
     string hdr, line;
 
@@ -387,8 +392,6 @@ class spi_scb extends uvm_scoreboard;
     end
   endfunction
 
-
-
   // T015: Check entire transaction correctness by reporting uvm_error 
   function void print_entire(spi_tran t);
     string hdr, line;
@@ -400,7 +403,7 @@ class spi_scb extends uvm_scoreboard;
     end else begin 
       `uvm_error("SCB", $sformatf("T015 violated: RX data mismatch expected slave response (SLAVE RESET RESP)"));
     end
-    $sformat(hdr,  "%-12s | %-12s | %-8s | %-8s | %-8s",
+    $sformat(hdr,  "%-12s | %-12s | %-8s | %s | %s",
                     "start time", "end time", "ID", "TX", "RX");
     $sformat(line, "%-12.2f | %-12.2f | %-8d | 0x%02h | 0x%02h\n",
                     t.tran_time_start, t.tran_time_end, t.tran_id, t.tx_data, t.rx_data);
@@ -439,6 +442,7 @@ class spi_scb extends uvm_scoreboard;
     $fclose(log_fd);
   endfunction
 
+  // T021: If reset occurs during transfer, abort ongoing transaction and clear outputs
   function void check_T021(spi_tran tr);
   // If reset is asserted (reset == 0), check that SPI signals immediately go to idle
     if (tr.rst_n === 0) begin
@@ -454,6 +458,7 @@ class spi_scb extends uvm_scoreboard;
     end
   endfunction
 
+  // T022: Verify done does from the first transfer does not corrupt the next start
   function void check_T022(spi_tran tr);
     // True violation: start is triggered while done is still high
     if ((tr.done === 1) && (tr.start === 1)) begin
@@ -465,6 +470,7 @@ class spi_scb extends uvm_scoreboard;
     end
   endfunction
 
+  // T011: Run mismatch checking in report phase. 
   function void report_phase (uvm_phase phase);
     check_checkeray();
   endfunction

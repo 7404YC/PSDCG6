@@ -76,9 +76,10 @@ class spi_mon0 extends uvm_monitor;
             if (monitor0_abort) begin 
               break;
             end 
-            @(posedge vif.sclk) //  TODO: using the mon_cb here is really ticking me off
+            @(posedge vif.sclk)
             #1;
             item.MS_data[7- ((curr_index++) % 8)] = vif.mosi;
+            $display("index: %d mosi: %b gathered data: %p",  7 - (curr_index -1) % 8, vif.mosi, item.MS_data);
           end 
 		  do begin // Part of T024
 			@(posedge vif.clk);

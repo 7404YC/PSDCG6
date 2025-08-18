@@ -72,6 +72,7 @@ class spi_mon1 extends uvm_monitor;
               end 
               @(negedge vif.sclk)
               item.MS_data[7 - ((curr_index++) % 8)] = vif.miso;
+              $display("index: %d miso: %b gathered data: %p", 7 - (curr_index -1) % 8 , vif.miso, item.MS_data);
             end 
 			do begin
 				@(posedge vif.clk);
@@ -92,18 +93,18 @@ class spi_mon1 extends uvm_monitor;
           @(negedge vif.rst_n)
           monitor1_abort = 1'b1;
           #1;
-	  tr = spi_tran::type_id::create("reset_tran");
-	  tr.mt = BIT_RESET;
-	  tr.tran_time_start = $time;
-	  tr.rst_n = vif.rst_n;
-	  tr.busy = vif.busy;
-	  tr.cs_n = vif.cs_n;
-	  tr.sclk = vif.sclk;
-	  tr.mosi = vif.mosi;
- 	  tr.tran_time_end = $time;
-  	`uvm_info("MON1", $sformatf("RESET: rst_n=%0b, busy=%0b, cs_n=%0b, sclk=%0b, mosi=%0b", 
-  	                              tr.rst_n, tr.busy, tr.cs_n, tr.sclk, tr.mosi), UVM_LOW);
-	  mon1_ap.write(tr);
+          tr = spi_tran::type_id::create("reset_tran");
+          tr.mt = BIT_RESET;
+          tr.tran_time_start = $time;
+          tr.rst_n = vif.rst_n;
+          tr.busy = vif.busy;
+          tr.cs_n = vif.cs_n;
+          tr.sclk = vif.sclk;
+          tr.mosi = vif.mosi;
+          tr.tran_time_end = $time;
+          `uvm_info("MON1", $sformatf("RESET: rst_n=%0b, busy=%0b, cs_n=%0b, sclk=%0b, mosi=%0b", 
+                                        tr.rst_n, tr.busy, tr.cs_n, tr.sclk, tr.mosi), UVM_LOW);
+          mon1_ap.write(tr);
         end
       end
     join

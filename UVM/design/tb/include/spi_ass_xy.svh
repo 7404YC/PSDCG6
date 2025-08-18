@@ -5,7 +5,6 @@ property T003;
     disable iff (!rst_n)
     $rose(busy) |-> ##(CLK_DIV*8+1) $fell(busy);
 endproperty
-
 ASSERT_T003: assert property (T003)
     else $error("ASSERT ", $sformatf("Error T003"));
 
@@ -16,7 +15,6 @@ property T004;
     disable iff (!rst_n)
     $rose(done) |=> !done;
 endproperty
-
 ASSERT_T004: assert property (T004)
     else $error("ASSERT ", $sformatf("Error T004"));
 
@@ -27,7 +25,6 @@ property T005;
     disable iff (!rst_n)
     $rose(done) |-> ##1 !busy;
 endproperty
-
 ASSERT_T005: assert property (T005)
     else $error("ASSERT ", $sformatf("Error T005"));
 
@@ -50,7 +47,6 @@ property T019;
         $stable(sclk)
     );
 endproperty
-
 ASSERT_T019: assert property (T019)
     else $error("ASSERT ", $sformatf("Error T019"));
 
@@ -64,6 +60,5 @@ property T023;
         done == 1'b0
     );
 endproperty
-
 ASSERT_T023: assert property (T023)
     else $error("ASSERT ", $sformatf("Error T023"));

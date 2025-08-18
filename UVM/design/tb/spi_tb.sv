@@ -12,22 +12,22 @@ module spi_tb;
 
     // Include all required files
     `include "spi_tran.sv"
-    `include "spi_seq.sv"       // Sequence class
-    `include "spi_seq_sanity.sv"       // Sequence class
-    `include "spi_seq_b2b.sv"       // Sequence class
-    `include "spi_sqr.sv"       // Sequencer class
-    `include "spi_drv.sv"       // Driver class
-    `include "spi_mon0.sv"       // Monitor class
-    `include "spi_mon1.sv"       // Monitor class
-    `include "spi_mon2.sv"       // Monitor class
-    `include "spi_agt0.sv"       // Agent0 class
-    `include "spi_agt1.sv"       // Agent1 class
-    `include "spi_scb.sv"       // Scoreboard class
-    `include "spi_cov.sv"		// Coverage class
-    `include "spi_env.sv"       // Env class
-    `include "spi_test.sv"      // Test class
-    `include "spi_test_sanity.sv"      // Test class
-    `include "spi_test_b2b.sv"      // Test class
+    `include "spi_seq.sv"               // Sequence class
+    `include "spi_seq_sanity.sv"        // Sequence class
+    `include "spi_seq_b2b.sv"           // Sequence class
+    `include "spi_sqr.sv"               // Sequencer class
+    `include "spi_drv.sv"               // Driver class
+    `include "spi_mon0.sv"              // Monitor class
+    `include "spi_mon1.sv"              // Monitor class
+    `include "spi_mon2.sv"              // Monitor class
+    `include "spi_agt0.sv"              // Agent0 class
+    `include "spi_agt1.sv"              // Agent1 class
+    `include "spi_scb.sv"               // Scoreboard class
+    `include "spi_cov.sv"		        // Coverage class
+    `include "spi_env.sv"               // Env class
+    `include "spi_test.sv"              // Test class
+    `include "spi_test_sanity.sv"       // Test class
+    `include "spi_test_b2b.sv"          // Test class
 
     spi_if spi_if();
 

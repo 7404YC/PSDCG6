@@ -20,7 +20,7 @@ class spi_agt1 extends uvm_agent;
 
   function void connect_phase(uvm_phase phase);
     super.connect_phase(phase);
-    // Connect monitor's analysis port to agent's analysis port
+    // Connect monitor's analysis port to agent's analysis port (1 to many)
     mon1.mon1_ap.connect(agt1_ap);
     mon2.mon2_ap.connect(agt1_ap);
   endfunction

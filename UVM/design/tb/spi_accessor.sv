@@ -6,5 +6,3 @@ module peek_dut(
     assign vif.rx_reg = rx_reg_pd;
 	assign vif.state = state_pd;
 endmodule
-
-// xt

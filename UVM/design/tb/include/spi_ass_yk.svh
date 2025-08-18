@@ -10,9 +10,6 @@ endproperty
 ASSERT_T013: assert property (T013)
 	else $error("ASSERT ", $sformatf("Error T013"));
 
-// T014: Ensure MISO only sampled in failing sclk edges
-// YK: Drop this, cover in scoreboard
-
 // T018: When the SPI is idle, ensure no sclk events and cs_n is pulled high.
 property T018;
 	@(posedge clk)
@@ -32,7 +29,6 @@ ASSERT_T018: assert property (T018)
 // Reason to use always_comb is because the reset is asynchronous to the clock, so we cannot use property which is sensitive to the clock
 always_comb begin
 	if (rst_n == 1'b0) begin
-
 	ASSERT_T020:
 		assert final (
 					(busy == 1'b0) &&
@@ -51,7 +47,6 @@ property T025;
 	disable iff (!rst_n || !busy)
 	$rose(sclk) |-> ##1 (sclk == 1) ##(CLK_DIV/2-1) $fell(sclk);
 endproperty
-
 ASSERT_T025:
 	assert property (T025)
 	else $error ("ASSERT ", $sformatf("Error T025"));
@@ -62,7 +57,6 @@ property T026;
 	disable iff (!rst_n || !busy)
 	$fell(sclk) |-> ##1 (sclk == 0) ##(CLK_DIV/2-1) $rose(sclk);
 endproperty
-
 ASESRT_T026:
 	assert property (T026)
 	else $error ("ASSERT ", $sformatf("Error T026"));

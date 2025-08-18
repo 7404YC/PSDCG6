@@ -72,7 +72,6 @@ ASSERT_T014A: assert property (T014A)
 ASSERT_T014B: assert property (T014B)
     else $error("ASSERT", "Error T014B");
 
-// TODO: since rx is fixed to B9, will not change wor
 // T016: Ensure both RX and done udpate at same clock cycle 
 property T016;
     @(edge clk) disable iff (!rst_n) $rose(done) |-> ($fell(rx_data) || $rose(rx_data));

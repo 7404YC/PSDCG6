@@ -27,7 +27,7 @@ interface spi_if #(parameter CLK_DIV = 4)(
         input  busy, done, rx_data;
     endclocking
 
-    // simulated CPOL and CPHA clock signal 
+    // simulated reversed clock signal 
     logic       isclk; 
     always @(edge sclk) begin 
         isclk = ~sclk;
