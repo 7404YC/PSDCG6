@@ -118,10 +118,10 @@ module spi_tb;
         uvm_config_db#(virtual spi_if.mon_mp)::set(null, "*mon*", "vif", spi_if);
         uvm_config_db#(virtual spi_if)::set(null, "*", "vif", spi_if);
 
-		if ($test$plusargs("SANITY_TEST") || $test$plusargs("SANITY_TEST_RESET_DURING_TRANS")) begin
+		if ($test$plusargs("SANITY_TEST") || $test$plusargs("SANITY_RESET_DURING_TRANS_TEST")) begin
 	        run_test("spi_test_sanity");
 		end
-		else if ($test$plusargs("B2B_TEST") || $test$plusargs("B2B_TEST_RESET_DURING_TRANS")) begin
+		else if ($test$plusargs("B2B_TEST") || $test$plusargs("B2B_RESET_DURING_TRANS_TEST")) begin
 	        run_test("spi_test_b2b");
 		end	
 		else begin

@@ -36,7 +36,7 @@ endif
 	sed -i '$$ s/$$/ +ntb_random_seed=${SEED} +SANITY_TEST/' builddir/$@/$(SEED)/qrun
 	cd builddir/$@/$(SEED) && qrun
 
-sanity_test_reset:
+sanity_reset_test:
 	mkdir -p builddir/$@/$(SEED)
 ifeq ($(GEN_QRUN), 1)
 	make run_dv
@@ -54,7 +54,7 @@ endif
 	sed -i '$$ s/$$/ +ntb_random_seed=${SEED} +B2B_TEST/' builddir/$@/$(SEED)/qrun
 	cd builddir/$@/$(SEED) && qrun
 	
-b2b_test_reset:
+b2b_reset_test:
 	mkdir -p builddir/$@/$(SEED)
 ifeq ($(GEN_QRUN), 1)
 	make run_dv
@@ -63,22 +63,22 @@ endif
 	sed -i '$$ s/$$/ +ntb_random_seed=${SEED} +RST_RANDOM_EN +B2B_TEST/' builddir/$@/$(SEED)/qrun
 	cd builddir/$@/$(SEED) && qrun
 
-sanity_test_reset_during_trans:
+sanity_reset_during_trans_test:
 	mkdir -p builddir/$@/$(SEED)
 ifeq ($(GEN_QRUN), 1)
 	make run_dv
 endif
 	cp qrun builddir/$@/$(SEED)
-	sed -i '$$ s/$$/ +ntb_random_seed=${SEED} +SANITY_TEST_RESET_DURING_TRANS/' builddir/$@/$(SEED)/qrun
+	sed -i '$$ s/$$/ +ntb_random_seed=${SEED} +SANITY_RESET_DURING_TRANS_TEST/' builddir/$@/$(SEED)/qrun
 	cd builddir/$@/$(SEED) && qrun
 
-b2b_test_reset_during_trans:
+b2b_reset_during_trans_test:
 	mkdir -p builddir/$@/$(SEED)
 ifeq ($(GEN_QRUN), 1)
 	make run_dv
 endif
 	cp qrun builddir/$@/$(SEED)
-	sed -i '$$ s/$$/ +ntb_random_seed=${SEED} +B2B_TEST_RESET_DURING_TRANS/' builddir/$@/$(SEED)/qrun
+	sed -i '$$ s/$$/ +ntb_random_seed=${SEED} +B2B_RESET_DURING_TRANS_TEST/' builddir/$@/$(SEED)/qrun
 	cd builddir/$@/$(SEED) && qrun
 
 cov:
@@ -95,11 +95,11 @@ all:
 	export GEN_QRUN=0; \
 	make -j \
 		sanity_test \
-		sanity_test_reset \
-		sanity_test_reset_during_trans \
+		sanity_reset_test \
+		sanity_reset_during_trans_test \
 		b2b_test \
-		b2b_test_reset \
-		b2b_test_reset_during_trans
+		b2b_reset_test \
+		b2b_reset_during_trans_test
 	make merge
 
 result:
