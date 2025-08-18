@@ -80,13 +80,15 @@ class spi_mon0 extends uvm_monitor;
             #1;
             item.MS_data[7- ((curr_index++) % 8)] = vif.mosi;
           end 
+		  do begin // Part of T024
+			@(posedge vif.clk);
+		  end while (vif.done == 0 && monitor0_abort == 0);
           if (monitor0_abort) begin 
             monitor0_abort = 0; 
             continue;
           end
-          @(posedge vif.done) // Part of T024
-          #1; 
-          item.tx_data_t024 = slave_rx_data;
+		  #1;
+		  item.tx_data_t024 = slave_rx_data;
           item.tran_time_end = $time;
           `uvm_info("MON0", $sformatf("BIT: Observed mosi details: %8b on transaction ID: %d %h %h", item.MS_data, item.tran_id, item.tx_data, item.tx_data_t024), UVM_LOW);
           mon0_ap.write(item);

@@ -73,6 +73,9 @@ class spi_mon1 extends uvm_monitor;
               @(negedge vif.sclk)
               item.MS_data[7 - ((curr_index++) % 8)] = vif.miso;
             end 
+			do begin
+				@(posedge vif.clk);
+			end while (vif.done == 0 && monitor0_abort == 0);
             if (monitor1_abort) begin 
               monitor1_abort = 0;
               continue;
