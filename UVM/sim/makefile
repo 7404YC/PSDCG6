@@ -1,5 +1,12 @@
 export NR ?= 1
 export GEN_QRUN ?= 1
+export TEST_SEED ?= 0
+
+ifeq ($(TEST_SEED), 0)
+	export SEED := $(shell echo $$RANDOM)
+else
+	export SEED := $(TEST_SEED)
+endif
 
 dv: clean run_dv 
 
@@ -13,7 +20,7 @@ clean:
 	\rm -frd seed* sysBusyP* vc_hdrs.h
 	\rm -frd bus_cov ${MODULE}_simv.vdb cm.log .fsm.sch.verilog.xml
 	\rm -frd qrun sysProgressP.conf sysProgressPLog vdCov.conf vdCovLog
-	\rm -frd *.vdb builddir* 
+	\rm -frd *.vdb builddir* summary.log 
 
 run_dv:
 	@if [ ! -f qrun ]; then \
@@ -21,71 +28,70 @@ run_dv:
 	fi
 
 sanity_test: 
-	mkdir -p builddir/$@
+	mkdir -p builddir/$@/$(SEED)
 ifeq ($(GEN_QRUN), 1)
 	make run_dv
 endif
-	cp qrun builddir/$@
-	sed -i '$$ s/$$/ +SANITY_TEST/' builddir/$@/qrun
-	cd builddir/$@ && qrun
+	cp qrun builddir/$@/$(SEED)
+	sed -i '$$ s/$$/ +ntb_random_seed=${SEED} +SANITY_TEST/' builddir/$@/$(SEED)/qrun
+	cd builddir/$@/$(SEED) && qrun
 
 sanity_test_reset:
-	mkdir -p builddir/$@
+	mkdir -p builddir/$@/$(SEED)
 ifeq ($(GEN_QRUN), 1)
 	make run_dv
 endif
-	cp qrun builddir/$@
-	sed -i '$$ s/$$/ +RST_RANDOM_EN +SANITY_TEST/' builddir/$@/qrun
-	cd builddir/$@ && qrun
+	cp qrun builddir/$@/$(SEED)
+	sed -i '$$ s/$$/ +ntb_random_seed=${SEED} +RST_RANDOM_EN +SANITY_TEST/' builddir/$@/$(SEED)/qrun
+	cd builddir/$@/$(SEED) && qrun
 	
 b2b_test:
-	mkdir -p builddir/$@
+	mkdir -p builddir/$@/$(SEED)
 ifeq ($(GEN_QRUN), 1)
 	make run_dv
 endif
-	cp qrun builddir/$@
-	sed -i '$$ s/$$/ +B2B_TEST/' builddir/$@/qrun
-	cd builddir/$@ && qrun
+	cp qrun builddir/$@/$(SEED)
+	sed -i '$$ s/$$/ +ntb_random_seed=${SEED} +B2B_TEST/' builddir/$@/$(SEED)/qrun
+	cd builddir/$@/$(SEED) && qrun
 	
 b2b_test_reset:
-	mkdir -p builddir/$@
+	mkdir -p builddir/$@/$(SEED)
 ifeq ($(GEN_QRUN), 1)
 	make run_dv
 endif
-	cp qrun builddir/$@
-	sed -i '$$ s/$$/ +RST_RANDOM_EN +B2B_TEST/' builddir/$@/qrun
-	cd builddir/$@ && qrun
+	cp qrun builddir/$@/$(SEED)
+	sed -i '$$ s/$$/ +ntb_random_seed=${SEED} +RST_RANDOM_EN +B2B_TEST/' builddir/$@/$(SEED)/qrun
+	cd builddir/$@/$(SEED) && qrun
 
 sanity_test_reset_during_trans:
-	mkdir -p builddir/$@
+	mkdir -p builddir/$@/$(SEED)
 ifeq ($(GEN_QRUN), 1)
 	make run_dv
 endif
-	cp qrun builddir/$@
-	sed -i '$$ s/$$/ +SANITY_TEST_RESET_DURING_TRANS/' builddir/$@/qrun
-	cd builddir/$@ && qrun
+	cp qrun builddir/$@/$(SEED)
+	sed -i '$$ s/$$/ +ntb_random_seed=${SEED} +SANITY_TEST_RESET_DURING_TRANS/' builddir/$@/$(SEED)/qrun
+	cd builddir/$@/$(SEED) && qrun
 
 b2b_test_reset_during_trans:
-	mkdir -p builddir/$@
+	mkdir -p builddir/$@/$(SEED)
 ifeq ($(GEN_QRUN), 1)
 	make run_dv
 endif
-	cp qrun builddir/$@
-	sed -i '$$ s/$$/ +B2B_TEST_RESET_DURING_TRANS/' builddir/$@/qrun
-	cd builddir/$@ && qrun
+	cp qrun builddir/$@/$(SEED)
+	sed -i '$$ s/$$/ +ntb_random_seed=${SEED} +B2B_TEST_RESET_DURING_TRANS/' builddir/$@/$(SEED)/qrun
+	cd builddir/$@/$(SEED) && qrun
 
 cov:
 	verdi -cov -covdir spi_simv.vdb
 
 merge:
-	urg -full64 -metric line+tgl+cond+fsm+assert+branch+group -warn none -dbname merge_coverage_name.vdb -dir ./builddir/*/spi_simv.vdb/
+	urg -full64 -metric line+tgl+cond+fsm+assert+branch+group -warn none -dbname merge_coverage_name.vdb -dir ./builddir/*/*/spi_simv.vdb/
 
 cov_merged:
 	verdi -cov -covdir merge_coverage_name.vdb
 
 all:
-	make clean
-	make dv
+	make run_dv
 	export GEN_QRUN=0; \
 	make -j \
 		sanity_test \
@@ -96,4 +102,10 @@ all:
 		b2b_test_reset_during_trans
 	make merge
 
-
+result:
+	rm -rf summary.log
+	@for f in builddir/*/*/spi_sim.log; do \
+	  echo "=== $$f ===" >> summary.log; \
+	  awk '/--- UVM Report Summary ---/ {flag=1} flag' $$f >> summary.log; \
+	  echo "" >> summary.log; \
+	done
