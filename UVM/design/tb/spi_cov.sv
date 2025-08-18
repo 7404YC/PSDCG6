@@ -45,7 +45,7 @@ class spi_cov extends uvm_component;
   rx_data_cp:  coverpoint vif.rx_data { bins specific_value = {8'hB9}; }
   miso_cp:     coverpoint vif.miso;
   mosi_cp:     coverpoint vif.mosi;
-  ms_cp:   cross miso_cp, mosi_cp;
+  input_cp:   cross  tx_data_cp,rst_n_cp,start_cp;
 
   endgroup
 
@@ -60,6 +60,6 @@ class spi_cov extends uvm_component;
     `uvm_info("COVERAGE", $sformatf("Coverage rx_data_cp      : %.2f%%", spi_cg.rx_data_cp.get_coverage()), UVM_NONE)
     `uvm_info("COVERAGE", $sformatf("Coverage miso_cp        : %.2f%%", spi_cg.miso_cp.get_coverage()), UVM_NONE)
     `uvm_info("COVERAGE", $sformatf("Coverage mosi_cp        : %.2f%%", spi_cg.mosi_cp.get_coverage()), UVM_NONE)
-    `uvm_info("COVERAGE", $sformatf("Coverage ms_cp        : %.2f%%", spi_cg.ms_cp.get_coverage()), UVM_NONE)
+    `uvm_info("COVERAGE", $sformatf("Coverage input_cp        : %.2f%%", spi_cg.input_cp.get_coverage()), UVM_NONE)
   endfunction
 endclass
