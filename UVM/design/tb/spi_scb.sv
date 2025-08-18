@@ -403,14 +403,12 @@ class spi_scb extends uvm_scoreboard;
     end else begin 
       `uvm_error("SCB", $sformatf("T015 violated: RX data mismatch expected slave response (SLAVE RESET RESP)"));
     end
-    $sformat(hdr,  "%-12s | %-12s | %-8s | %s | %s",
-                    "start time", "end time", "ID", "TX", "RX");
-    $sformat(line, "%-12.2f | %-12.2f | %-8d | 0x%02h | 0x%02h\n",
-                    t.tran_time_start, t.tran_time_end, t.tran_id, t.tx_data, t.rx_data);
+    $sformat(hdr,  "%-12s | %-12s | %-8s | %s | %s", "start time", "end time", "ID", "TX", "RX");
+    $sformat(line, "%-12.2f | %-12.2f | %-8d | 0x%02h | 0x%02h\n", t.tran_time_start, t.tran_time_end, t.tran_id, t.tx_data, t.rx_data);
     `uvm_info("SCB", hdr, UVM_NONE);
     `uvm_info("SCB", line, UVM_NONE);
     $fdisplay(log_fd, hdr);
-    $fdisplay(log_fd, line);        
+    $fdisplay(log_fd, line);   
     $fclose(log_fd); 
   endfunction
 

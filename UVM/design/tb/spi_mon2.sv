@@ -235,7 +235,7 @@ class spi_mon2 extends uvm_monitor;
               end 
               else begin 
                 cnt10L = 0;
-              end
+              end 
               item10L.delete();
             end
             @(negedge vif.done) begin
