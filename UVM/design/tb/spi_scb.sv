@@ -33,6 +33,24 @@ class spi_scb extends uvm_scoreboard;
   endfunction
   function void check_checkeray();
     // Iterate rows
+    `uvm_info("SCB", $sformatf("mosi              | miso"), UVM_LOW);
+    `uvm_info("SCB", $sformatf("%s | %s | %s | %s | %s | %s | %s | %s", "m0", "m1", "m2", "m3", "m0", "m1", "m2", "m3"), UVM_LOW);
+    for (int e = 0; e < checkeray.size(); e+=8) begin
+      // get the bytes 
+      byte m0mosi, m0miso, m1mosi, m1miso, m2mosi, m2miso, m3mosi, m3miso; 
+      for (int f = 0; f < 8; f++) begin 
+        m0mosi[7-f] = checkeray[e+f][0];
+        m0miso[7-f] = checkeray[e+f][1];
+        m1mosi[7-f] = checkeray[e+f][2];
+        m1miso[7-f] = checkeray[e+f][3];
+        m2mosi[7-f] = checkeray[e+f][4];
+        m2miso[7-f] = checkeray[e+f][5];
+        m3mosi[7-f] = checkeray[e+f][6];
+        m3miso[7-f] = checkeray[e+f][7];
+      end
+      `uvm_info("SCB", $sformatf("%2.0h | %2.0h | %2.0h | %2.0h | %2.0h | %2.0h | %2.0h | %2.0h", m0mosi, m1mosi, m2mosi, m3mosi, m0miso, m1miso, m2miso, m3miso), UVM_LOW);
+    end
+
     foreach (checkeray[row_id]) begin
       // Check group A (0,4,6 vs 2)
       if (checkeray[row_id][0] != checkeray[row_id][2]) mismatch_046[0] = 1;
@@ -185,8 +203,8 @@ class spi_scb extends uvm_scoreboard;
       OL0HA0_T_if.miso = tr.miso;
       OL0HA0_T_if.curr_fall = tr.curr_fall;
       print_OLHA(OL0HA0_T_if, 0);
-      ensure_index(tr.curr_lead);
-      checkeray[tr.curr_lead][1] = tr.miso;
+      ensure_index(tr.curr_fall);
+      checkeray[tr.curr_fall][1] = tr.miso;
     end
     else if (tr.mt == OL0HA1_L) begin 
       OL0HA1_L_if.mt = tr.mt;
@@ -222,25 +240,25 @@ class spi_scb extends uvm_scoreboard;
       OL1HA0_T_if.curr_fall = tr.curr_fall;
       print_OLHA(OL1HA0_T_if, 3);
       ensure_index(tr.curr_fall);
-      checkeray[tr.curr_lead][5] = tr.miso;
+      checkeray[tr.curr_fall][5] = tr.miso;
     end
     else if (tr.mt == OL1HA1_L) begin 
       OL1HA1_L_if.mt = tr.mt;
       OL1HA1_L_if.tran_time_start = tr.tran_time_start;
-      OL1HA1_L_if.miso = tr.miso;
+      OL1HA1_L_if.mosi = tr.mosi;
       OL1HA1_L_if.curr_lead = tr.curr_lead;
       print_OLHA(OL1HA1_L_if, 4);
       ensure_index(tr.curr_lead);
-      checkeray[tr.curr_lead][7] = tr.miso;
+      checkeray[tr.curr_lead][6] = tr.mosi;
     end
     else if (tr.mt == OL1HA1_T) begin 
       OL1HA1_T_if.mt = tr.mt;
       OL1HA1_T_if.tran_time_start = tr.tran_time_start;
-      OL1HA1_T_if.mosi = tr.mosi;
+      OL1HA1_T_if.miso = tr.miso;
       OL1HA1_T_if.curr_fall = tr.curr_fall;
       print_OLHA(OL1HA1_T_if, 5);
       ensure_index(tr.curr_fall);
-      checkeray[tr.curr_fall][6] = tr.mosi;
+      checkeray[tr.curr_fall][7] = tr.miso;
     end
     else begin 
       `uvm_warning("SCB", $sformatf("Invalid transaction type from monitor detected, discarding: %p", tr.mt));
@@ -344,7 +362,7 @@ class spi_scb extends uvm_scoreboard;
       $sformat(hdr,  "%-14s | %-12s | %-8s | %-8s",
                     "type", "start time", "miso", "cnt (lead)");
       $sformat(line, "%-14s | %-12.2f | 0x%02h | %d\n",
-                    t.mt, t.tran_time_start, t.miso, t.curr_lead);
+                    t.mt, t.tran_time_start, t.mosi, t.curr_lead);
       `uvm_info("SCB", hdr, UVM_NONE);
       `uvm_info("SCB", line, UVM_NONE);
       $fdisplay(log_fd, hdr);
@@ -357,7 +375,7 @@ class spi_scb extends uvm_scoreboard;
       $sformat(hdr,  "%-14s | %-12s | %-8s | %-8s",
                     "type", "start time", "mosi", "cnt (lead)");
       $sformat(line, "%-14s | %-12.2f | 0x%02h | %d\n",
-                    t.mt, t.tran_time_start, t.mosi, t.curr_fall);
+                    t.mt, t.tran_time_start, t.miso, t.curr_fall);
       `uvm_info("SCB", hdr, UVM_NONE);
       `uvm_info("SCB", line, UVM_NONE);
       $fdisplay(log_fd, hdr);

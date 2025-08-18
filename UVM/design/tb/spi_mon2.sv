@@ -257,18 +257,18 @@ class spi_mon2 extends uvm_monitor;
       begin 
         fork 
           forever begin
-            @(negedge vif.isclk iff ($time > 0));
+            @(negedge vif.sclk iff ($time > 0));
             item11t = spi_tran::type_id::create("item11t",this);
             item11t.mt = OL1HA1_L;
             item11t.tran_time_start = $time; 
             item11t.mosi = vif.mosi;
             item11t.curr_lead = lead_11++; 
-            item11L.push_back(item11t);
+            item11L.push_back(item11t); 
             cnt11L++; 
-            `uvm_info("MON2", $sformatf("OL1HA1: leading negedge sample."), UVM_LOW);
+            `uvm_info("MON2", $sformatf("OL1HA1_L: leading negedge sample. SSSS"), UVM_LOW);
           end          
           forever begin
-            @(posedge vif.isclk);
+            @(posedge vif.sclk);
             item11t = spi_tran::type_id::create("item11t",this);
             item11t.mt = OL1HA1_T;
             item11t.tran_time_start = $time; 
@@ -276,20 +276,10 @@ class spi_mon2 extends uvm_monitor;
             item11t.curr_fall = fall_11++; 
             item11T.push_back(item11t);
             cnt11T++;
-            `uvm_info("MON2", $sformatf("OL1HA1: trailing posedge sample."), UVM_LOW);
+            `uvm_info("MON2", $sformatf("OL1HA1_T: trailing posedge sample. EEEE"), UVM_LOW);
           end
           forever begin 
             @(posedge vif.done) begin 
-              if (cnt11L == 8) begin 
-                cnt11L = 0;
-                foreach (item11L[cnt11L]) begin
-                  mon2_ap.write(item11L[cnt11L]); 
-                end
-              end 
-              else begin 
-                cnt11L = 0;
-              end
-              item11L.delete();
               if (cnt11T == 8) begin 
                 cnt11T = 0;
                 foreach (item11T[cnt11T]) begin
@@ -300,6 +290,18 @@ class spi_mon2 extends uvm_monitor;
                 cnt11T = 0;
               end
               item11T.delete();
+            end
+            @(negedge vif.done) begin
+              if (cnt11L == 8) begin 
+                cnt11L = 0;
+                foreach (item11L[cnt11L]) begin
+                  mon2_ap.write(item11L[cnt11L]); 
+                end
+              end 
+              else begin 
+                cnt11L = 0;
+              end
+              item11L.delete();
             end 
           end 
         join 
