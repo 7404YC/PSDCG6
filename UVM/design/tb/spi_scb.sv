@@ -243,7 +243,7 @@ class spi_scb extends uvm_scoreboard;
       checkeray[tr.curr_fall][6] = tr.mosi;
     end
     else begin 
-      `uvm_warning("SCB", "Invalid transaction type from monitor detected, discarding.");
+      `uvm_warning("SCB", $sformatf("Invalid transaction type from monitor detected, discarding: %p", tr.mt));
     end 
     if (tr.mt == BIT_RESET) begin
       check_T021(tr);
