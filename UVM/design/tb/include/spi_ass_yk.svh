@@ -4,7 +4,7 @@ property T013;
 	disable iff (!rst_n)
 		(
 			// When there is no rising sclk events, but detect mosi changes, this will flag error
-			(mosi !== $past(mosi) && !($rose(sclk))) |-> 0
+			!($rose(sclk)) |-> (mosi === $past(mosi))
 		);
 endproperty
 ASSERT_T013: assert property (T013)

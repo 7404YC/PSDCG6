@@ -22,7 +22,7 @@ class spi_drv extends uvm_driver #(spi_tran);
 		repeat (2) @(vif.drv_cb);
 		vif.rst_n = 1;
 		forever begin
-			if ($test$plusargs("SANITY_TEST_RESET_DURING_TRANS")  || ($test$plusargs("B2B_TEST_RESET_DURING_TRANS"))) begin
+			if ($test$plusargs("SANITY_RESET_DURING_TRANS_TEST")  || ($test$plusargs("B2B_RESET_DURING_TRANS_TEST"))) begin
 				@ (vif.drv_cb);
 				// driver connects the signals 
 				seq_item_port.get_next_item(tr);
